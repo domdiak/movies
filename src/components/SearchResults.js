@@ -1,5 +1,5 @@
 import React from "react";
-import { getPopularMovies } from "./fetcher";
+import { getPopularMovies } from "../../fetcher";
 
 class SearchResults extends React.Component {
     state = {
@@ -11,7 +11,7 @@ class SearchResults extends React.Component {
         this.setState({
             moviesData: popularMovies.results,
         });
-        console.log(this.state.moviesData);
+        // console.log(this.state.moviesData);
     }
 
     render() {
@@ -26,7 +26,7 @@ class SearchResults extends React.Component {
                 </h2>
                 <ul>
                     {this.state.moviesData.map((item, index) => (
-                        <li>
+                        <li key={index}>
                             {" "}
                             {item.original_title}, rated: {item.vote_average}
                         </li>

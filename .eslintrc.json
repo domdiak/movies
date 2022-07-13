@@ -1,6 +1,6 @@
 {
     "extends": ["eslint:recommended", "prettier"],
-    "plugins": [],
+    "plugins": ["plugin:react/recommended"],
     "parserOptions": {
         "ecmaVersion": 2022,
         "sourceType": "module",

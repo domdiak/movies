@@ -1,2 +1,2 @@
 TOdos:
---> Look into setting up .env
+--> Look into setting up .env DONE 

@@ -1,13 +1,17 @@
 import React from "react";
 import SearchResults from "./src/components/SearchResults";
-import SearchBar from "./src/components/SearchBar";
+import SideMenu from "./src/components/SideMenu";
+import styled from "styled-components";
 
 export default function App() {
     return (
-        <div>
-            <h1> App.js</h1>
+        <DisplayContainer>
+            <SideMenu />
             <SearchResults />
-            <SearchBar />
-        </div>
+        </DisplayContainer>
     );
 }
+
+const DisplayContainer = styled.div`
+    display: flex;
+`;

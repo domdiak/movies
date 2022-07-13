@@ -1,2 +1,6 @@
 TOdos:
 --> Look into setting up .env DONE 
+--> Add additional folders inside components folder
+--> move filters into discover component (because of mobile)
+--> Combine Search bar and Filter Menu together as well
+--> Add scss file with global styles // or styled components global styles

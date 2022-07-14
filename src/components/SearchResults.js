@@ -21,8 +21,8 @@ class SearchResults extends React.Component {
             moviesData: popularMovies.results,
             genres: genres,
         });
-        // console.log(popularMovies.results);
-        console.log("state", this.state.genres);
+        console.log(popularMovies.results);
+        // console.log("state", this.state.genres);
     }
 
     render() {

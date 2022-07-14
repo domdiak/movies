@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Theme from "../../theme/theme";
 
 class MovieItem extends React.Component {
     mapGenres = (genresIds, genresNames) => {
@@ -11,7 +12,7 @@ class MovieItem extends React.Component {
                 }
             }
         }
-        console.log({ newArray });
+
         return newArray;
     };
 
@@ -22,15 +23,18 @@ class MovieItem extends React.Component {
                     src={`https://image.tmdb.org/t/p/original/${this.props.movie.poster_path}`}
                 />
                 <TextContainer>
-                    <h2>{this.props.movie.title} </h2>
-                    <p>
+                    <HeadingContainer>
+                        <h2>{this.props.movie.title} </h2>
+                        <Rating> {this.props.movie.vote_average} </Rating>
+                    </HeadingContainer>
+                    <Genres>
                         {" "}
                         {this.mapGenres(
                             this.props.movie.genre_ids,
                             this.props.genres
                         ).join(" | ")}{" "}
-                    </p>
-                    <p> {this.props.movie.overview} </p>
+                    </Genres>
+                    <Description> {this.props.movie.overview} </Description>
                 </TextContainer>
             </MovieItemContainer>
         );
@@ -40,17 +44,60 @@ class MovieItem extends React.Component {
 const MovieItemContainer = styled.div`
     width: 700px;
     height: 200px;
-    border: 1px solid black;
     display: flex;
+    overflow: hidden;
+    margin: 15px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
 `;
+
+const Rating = styled.div`
+    background-color: ${(props) => props.theme.colors.blue1};
+    font-size: 1.5rem;
+    border-radius: 5px;
+    padding: 3px;
+    font-weight: 800;
+    max-height: 28px;
+`;
+
+const Genres = styled.div`
+    background-color: ${(props) => props.theme.colors.blue1};
+    width: fit-content;
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin: 5px 0;
+    padding: 3px 5px;
+    border-radius: 3px;
+`;
+
+const Description = styled.p`
+    overflow: hidden;
+    max-height: 95px;
+`;
+
+// const Heading = styled.h2`
+//     background-color: ${(props) => props.theme.colors.blue1};
+//     padding: 5px;
+//     margin-right: 5px;
+//     border-radius: 5px;
+//     width: fit-content;
+// `;
+
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
+    // justify-content: space-between;
+    margin: 20px;
+`;
+
+const HeadingContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
 `;
 
 const PosterImage = styled.img`
-    width: 110px;
+    width: 106.6px;
     height: 160px;
+    object-fit: cover;
     margin: 20px 20px;
 `;
 

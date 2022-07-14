@@ -24,7 +24,10 @@ class MovieItem extends React.Component {
                 />
                 <TextContainer>
                     <HeadingContainer>
-                        <h2>{this.props.movie.title} </h2>
+                        <h2>
+                            {this.props.movie.title}{" "}
+                            {this.props.movie.release_date}{" "}
+                        </h2>
                         <Rating> {this.props.movie.vote_average} </Rating>
                     </HeadingContainer>
                     <Genres>

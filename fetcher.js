@@ -14,12 +14,18 @@ export async function getPopularMovies() {
     }
 }
 
-export async function getMoviesByKeyword(keyword) {
-    console.log("getMoviesByKeyword in action");
-    console.log({ keyword });
+export async function getMoviesByKeyword(query, year) {
+    console.log({ query });
+    console.log({ year });
+    const params = {
+        query,
+        ...(year.length > 3 ? { year: parseInt(year) } : {}),
+    };
+    console.log({ params });
     try {
         const res = await axios.get(
-            `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=${language}&query=${keyword}`
+            `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}`,
+            { params }
         );
         console.log(res.data.results);
         return res.data;
@@ -33,7 +39,6 @@ export async function getGenreList() {
         const res = await axios.get(
             `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=${language}`
         );
-        console.log(res.data.results);
         return res.data;
     } catch (error) {
         console.error(error);

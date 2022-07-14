@@ -4,3 +4,16 @@ TOdos:
 --> move filters into discover component (because of mobile) DONE
 --> Combine Search bar and Filter Menu together as well DONE
 --> Add scss file with global styles // or styled components global styles
+
+MovieItem: 
+--> Rating: borderradius, font-color, background-color, font boldness, set height, padding DONE
+--> Genres: smaller font, diferent color DONE
+--> Image: ratio DONE
+--> spacing if text is DONE
+--> Add no image available 
+
+Todo for search: 
+-> Show "No results message"
+-> Show loading button 
+-> If input is empty, go back to discover
+--> min x number of votes

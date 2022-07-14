@@ -1,34 +1,39 @@
 import React from "react";
-import { getPopularMovies } from "../../fetcher";
+import {
+    getPopularMovies,
+    getMoviesByKeyword,
+    getGenreList,
+} from "../../fetcher";
 import FilterBar from "./FilterBar";
 import styled from "styled-components";
-import MovieItem from "./MoveItem";
+import MovieItem from "./MovieItem";
 
 class SearchResults extends React.Component {
     state = {
         moviesData: [],
+        genres: [],
     };
 
     async componentDidMount() {
+        const genres = await getGenreList();
         const popularMovies = await getPopularMovies();
         this.setState({
             moviesData: popularMovies.results,
+            genres: genres,
         });
-        console.log(popularMovies.results);
+        // console.log(popularMovies.results);
+        console.log("state", this.state.genres);
     }
 
     render() {
         return (
             <SearchResultsWrapper>
                 <MovieList>
-                    {this.state.moviesData.map((item, index) => (
+                    {this.state.moviesData.map((movie, index) => (
                         <MovieItem
                             key={index}
-                            title={item.original_title}
-                            genre={item.genre_ids}
-                            overview={item.overview}
-                            rating={item.vote_average}
-                            img={item.poster_path}
+                            movie={movie}
+                            genres={this.state.genres}
                         />
                     ))}
                 </MovieList>

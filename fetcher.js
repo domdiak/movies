@@ -27,3 +27,15 @@ export async function getMoviesByKeyword(keyword) {
         console.error(error);
     }
 }
+
+export async function getGenreList() {
+    try {
+        const res = await axios.get(
+            `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=${language}`
+        );
+        console.log(res.data.results);
+        return res.data;
+    } catch (error) {
+        console.error(error);
+    }
+}

@@ -10,6 +10,16 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     background-color: ${(props) => props.theme.colors.grey}
   }
+
+  h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 export default GlobalStyle;

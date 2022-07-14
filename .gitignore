@@ -1,4 +1,5 @@
 #Ignore ENV files
 .env
-
+.cache
 node_modules/
+dist

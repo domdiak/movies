@@ -40212,7 +40212,24 @@ var SideMenuWrapper = _styledComponents.default.div(_templateObject || (_templat
 
 var _default = SideMenu;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"theme/globalStyles.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _styledComponents = require("styled-components");
+
+var _templateObject;
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var GlobalStyle = (0, _styledComponents.createGlobalStyle)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  body {\n    margin: 0;\n    padding: 0;\n    font-family: Karla, Lato, Sans-Serif;\n  }\n"])));
+var _default = GlobalStyle;
+exports.default = _default;
+},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40228,6 +40245,8 @@ var _SideMenu = _interopRequireDefault(require("./src/components/SideMenu"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _globalStyles = _interopRequireDefault(require("./theme/globalStyles"));
+
 var _templateObject;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -40235,11 +40254,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function App() {
-  return /*#__PURE__*/_react.default.createElement(DisplayContainer, null, /*#__PURE__*/_react.default.createElement(_SideMenu.default, null), /*#__PURE__*/_react.default.createElement(_SearchResults.default, null));
+  return /*#__PURE__*/_react.default.createElement(DisplayContainer, null, /*#__PURE__*/_react.default.createElement(_globalStyles.default, null), /*#__PURE__*/_react.default.createElement(_SideMenu.default, null), /*#__PURE__*/_react.default.createElement(_SearchResults.default, null));
 }
 
 var DisplayContainer = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n"])));
-},{"react":"node_modules/react/index.js","./src/components/SearchResults":"src/components/SearchResults.js","./src/components/SideMenu":"src/components/SideMenu.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./src/components/SearchResults":"src/components/SearchResults.js","./src/components/SideMenu":"src/components/SideMenu.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./theme/globalStyles":"theme/globalStyles.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));

@@ -19,8 +19,8 @@ class SideMenu extends React.Component {
 }
 
 const SideMenuWrapper = styled.div`
-    width: 20%;
     border: 2px solid black;
+    // width: 500px;
 `;
 
 export default SideMenu;

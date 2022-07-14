@@ -40012,7 +40012,7 @@ var FilterBar = /*#__PURE__*/function (_React$Component) {
   return FilterBar;
 }(_react.default.Component);
 
-var FilterBarContainer = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border: 2px solid black;\n    width: 20%;\n"])));
+var FilterBarContainer = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border: 2px solid black;\n"])));
 
 var SearchBarContainer = _styledComponents.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border: 2px solid black;\n    display: flex;\n    flex-direction: column;\n"])));
 
@@ -40020,7 +40020,83 @@ var FilterMenuContainer = _styledComponents.default.div(_templateObject3 || (_te
 
 var _default = FilterBar;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../fetcher":"fetcher.js"}],"src/components/SearchResults.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../fetcher":"fetcher.js"}],"src/components/MoveItem.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _templateObject, _templateObject2, _templateObject3;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var MovieItem = /*#__PURE__*/function (_React$Component) {
+  _inherits(MovieItem, _React$Component);
+
+  var _super = _createSuper(MovieItem);
+
+  function MovieItem() {
+    _classCallCheck(this, MovieItem);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(MovieItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log(this.props.genre);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/_react.default.createElement(MovieItemContainer, null, /*#__PURE__*/_react.default.createElement(PosterImage, {
+        src: "https://image.tmdb.org/t/p/original/".concat(this.props.img)
+      }), /*#__PURE__*/_react.default.createElement(TextContainer, null, /*#__PURE__*/_react.default.createElement("h2", null, this.props.title, " "), /*#__PURE__*/_react.default.createElement("h2", null, " ", this.props.genre), /*#__PURE__*/_react.default.createElement("p", null, " ", this.props.overview, " ")));
+    }
+  }]);
+
+  return MovieItem;
+}(_react.default.Component);
+
+var MovieItemContainer = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    width: 700px;\n    height: 200px;\n    border: 1px solid black;\n    display: flex;\n"])));
+
+var TextContainer = _styledComponents.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    display: flex;\n    flex-direction: column;\n"])));
+
+var PosterImage = _styledComponents.default.img(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    width: 75px;\n    height: 100px;\n"])));
+
+var _default = MovieItem;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/SearchResults.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40035,6 +40111,8 @@ var _fetcher = require("../../fetcher");
 var _FilterBar = _interopRequireDefault(require("./FilterBar"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _MoveItem = _interopRequireDefault(require("./MoveItem"));
 
 var _templateObject, _templateObject2;
 
@@ -40111,9 +40189,10 @@ var SearchResults = /*#__PURE__*/function (_React$Component) {
                 popularMovies = _context.sent;
                 this.setState({
                   moviesData: popularMovies.results
-                }); // console.log(this.state.moviesData);
+                });
+                console.log(popularMovies.results);
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -40130,11 +40209,16 @@ var SearchResults = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement(SearchResultsWrapper, null, /*#__PURE__*/_react.default.createElement(MovieList, null, /*#__PURE__*/_react.default.createElement("ul", null, this.state.moviesData.map(function (item, index) {
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: index
-        }, " ", item.original_title, ", rated:", " ", item.vote_average);
-      }))), /*#__PURE__*/_react.default.createElement(_FilterBar.default, null));
+      return /*#__PURE__*/_react.default.createElement(SearchResultsWrapper, null, /*#__PURE__*/_react.default.createElement(MovieList, null, this.state.moviesData.map(function (item, index) {
+        return /*#__PURE__*/_react.default.createElement(_MoveItem.default, {
+          key: index,
+          title: item.original_title,
+          genre: item.genre_ids,
+          overview: item.overview,
+          rating: item.vote_average,
+          img: item.poster_path
+        });
+      })), /*#__PURE__*/_react.default.createElement(_FilterBar.default, null));
     }
   }]);
 
@@ -40147,7 +40231,7 @@ var MovieList = _styledComponents.default.div(_templateObject2 || (_templateObje
 
 var _default = SearchResults;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../../fetcher":"fetcher.js","./FilterBar":"src/components/FilterBar.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/components/SideMenu.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../../fetcher":"fetcher.js","./FilterBar":"src/components/FilterBar.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./MoveItem":"src/components/MoveItem.js"}],"src/components/SideMenu.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40208,9 +40292,48 @@ var SideMenu = /*#__PURE__*/function (_React$Component) {
   return SideMenu;
 }(_react.default.Component);
 
-var SideMenuWrapper = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    width: 20%;\n    border: 2px solid black;\n"])));
+var SideMenuWrapper = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border: 2px solid black;\n    // width: 500px;\n"])));
 
 var _default = SideMenu;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"theme/theme.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = require("styled-components");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var theme = {
+  colors: {
+    blue1: "#dceaff",
+    blue2: "#5576d9",
+    blue3: "#1d52f2",
+    green1: "#bdf2ed",
+    green2: "#81e3d9",
+    green3: "#2a9187",
+    orange1: "#f2db94",
+    pink2: "#f2eae4",
+    grey1: "#e4e4e4",
+    grey2: "#727272",
+    grey3: "#484848"
+  }
+};
+
+var Theme = function Theme(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/_react.default.createElement(_styledComponents.ThemeProvider, {
+    theme: theme
+  }, children);
+};
+
+var _default = Theme;
 exports.default = _default;
 },{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"theme/globalStyles.js":[function(require,module,exports) {
 "use strict";
@@ -40222,14 +40345,20 @@ exports.default = void 0;
 
 var _styledComponents = require("styled-components");
 
+var _theme = _interopRequireDefault(require("./theme"));
+
 var _templateObject;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var GlobalStyle = (0, _styledComponents.createGlobalStyle)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  body {\n    margin: 0;\n    padding: 0;\n    font-family: Karla, Lato, Sans-Serif;\n  }\n"])));
+var GlobalStyle = (0, _styledComponents.createGlobalStyle)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  body {\n    margin: 0;\n    padding: 0;\n    font-family: Karla, sans-serif;\n    box-sizing: border-box;\n    background-color: ", "\n  }\n"])), function (props) {
+  return props.theme.colors.grey;
+});
 var _default = GlobalStyle;
 exports.default = _default;
-},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"App.js":[function(require,module,exports) {
+},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./theme":"theme/theme.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40247,6 +40376,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _globalStyles = _interopRequireDefault(require("./theme/globalStyles"));
 
+var _theme = _interopRequireDefault(require("./theme/theme"));
+
 var _templateObject;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -40254,11 +40385,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function App() {
-  return /*#__PURE__*/_react.default.createElement(DisplayContainer, null, /*#__PURE__*/_react.default.createElement(_globalStyles.default, null), /*#__PURE__*/_react.default.createElement(_SideMenu.default, null), /*#__PURE__*/_react.default.createElement(_SearchResults.default, null));
+  return /*#__PURE__*/_react.default.createElement(_theme.default, null, /*#__PURE__*/_react.default.createElement(DisplayContainer, null, /*#__PURE__*/_react.default.createElement(_globalStyles.default, null), /*#__PURE__*/_react.default.createElement(_SideMenu.default, null), /*#__PURE__*/_react.default.createElement(_SearchResults.default, null)));
 }
 
-var DisplayContainer = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n"])));
-},{"react":"node_modules/react/index.js","./src/components/SearchResults":"src/components/SearchResults.js","./src/components/SideMenu":"src/components/SideMenu.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./theme/globalStyles":"theme/globalStyles.js"}],"index.js":[function(require,module,exports) {
+var DisplayContainer = _styledComponents.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    flex-direction: row;\n"])));
+},{"react":"node_modules/react/index.js","./src/components/SearchResults":"src/components/SearchResults.js","./src/components/SideMenu":"src/components/SideMenu.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./theme/globalStyles":"theme/globalStyles.js","./theme/theme":"theme/theme.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));

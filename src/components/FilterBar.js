@@ -51,7 +51,6 @@ class FilterBar extends React.Component {
 
 const FilterBarContainer = styled.div`
     border: 2px solid black;
-    width: 20%;
 `;
 
 const SearchBarContainer = styled.div`

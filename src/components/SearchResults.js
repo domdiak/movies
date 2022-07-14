@@ -2,6 +2,7 @@ import React from "react";
 import { getPopularMovies } from "../../fetcher";
 import FilterBar from "./FilterBar";
 import styled from "styled-components";
+import MovieItem from "./MoveItem";
 
 class SearchResults extends React.Component {
     state = {
@@ -13,22 +14,23 @@ class SearchResults extends React.Component {
         this.setState({
             moviesData: popularMovies.results,
         });
-        // console.log(this.state.moviesData);
+        console.log(popularMovies.results);
     }
 
     render() {
         return (
             <SearchResultsWrapper>
                 <MovieList>
-                    <ul>
-                        {this.state.moviesData.map((item, index) => (
-                            <li key={index}>
-                                {" "}
-                                {item.original_title}, rated:{" "}
-                                {item.vote_average}
-                            </li>
-                        ))}
-                    </ul>
+                    {this.state.moviesData.map((item, index) => (
+                        <MovieItem
+                            key={index}
+                            title={item.original_title}
+                            genre={item.genre_ids}
+                            overview={item.overview}
+                            rating={item.vote_average}
+                            img={item.poster_path}
+                        />
+                    ))}
                 </MovieList>
                 <FilterBar />
             </SearchResultsWrapper>

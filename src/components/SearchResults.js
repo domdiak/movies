@@ -4,9 +4,11 @@ import {
     getMoviesByKeyword,
     getGenreList,
 } from "../../fetcher";
-import FilterBar from "./FilterBar";
+// import FilterBar from "./FilterBar";
 import styled from "styled-components";
+import Theme from "../../theme/theme";
 import MovieItem from "./MovieItem";
+import { GoSearch, GoCalendar } from "react-icons/go";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -57,19 +59,37 @@ class SearchResults extends React.Component {
                 </MovieList>
                 <FilterBarContainer>
                     <SearchBarContainer>
-                        <input
-                            type="text"
-                            name="keyword"
-                            placeholder="Search by name"
-                            value={this.state.keyword}
-                            onChange={this.handleChange}
-                        />
-                        <input
-                            type="text"
-                            name="year"
-                            placeholder="Search by year"
-                            onChange={this.handleChange}
-                        />
+                        <InputWrapper>
+                            <GoSearch
+                                size={30}
+                                style={{
+                                    margin: "5px",
+                                    height: "25px",
+                                }}
+                            />
+                            <input
+                                type="text"
+                                name="keyword"
+                                placeholder="Search by name"
+                                value={this.state.keyword}
+                                onChange={this.handleChange}
+                            />
+                        </InputWrapper>
+                        <InputWrapper>
+                            <GoCalendar
+                                size={30}
+                                style={{
+                                    margin: "5px",
+                                    height: "25px",
+                                }}
+                            />
+                            <input
+                                type="text"
+                                name="year"
+                                placeholder="Search by year"
+                                onChange={this.handleChange}
+                            />
+                        </InputWrapper>
                     </SearchBarContainer>
                     <FilterMenuContainer>
                         <h2> Select genre(s) </h2>
@@ -92,20 +112,52 @@ const SearchResultsWrapper = styled.div`
     display: flex;
 `;
 
-const MovieList = styled.div`
-    border: 2px solid black;
+const MovieList = styled.div``;
+
+const InputWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+
+    input {
+        border: 0;
+        outline: none;
+        margin: 3px;
+        height: 30px;
+        border-bottom: 2px solid;
+        font-weight: 800;
+        width: 100%;
+
+        &::placeholder {
+            opacity: 0.8;
+            color: black;
+            font-weight: 800;
+        }
+        &:focus::placeholder {
+            color: transparent;
+            transition: color 0.2s ease-out;
+        }
+    }
 `;
 
 const FilterBarContainer = styled.div`
     border: 2px solid black;
+    margin: 15px;
+    width: 250px;
 `;
 
 const SearchBarContainer = styled.div`
-    border: 2px solid black;
+    margin: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 `;
 
-const FilterMenuContainer = styled.div``;
+const FilterMenuContainer = styled.div`
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+`;
 
 export default SearchResults;

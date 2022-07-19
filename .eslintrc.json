@@ -1,6 +1,6 @@
 {
-    "extends": ["eslint:recommended", "prettier"],
-    "plugins": ["plugin:react/recommended"],
+    "extends": ["eslint:recommended", "plugin:jest/recommended", "prettier"],
+    "plugins": ["plugin:react/recommended", "jest"],
     "parserOptions": {
         "ecmaVersion": 2022,
         "sourceType": "module",
@@ -11,6 +11,7 @@
     "env": {
         "es6": true,
         "browser": true,
-        "node": true
+        "node": true,
+        "jest/globals": true
     }
 }

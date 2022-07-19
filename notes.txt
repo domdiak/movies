@@ -13,7 +13,9 @@ MovieItem:
 --> Add no image available 
 
 Todo for search: 
--> Show "No results message"
+-> Show "No results message" DONE
+        --> What's the optimal way to actually do it?
 -> Show loading button 
 -> If input is empty, go back to discover
 --> min x number of votes
+--> Go back to 'discovery' if there is no search term 

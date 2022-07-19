@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import Theme from "../../theme/theme";
+// import Theme from "../../theme/theme";
 
 class MovieItem extends React.Component {
     mapGenres = (genresIds, genresNames) => {
         let newArray = [];
         for (let i = 0; i < genresIds.length; i++) {
-            for (let j = 0; j < genresNames.genres.length; j++) {
-                if (genresIds[i] === genresNames.genres[j].id) {
-                    newArray.push(genresNames.genres[j].name);
+            for (let j = 0; j < genresNames.length; j++) {
+                if (genresIds[i] === genresNames[j].id) {
+                    newArray.push(genresNames[j].name);
                 }
             }
         }

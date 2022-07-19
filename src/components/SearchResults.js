@@ -8,6 +8,8 @@ import {
 import styled from "styled-components";
 import Theme from "../../theme/theme";
 import MovieItem from "./MovieItem";
+import Loader from "./Loader";
+import GenreItem from "./GenreItem";
 import { GoSearch, GoCalendar } from "react-icons/go";
 
 class SearchResults extends React.Component {
@@ -26,7 +28,10 @@ class SearchResults extends React.Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        if (prevState !== this.state) {
+        if (
+            prevState.keyword !== this.state.keyword ||
+            prevState.year !== this.state.year
+        ) {
             const moviesbyKeyword = await getMoviesByKeyword(
                 this.state.keyword,
                 this.state.year
@@ -34,6 +39,8 @@ class SearchResults extends React.Component {
             this.setState({
                 moviesData: moviesbyKeyword.results,
             });
+            // console.log("this.state.keyword", this.state.keyword);
+            // console.log("this.state.moviesData", this.state.moviesData);
         }
     }
 
@@ -45,13 +52,20 @@ class SearchResults extends React.Component {
             genres: genres,
         });
         // console.log(popularMovies.results);
+
         // console.log("state", this.state.genres);
     }
 
     render() {
         return (
             <SearchResultsWrapper>
-                <MovieList>
+                <div>
+                    {!this.state.moviesData[0] && (
+                        <NoResults>
+                            {" "}
+                            <h1>No results have been found!</h1>{" "}
+                        </NoResults>
+                    )}
                     {this.state.moviesData.map((movie, index) => (
                         <MovieItem
                             key={index}
@@ -59,7 +73,7 @@ class SearchResults extends React.Component {
                             genres={this.state.genres}
                         />
                     ))}
-                </MovieList>
+                </div>
                 <FilterBarContainer>
                     <SearchBarContainer>
                         <InputWrapper>
@@ -96,12 +110,9 @@ class SearchResults extends React.Component {
                     </SearchBarContainer>
                     <FilterMenuContainer>
                         <h2> Select genre(s) </h2>
-                        <h4> Placerholder </h4>
-                        <h4> Placerholder </h4>
-                        <h4> Placerholder </h4>
-                        <h4> Placerholder </h4>
-                        <h4> Placerholder </h4>
-                        <h4> Placerholder </h4>
+                        {this.state.genres.map((genre, index) => (
+                            <GenreItem key={index} genre={genre}></GenreItem>
+                        ))}
                         <h2> Select min. vote </h2>
                         <h2> Select language </h2>
                     </FilterMenuContainer>
@@ -115,7 +126,11 @@ const SearchResultsWrapper = styled.div`
     display: flex;
 `;
 
-const MovieList = styled.div``;
+const NoResults = styled.div`
+    width: 700px;
+    height: 200px;
+    margin: 15px;
+`;
 
 const InputWrapper = styled.div`
     display: flex;
@@ -161,6 +176,8 @@ const SearchBarContainer = styled.div`
 const FilterMenuContainer = styled.div`
     margin: 10px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 `;
 

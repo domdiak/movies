@@ -23,15 +23,18 @@ class SearchResults extends React.Component {
     }
     async handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-        console.log(this.state);
-        const moviesbyKeyword = await getMoviesByKeyword(
-            this.state.keyword,
-            this.state.year
-        );
-        this.setState({
-            moviesData: moviesbyKeyword.results,
-        });
-        // console.log(this.state.moviesData);
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if (prevState !== this.state) {
+            const moviesbyKeyword = await getMoviesByKeyword(
+                this.state.keyword,
+                this.state.year
+            );
+            this.setState({
+                moviesData: moviesbyKeyword.results,
+            });
+        }
     }
 
     async componentDidMount() {
@@ -118,13 +121,13 @@ const InputWrapper = styled.div`
     display: flex;
     align-items: center;
     padding: 10px 0;
+    border-bottom: 2px solid;
 
     input {
         border: 0;
         outline: none;
         margin: 3px;
         height: 30px;
-        border-bottom: 2px solid;
         font-weight: 800;
         width: 100%;
 
@@ -142,6 +145,7 @@ const InputWrapper = styled.div`
 
 const FilterBarContainer = styled.div`
     border: 2px solid black;
+    border-radius: 5px;
     margin: 15px;
     width: 250px;
 `;

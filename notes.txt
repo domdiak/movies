@@ -18,4 +18,29 @@ Todo for search:
 -> Show loading button 
 -> If input is empty, go back to discover
 --> min x number of votes
---> Go back to 'discovery' if there is no search term 
+--> Go back to 'discovery' if there is no search term;
+--> keyword is required and year is optional --> 
+
+
+Genre filter: 
+--> Make it collapsible
+
+
+Setting up testing: 
+
+
+--> Disable babel transpilation in parcel:
+        -> https://parceljs.org/languages/javascript/#usage-with-other-tools
+
+--> Set up babel/jest config
+        -> https://reactjs.org/docs/components-and-props.html#function-and-class-components
+
+
+--> Integrate jest with react testing library
+https://dev.to/yvad60/setup-jest-and-react-testing-library-in-a-react-project-a-step-by-step-guide-1mf0
+
+
+--> Integrate jest with Eslint
+
+
+--> difference in testing class / function components

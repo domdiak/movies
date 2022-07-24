@@ -39,6 +39,7 @@ class SearchResults extends React.Component {
             this.setState({
                 moviesData: moviesbyKeyword.results,
             });
+
             // console.log("this.state.keyword", this.state.keyword);
             // console.log("this.state.moviesData", this.state.moviesData);
         }
@@ -47,16 +48,16 @@ class SearchResults extends React.Component {
     async componentDidMount() {
         const genres = await getGenreList();
         const popularMovies = await getPopularMovies();
+        console.log("state", popularMovies);
+
         this.setState({
             moviesData: popularMovies.results,
             genres: genres,
         });
-        // console.log(popularMovies.results);
-
-        // console.log("state", this.state.genres);
     }
 
     render() {
+        console.log("state", this.state.moviesData);
         return (
             <SearchResultsWrapper>
                 <div>

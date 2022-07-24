@@ -8,6 +8,7 @@ export async function getPopularMovies() {
         const res = await axios.get(
             `https://api.themoviedb.org/3/discover/movie/?api_key=${process.env.REACT_APP_API_KEY}&language=${language}&sort_by=${sortBy}`
         );
+        // console.log("response from getPopularMovies", res.data);
         return res.data;
     } catch (error) {
         console.error(error);
@@ -38,6 +39,7 @@ export async function getGenreList() {
         const res = await axios.get(
             `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=${language}`
         );
+        console.log("genres", res.data);
         return res.data.genres;
     } catch (error) {
         console.error(error);

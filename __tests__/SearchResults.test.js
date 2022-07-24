@@ -1,13 +1,29 @@
 import { render, screen } from "@testing-library/react";
 import App from "../App.js";
 import SearchResults from "../src/components/SearchResults.js";
+import Theme from "../theme/theme.js";
 
-describe("App", () => {
-    test("renders App component", () => {
-        render(<SearchResults />);
-        screen.getByRole("");
-        screen.debug();
-    });
+import { server } from "../__mocks__/server.js";
+
+// Establish API mocking before all tests.
+beforeAll(() => server.listen());
+
+// Reset any request handlers that we may add during the tests,
+// so they don't affect other tests.
+afterEach(() => server.resetHandlers());
+
+// Clean up after the tests are finished.
+afterAll(() => server.close());
+
+test("renders App component", async () => {
+    render(
+        <Theme>
+            {" "}
+            <SearchResults />
+        </Theme>
+    );
+    await screen.findByText(/Jurassic World Dominion/i);
+    screen.debug();
 });
 
 // 20 results are displayed

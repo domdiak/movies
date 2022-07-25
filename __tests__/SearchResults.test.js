@@ -15,27 +15,31 @@ afterEach(() => server.resetHandlers());
 // Clean up after the tests are finished.
 afterAll(() => server.close());
 
-test("renders App component", async () => {
+test("renders SearchResults component with the correcrt first result", async () => {
     render(
         <Theme>
             {" "}
             <SearchResults />
         </Theme>
     );
-    await screen.findByText(/Jurassic World Dominion/i);
+    const heading = await screen.findByText(/Jurassic World Dominion/i);
+    expect(heading).toBeInTheDocument();
+
+    const description = await screen.findByText(
+        /Four years after Isla Nublar was destroyed, dinosaurs now live—and hunt—alongside humans all over the world./i
+    );
+    expect(description).toBeInTheDocument();
+
+    const genres = await screen.findByText(
+        "Adventure | Action | Science Fiction",
+        { exact: true }
+    );
+
+    expect(genres).toBeInTheDocument();
+
+    const rating = await screen.findByText("7", { exact: true });
+
+    expect(rating).toBeInTheDocument();
+
     screen.debug();
 });
-
-// 20 results are displayed
-// each contains: image, title, genres, description, score
-
-// it("renders the first container", () => {
-
-//     expect(true).toBe(true);
-
-//     const heading = screen.getByRole("heading", {
-//         name: /Minions: The Rise of Gru/i,
-//     });
-
-//     expect(heading).toBeInTheDocument();
-// });

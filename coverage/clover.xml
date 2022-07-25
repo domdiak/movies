@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1658741027570" clover="3.2.0">
-  <project timestamp="1658741027570" name="All files">
+<coverage generated="1658742114346" clover="3.2.0">
+  <project timestamp="1658742114347" name="All files">
     <metrics statements="53" coveredstatements="39" conditionals="8" coveredconditionals="7" methods="17" coveredmethods="11" elements="78" coveredelements="57" complexity="0" loc="53" ncloc="53" packages="1" files="6" classes="6"/>
     <file name="FilterBar.js" path="/Users/dominik/Desktop/projects/movie-frontend/src/components/FilterBar.js">
       <metrics statements="9" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>

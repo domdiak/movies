@@ -1,4 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { render } from "../utils/tests_utils";
+
 import App from "../App.js";
 import SearchResults from "../src/components/SearchResults.js";
 import Theme from "../theme/theme.js";
@@ -16,12 +18,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test("renders SearchResults component with the correct first result", async () => {
-    render(
-        <Theme>
-            {" "}
-            <SearchResults />
-        </Theme>
-    );
+    render(<SearchResults />);
     const heading = await screen.findByText(/Jurassic World Dominion/i);
     expect(heading).toBeInTheDocument();
 
@@ -45,12 +42,7 @@ test("renders SearchResults component with the correct first result", async () =
 });
 
 test("it renders all 20 results", async () => {
-    render(
-        <Theme>
-            {" "}
-            <SearchResults />
-        </Theme>
-    );
+    render(<SearchResults />);
 
     const movieItems = await screen.findAllByTestId("movieItem");
     expect(movieItems).toHaveLength(20);

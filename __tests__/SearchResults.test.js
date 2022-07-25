@@ -15,7 +15,7 @@ afterEach(() => server.resetHandlers());
 // Clean up after the tests are finished.
 afterAll(() => server.close());
 
-test("renders SearchResults component with the correcrt first result", async () => {
+test("renders SearchResults component with the correct first result", async () => {
     render(
         <Theme>
             {" "}
@@ -42,4 +42,16 @@ test("renders SearchResults component with the correcrt first result", async () 
     expect(rating).toBeInTheDocument();
 
     screen.debug();
+});
+
+test("it renders all 20 results", async () => {
+    render(
+        <Theme>
+            {" "}
+            <SearchResults />
+        </Theme>
+    );
+
+    const movieItems = await screen.findAllByTestId("movieItem");
+    expect(movieItems).toHaveLength(20);
 });

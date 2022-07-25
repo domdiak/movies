@@ -18,7 +18,7 @@ class MovieItem extends React.Component {
 
     render() {
         return (
-            <MovieItemContainer>
+            <MovieItemContainer data-testid="movieItem">
                 <PosterImage
                     src={`https://image.tmdb.org/t/p/original/${this.props.movie.poster_path}`}
                 />

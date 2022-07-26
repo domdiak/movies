@@ -44,3 +44,10 @@ https://dev.to/yvad60/setup-jest-and-react-testing-library-in-a-react-project-a-
 
 
 --> difference in testing class / function components
+
+
+MSW:
+--> Must contain at least one test 
+--> Redundant use of query parameters
+        -> Match against a path
+        -> Access query parametrs in the response resolve using req.url.searchParams

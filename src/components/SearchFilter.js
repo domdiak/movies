@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GoSearch, GoCalendar } from "react-icons/go";
 import GenreItem from "./GenreItem";
 
-function SearchFilter() {
+function SearchFilter({ genres, onChange }) {
+    // const [keyword, setKeyword] = useState("");
+    // const [year, setYear] = useState("");
+
+    useEffect(() => {
+        // console.log({ genres });
+    });
+
+    const handleChange = (e) => {
+        onChange({ [e.target.name]: e.target.value });
+    };
+
     return (
         <>
             <SearchFilterContainer>
@@ -20,11 +31,12 @@ function SearchFilter() {
                             type="text"
                             name="keyword"
                             placeholder="Search by name"
-                            value={this.state.keyword}
-                            onChange={this.handleChange}
+                            // value={keyword}
+                            onChange={handleChange}
                         />
                     </InputWrapper>
-                    {this.state.error.keyword && <p> Required field </p>}
+                    {/* {this.state.error.keyword && <p> Required field </p>} */}
+
                     <InputWrapper>
                         <GoCalendar
                             size={30}
@@ -37,14 +49,15 @@ function SearchFilter() {
                             type="text"
                             name="year"
                             placeholder="Search by year"
-                            onChange={this.handleChange}
+                            // value={year}
+                            onChange={handleChange}
                         />
                     </InputWrapper>
-                    {this.state.error.year && <p> Required full year </p>}
+                    {/* {this.state.error.year && <p> Required full year </p>} */}
                 </SearchBarContainer>
                 <FilterMenuContainer>
                     <h2> Select genre(s) </h2>
-                    {this.state.genres.map((genre, index) => (
+                    {genres.map((genre, index) => (
                         <GenreItem key={index} genre={genre}></GenreItem>
                     ))}
                     <h2> Select min. vote </h2>
@@ -54,8 +67,6 @@ function SearchFilter() {
         </>
     );
 }
-
-export default SearchFilter;
 
 const InputWrapper = styled.div`
     display: flex;
@@ -105,3 +116,5 @@ const FilterMenuContainer = styled.div`
     flex-direction: column;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 `;
+
+export default SearchFilter;

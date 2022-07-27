@@ -1,16 +1,11 @@
 {
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:jsx-a11y/recommended",
-        "plugin:jest/recommended",
+        "eslint-plugin-jest",
+        "eslint-plugin-react",
         "prettier"
     ],
-    "plugins": ["react", "jest", "jsx-a11y"],
-    "rules": {
-        "react/prop-types": 0,
-        "react/react-in-jsx-scope": 0
-    },
+    "plugins": ["react"],
     "parserOptions": {
         "ecmaVersion": 2022,
         "sourceType": "module",
@@ -21,7 +16,6 @@
     "env": {
         "es6": true,
         "browser": true,
-        "node": true,
-        "jest/globals": true
+        "node": true
     }
 }

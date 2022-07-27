@@ -23,42 +23,24 @@ class SearchResults extends React.Component {
                 year: false,
             },
         };
-        this.handleChange = this.handleChange.bind(this);
     }
-    async handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
-        console.log("keyword", this.state.keyword);
-        console.log("year", this.state.year);
-    }
+
+    onSearch = (state) => {
+        this.setState({ ...state });
+        console.log("state in onSearch", state);
+    };
 
     async componentDidUpdate(prevProps, prevState) {
         if (
-            !this.state.keyword == "" &&
-            prevState.keyword !== this.state.keyword
-        ) {
-            this.setState({
-                error: { ...this.state.error.year, keyword: false },
-            });
-            // needs to make an api call
-        } else if (
             // loads popularMovies if keyword input is empty
             prevState.keyword !== this.state.keyword &&
             this.state.keyword === ""
         ) {
+            console.log("2");
             const popularMovies = await getPopularMovies();
             this.setState({
                 moviesData: popularMovies.results,
             });
-        } else if (
-            // Shows keyword error if input is empty
-            this.state.keyword === "" &&
-            this.state.year.length > 3 &&
-            prevState.year !== this.state.year
-        ) {
-            this.setState({
-                error: { ...this.state.error.year, keyword: true },
-            });
-            console.log(this.state.error.keyword);
         } else if (
             prevState.keyword !== this.state.keyword ||
             prevState.year !== this.state.year
@@ -101,7 +83,10 @@ class SearchResults extends React.Component {
                         />
                     ))}
                 </div>
-                <SearchFilter />
+                <SearchFilter
+                    genres={this.state.genres}
+                    onChange={this.onSearch}
+                />
             </SearchResultsWrapper>
         );
     }

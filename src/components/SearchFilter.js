@@ -4,15 +4,51 @@ import { GoSearch, GoCalendar } from "react-icons/go";
 import GenreItem from "./GenreItem";
 
 function SearchFilter({ genres, onChange }) {
-    // const [keyword, setKeyword] = useState("");
-    // const [year, setYear] = useState("");
-
-    useEffect(() => {
-        // console.log({ genres });
+    const [error, setError] = useState({
+        keyword: false,
+        year: false,
+    });
+    const [inputs, setInputs] = useState({
+        keyword: "",
+        year: 0,
     });
 
+    useEffect(() => {
+        console.log(inputs);
+        validateInputs(inputs);
+    }, [inputs]);
+
     const handleChange = (e) => {
+        setInputs({
+            ...inputs,
+            [e.target.name]: e.target.value,
+        });
         onChange({ [e.target.name]: e.target.value });
+    };
+
+    const validateInputs = (inputs) => {
+        // Conditions
+        console.log("1st", inputs.keyword === "");
+        console.log("2nd", inputs.year.length > 3);
+
+        // 1. if year is ok but empty keyword --> keyword error true
+        if (inputs.keyword === "" && inputs.year.length > 3) {
+            console.log("got here");
+            setError({ ...error, keyword: true }, console.log(error));
+            // 2. if keyword not empty & year < 4 --> year error true
+        } else if (
+            !inputs.keyword == "" &&
+            inputs.year > 0 &&
+            inputs.year.length < 4
+        ) {
+            setError({ ...error, year: true });
+            // 3. else --> no error
+        } else {
+            setError({
+                keyword: false,
+                year: false,
+            });
+        }
     };
 
     return (
@@ -31,11 +67,10 @@ function SearchFilter({ genres, onChange }) {
                             type="text"
                             name="keyword"
                             placeholder="Search by name"
-                            // value={keyword}
                             onChange={handleChange}
                         />
                     </InputWrapper>
-                    {/* {this.state.error.keyword && <p> Required field </p>} */}
+                    {error.keyword && <p> Required field </p>}
 
                     <InputWrapper>
                         <GoCalendar
@@ -49,11 +84,10 @@ function SearchFilter({ genres, onChange }) {
                             type="text"
                             name="year"
                             placeholder="Search by year"
-                            // value={year}
                             onChange={handleChange}
                         />
                     </InputWrapper>
-                    {/* {this.state.error.year && <p> Required full year </p>} */}
+                    {error.year && <p> Required full year </p>}
                 </SearchBarContainer>
                 <FilterMenuContainer>
                     <h2> Select genre(s) </h2>

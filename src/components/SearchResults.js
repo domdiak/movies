@@ -36,7 +36,6 @@ class SearchResults extends React.Component {
             prevState.keyword !== this.state.keyword &&
             this.state.keyword === ""
         ) {
-            console.log("2");
             const popularMovies = await getPopularMovies();
             this.setState({
                 moviesData: popularMovies.results,

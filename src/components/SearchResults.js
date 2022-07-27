@@ -25,37 +25,26 @@ class SearchResults extends React.Component {
     };
 
     getMoviesDebounced = debounce(
-        async (keyword, year) => getMoviesByKeyword(keyword, year),
+        async (keyword, year) => getMovies(keyword, year),
         200
     );
 
+    getMovies = async (keyword, year) => {
+        const moviesData =
+            this.state.keyword === ""
+                ? await getPopularMovies()
+                : await getMoviesByKeyword(keyword, year);
+        this.setState({
+            moviesData: moviesData.results,
+        });
+    };
+
     async componentDidUpdate(prevProps, prevState) {
         if (
-            // loads popularMovies if keyword input is empty
-            prevState.keyword !== this.state.keyword &&
-            this.state.keyword === ""
-        ) {
-            const popularMovies = await getPopularMovies();
-            this.setState({
-                moviesData: popularMovies.results,
-            });
-        } else if (
             prevState.keyword !== this.state.keyword ||
             prevState.year !== this.state.year
         ) {
-            // const moviesbyKeyword = await getMoviesByKeyword(
-            //     this.state.keyword,
-            //     this.state.year
-            // );
-            const moviesbyKeyword = await this.getMoviesDebounced(
-                this.state.keyword,
-                this.state.year
-            );
-            console.log(this.state.keyword);
-            console.log("moviesbyKeyword", moviesbyKeyword);
-            this.setState({
-                moviesData: moviesbyKeyword.results,
-            });
+            await this.getMovies(this.state.keyword, this.state.year);
         }
     }
 

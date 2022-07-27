@@ -4,11 +4,10 @@ import {
     getMoviesByKeyword,
     getGenreList,
 } from "../../fetcher";
-// import FilterBar from "./FilterBar";
 import styled from "styled-components";
-// import Theme from "../../theme/theme";
 import MovieItem from "./MovieItem";
 import SearchFilter from "./SearchFilter";
+import debounce from "lodash.debounce";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -18,17 +17,17 @@ class SearchResults extends React.Component {
             genres: [],
             keyword: "",
             year: "",
-            error: {
-                keyword: false,
-                year: false,
-            },
         };
     }
 
     onSearch = (state) => {
         this.setState({ ...state });
-        console.log("state in onSearch", state);
     };
+
+    getMoviesDebounced = debounce(
+        async (keyword, year) => getMoviesByKeyword(keyword, year),
+        200
+    );
 
     async componentDidUpdate(prevProps, prevState) {
         if (
@@ -44,10 +43,16 @@ class SearchResults extends React.Component {
             prevState.keyword !== this.state.keyword ||
             prevState.year !== this.state.year
         ) {
-            const moviesbyKeyword = await getMoviesByKeyword(
+            // const moviesbyKeyword = await getMoviesByKeyword(
+            //     this.state.keyword,
+            //     this.state.year
+            // );
+            const moviesbyKeyword = await this.getMoviesDebounced(
                 this.state.keyword,
                 this.state.year
             );
+            console.log(this.state.keyword);
+            console.log("moviesbyKeyword", moviesbyKeyword);
             this.setState({
                 moviesData: moviesbyKeyword.results,
             });

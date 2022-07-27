@@ -14,7 +14,6 @@ function SearchFilter({ genres, onChange }) {
     });
 
     useEffect(() => {
-        console.log(inputs);
         validateInputs(inputs);
     }, [inputs]);
 
@@ -27,10 +26,6 @@ function SearchFilter({ genres, onChange }) {
     };
 
     const validateInputs = (inputs) => {
-        // Conditions
-        console.log("1st", inputs.keyword === "");
-        console.log("2nd", inputs.year.length > 3);
-
         // 1. if year is ok but empty keyword --> keyword error true
         if (inputs.keyword === "" && inputs.year.length > 3) {
             console.log("got here");

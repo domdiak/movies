@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function GenreItem({ genre, filterResults }) {
-    const [isChecked, setIsChecked] = useState(false);
-
+function GenreItem({ genre, handleChange, index }) {
     return (
         <>
             <GenreItemWrapper>
                 <input
                     type="checkbox"
                     name="checkbox"
-                    checked={isChecked}
                     onChange={(e) => {
-                        setIsChecked(!isChecked);
-                        console.log("isChecked", isChecked);
-                        filterResults(genre.id);
+                        handleChange(genre.id, index);
                     }}
                 />
                 <label>{genre.name}</label>

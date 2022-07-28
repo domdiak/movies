@@ -36,7 +36,6 @@ class SearchResults extends React.Component {
     };
 
     filterResults = (genreId) => {
-        console.log(this.state.moviesData);
         const filteredMoviesData = this.state.moviesData.filter((movie) => {
             return movie.genre_ids.includes(genreId);
         });

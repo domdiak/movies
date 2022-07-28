@@ -3,21 +3,38 @@ import styled from "styled-components";
 import GenreItem from "./GenreItem";
 
 const FilterMenu = ({ genres, filterResults }) => {
-    const [checkedState, setCheckedState] = useState(
-        new Array(genres.length).fill(false)
-    );
+    const [checkedState, setCheckedState] = useState([]);
+
+    const checkedGenres = genres.map((element) => ({
+        ...element,
+        checked: false,
+    }));
 
     useEffect(() => {
-        console.log("checkedState", checkedState);
-    });
+        setCheckedState(checkedGenres);
+    }, [genres]);
+
+    const handleChange = (genreId, indexPosition) => {
+        const updatedCheckedState = checkedState.map((item, index) => {
+            if (item.id === genreId) {
+                console.log(!item.checked);
+                return { ...item, checked: !item.checked };
+            }
+            return item;
+        });
+        setCheckedState(updatedCheckedState);
+        // filterResults(genreId);
+    };
+
     return (
         <FilterMenuContainer>
             <h2> Select genre(s) </h2>
             {genres.map((genre, index) => (
                 <GenreItem
                     key={index}
+                    index={index}
                     genre={genre}
-                    filterResults={filterResults}
+                    handleChange={handleChange}
                 ></GenreItem>
             ))}
             <h2> Select min. vote </h2>

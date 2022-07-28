@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GoSearch, GoCalendar } from "react-icons/go";
-import GenreItem from "./GenreItem";
+import FilterMenu from "./FilterMenu";
 
-function SearchFilter({ genres, onChange }) {
+function SearchFilter({ genres, onChange, filterResults }) {
     const [error, setError] = useState({
         keyword: false,
         year: false,
@@ -26,18 +26,14 @@ function SearchFilter({ genres, onChange }) {
     };
 
     const validateInputs = (inputs) => {
-        // 1. if year is ok but empty keyword --> keyword error true
         if (inputs.keyword === "" && inputs.year.length > 3) {
-            console.log("got here");
             setError({ ...error, keyword: true }, console.log(error));
-            // 2. if keyword not empty & year < 4 --> year error true
         } else if (
             !inputs.keyword == "" &&
             inputs.year > 0 &&
             inputs.year.length < 4
         ) {
             setError({ ...error, year: true });
-            // 3. else --> no error
         } else {
             setError({
                 keyword: false,
@@ -84,14 +80,7 @@ function SearchFilter({ genres, onChange }) {
                     </InputWrapper>
                     {error.year && <p> Required full year </p>}
                 </SearchBarContainer>
-                <FilterMenuContainer>
-                    <h2> Select genre(s) </h2>
-                    {genres.map((genre, index) => (
-                        <GenreItem key={index} genre={genre}></GenreItem>
-                    ))}
-                    <h2> Select min. vote </h2>
-                    <h2> Select language </h2>
-                </FilterMenuContainer>
+                <FilterMenu genres={genres} filterResults={filterResults} />
             </SearchFilterContainer>
         </>
     );
@@ -131,14 +120,6 @@ const SearchFilterContainer = styled.div`
 `;
 
 const SearchBarContainer = styled.div`
-    margin: 10px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-`;
-
-const FilterMenuContainer = styled.div`
     margin: 10px;
     padding: 10px;
     display: flex;

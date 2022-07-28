@@ -24,20 +24,31 @@ class SearchResults extends React.Component {
         this.setState({ ...state });
     };
 
-    getMoviesDebounced = debounce(
-        async (keyword, year) => getMovies(keyword, year),
-        200
-    );
-
     getMovies = async (keyword, year) => {
         const moviesData =
             this.state.keyword === ""
                 ? await getPopularMovies()
                 : await getMoviesByKeyword(keyword, year);
+        console.log("moviesData", moviesData);
         this.setState({
             moviesData: moviesData.results,
         });
     };
+
+    filterResults = (genreId) => {
+        console.log(this.state.moviesData);
+        const filteredMoviesData = this.state.moviesData.filter((movie) => {
+            return movie.genre_ids.includes(genreId);
+        });
+        this.setState({
+            moviesData: filteredMoviesData,
+        });
+    };
+
+    getMoviesDebounced = debounce(
+        async (keyword, year) => getMovies(keyword, year),
+        200
+    );
 
     async componentDidUpdate(prevProps, prevState) {
         if (
@@ -54,7 +65,7 @@ class SearchResults extends React.Component {
 
         this.setState({
             moviesData: popularMovies.results,
-            genres: genres,
+            genres,
         });
     }
 
@@ -79,6 +90,7 @@ class SearchResults extends React.Component {
                 <SearchFilter
                     genres={this.state.genres}
                     onChange={this.onSearch}
+                    filterResults={this.filterResults}
                 />
             </SearchResultsWrapper>
         );

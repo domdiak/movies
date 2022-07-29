@@ -17,6 +17,7 @@ class SearchResults extends React.Component {
             genres: [],
             keyword: "",
             year: "",
+            genresFilter: [],
         };
     }
 
@@ -29,22 +30,20 @@ class SearchResults extends React.Component {
             this.state.keyword === ""
                 ? await getPopularMovies()
                 : await getMoviesByKeyword(keyword, year);
-        console.log("moviesData", moviesData);
         this.setState({
             moviesData: moviesData.results,
         });
     };
 
     filterResults = (genreIds) => {
-        console.log("genreIds", genreIds);
-        const filteredMoviesData = this.state.moviesData.filter((movie) => {
-            return genreIds.every((item) => {
-                return movie.genre_ids.includes(item);
-            });
-        });
-        console.log(filteredMoviesData.length);
         this.setState({
-            moviesData: filteredMoviesData,
+            genresFilter: genreIds,
+        });
+    };
+
+    movieFilter = (genreIds) => {
+        return genreIds.every((item) => {
+            return movie.genre_ids.includes(item);
         });
     };
 
@@ -60,6 +59,7 @@ class SearchResults extends React.Component {
         ) {
             await this.getMovies(this.state.keyword, this.state.year);
         }
+        console.log(this.state.genresFilter);
     }
 
     async componentDidMount() {
@@ -82,13 +82,20 @@ class SearchResults extends React.Component {
                             <h1>No results have been found!</h1>{" "}
                         </NoResults>
                     )}
-                    {this.state.moviesData.map((movie, index) => (
-                        <MovieItem
-                            key={index}
-                            movie={movie}
-                            genres={this.state.genres}
-                        />
-                    ))}
+                    {this.state.moviesData
+                        .filter((movie) => {
+                            console.log(this.state.genresFilter);
+                            return this.state.genresFilter.every((item) => {
+                                return movie.genre_ids.includes(item);
+                            });
+                        })
+                        .map((movie, index) => (
+                            <MovieItem
+                                key={index}
+                                movie={movie}
+                                genres={this.state.genres}
+                            />
+                        ))}
                 </div>
                 <SearchFilter
                     genres={this.state.genres}

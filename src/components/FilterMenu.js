@@ -14,16 +14,23 @@ const FilterMenu = ({ genres, filterResults }) => {
         setCheckedState(checkedGenres);
     }, [genres]);
 
-    const handleChange = (genreId, indexPosition) => {
+    const sendFilters = (filterState) => {
+        return filterState
+            .filter((item) => item.checked)
+            .map((item) => item.id);
+    };
+
+    // console.log("checkedState", checkedState);
+
+    const handleChange = (genreId) => {
         const updatedCheckedState = checkedState.map((item, index) => {
             if (item.id === genreId) {
-                console.log(!item.checked);
                 return { ...item, checked: !item.checked };
             }
             return item;
         });
         setCheckedState(updatedCheckedState);
-        // filterResults(genreId);
+        filterResults(sendFilters(checkedState));
     };
 
     return (

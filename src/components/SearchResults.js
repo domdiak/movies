@@ -18,6 +18,18 @@ class SearchResults extends React.Component {
             keyword: "",
             year: "",
             genresFilter: [],
+            languagesFilter: [
+                { name: "en", state: false },
+                { name: "de", state: false },
+                { name: "fr", state: false },
+                { name: "it", state: false },
+            ],
+            votesFilter: [
+                { value: 6, state: false },
+                { value: 6.5, state: false },
+                { value: 7, state: false },
+                { value: 8, state: false },
+            ],
         };
     }
 
@@ -59,7 +71,6 @@ class SearchResults extends React.Component {
         ) {
             await this.getMovies(this.state.keyword, this.state.year);
         }
-        console.log(this.state.genresFilter);
     }
 
     async componentDidMount() {
@@ -84,7 +95,6 @@ class SearchResults extends React.Component {
                     )}
                     {this.state.moviesData
                         .filter((movie) => {
-                            console.log(this.state.genresFilter);
                             return this.state.genresFilter.every((item) => {
                                 return movie.genre_ids.includes(item);
                             });
@@ -99,6 +109,8 @@ class SearchResults extends React.Component {
                 </div>
                 <SearchFilter
                     genres={this.state.genres}
+                    languages={this.state.languagesFilter}
+                    votes={this.state.votesFilter}
                     onChange={this.onSearch}
                     filterResults={this.filterResults}
                 />

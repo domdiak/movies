@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GenreItem from "./GenreItem";
+import LanguageItem from "./LanguageItem";
+import VoteItem from "./VoteItem";
 
-const FilterMenu = ({ genres, filterResults }) => {
+const FilterMenu = ({ genres, filterResults, languages, votes }) => {
     const [checkedState, setCheckedState] = useState([]);
 
     const checkedGenres = genres.map((element) => ({
@@ -20,7 +22,7 @@ const FilterMenu = ({ genres, filterResults }) => {
             .map((item) => item.id);
     };
 
-    // console.log("checkedState", checkedState);
+    console.log(languages);
 
     const handleChange = (genreId) => {
         const updatedCheckedState = checkedState.map((item, index) => {
@@ -39,13 +41,20 @@ const FilterMenu = ({ genres, filterResults }) => {
             {genres.map((genre, index) => (
                 <GenreItem
                     key={index}
-                    index={index}
                     genre={genre}
                     handleChange={handleChange}
                 ></GenreItem>
             ))}
             <h2> Select min. vote </h2>
+            {votes.map((vote, index) => (
+                <VoteItem key={index} vote={vote}></VoteItem>
+            ))}
             <h2> Select language </h2>
+            {languages.map((language, index) => (
+                <LanguageItem key={index} language={language}>
+                    {" "}
+                </LanguageItem>
+            ))}
         </FilterMenuContainer>
     );
 };

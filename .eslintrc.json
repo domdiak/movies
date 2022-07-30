@@ -1,10 +1,5 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "eslint-plugin-jest",
-        "eslint-plugin-react",
-        "prettier"
-    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
     "plugins": ["react"],
     "parserOptions": {
         "ecmaVersion": 2022,

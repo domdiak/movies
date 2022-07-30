@@ -1,40 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import GenreItem from "./GenreItem";
 import LanguageItem from "./LanguageItem";
 import VoteItem from "./VoteItem";
 
-const FilterMenu = ({ genres, filterResults, languages, votes }) => {
-    const [checkedState, setCheckedState] = useState([]);
-
-    const checkedGenres = genres.map((element) => ({
-        ...element,
-        checked: false,
-    }));
-
-    useEffect(() => {
-        setCheckedState(checkedGenres);
-    }, [genres]);
-
-    const sendFilters = (filterState) => {
-        return filterState
-            .filter((item) => item.checked)
-            .map((item) => item.id);
-    };
-
-    console.log(languages);
-
-    const handleChange = (genreId) => {
-        const updatedCheckedState = checkedState.map((item, index) => {
-            if (item.id === genreId) {
-                return { ...item, checked: !item.checked };
-            }
-            return item;
-        });
-        setCheckedState(updatedCheckedState);
-        filterResults(sendFilters(checkedState));
-    };
-
+const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
     return (
         <FilterMenuContainer>
             <h2> Select genre(s) </h2>
@@ -42,7 +12,7 @@ const FilterMenu = ({ genres, filterResults, languages, votes }) => {
                 <GenreItem
                     key={index}
                     genre={genre}
-                    handleChange={handleChange}
+                    handleChangeFilters={handleChangeFilters}
                 ></GenreItem>
             ))}
             <h2> Select min. vote </h2>

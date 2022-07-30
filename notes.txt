@@ -68,3 +68,15 @@ filterResults function feeds filtered genreIds into SearchResults
 makes it difficult to re-use filterResults to filter MovieItem components 
 try start with filter and then go into map]
 see how to make filter redundant if there is no filter
+
+
+Filters for language: 
+original_language: "en", "fr", "de", "it"
+
+Filters for scoring: 
+vote_average
+
+
+Filtering: 
+--> You need to make a request with all the filters 
+--> Move genrefilter state to SearchResults.js

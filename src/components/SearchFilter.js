@@ -3,7 +3,13 @@ import styled from "styled-components";
 import { GoSearch, GoCalendar } from "react-icons/go";
 import FilterMenu from "./FilterMenu";
 
-function SearchFilter({ genres, onChange, filterResults, languages, votes }) {
+function SearchFilter({
+    genres,
+    onChange,
+    languages,
+    votes,
+    handleChangeFilters,
+}) {
     const [error, setError] = useState({
         keyword: false,
         year: false,
@@ -84,7 +90,7 @@ function SearchFilter({ genres, onChange, filterResults, languages, votes }) {
                     genres={genres}
                     languages={languages}
                     votes={votes}
-                    filterResults={filterResults}
+                    handleChangeFilters={handleChangeFilters}
                 />
             </SearchFilterContainer>
         </>

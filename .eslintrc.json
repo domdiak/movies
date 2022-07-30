@@ -8,6 +8,9 @@
             "jsx": true
         }
     },
+    "rules": {
+        "react/prop-types": 0
+    },
     "env": {
         "es6": true,
         "browser": true,

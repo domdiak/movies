@@ -19,16 +19,16 @@ class SearchResults extends React.Component {
             year: "",
             genresFilter: [],
             languagesFilter: [
-                { name: "en", state: false },
-                { name: "de", state: false },
-                { name: "fr", state: false },
-                { name: "it", state: false },
+                { name: "en", isChecked: false },
+                { name: "de", isChecked: false },
+                { name: "fr", isChecked: false },
+                { name: "it", isChecked: false },
             ],
             votesFilter: [
-                { value: 6, state: false },
-                { value: 6.5, state: false },
-                { value: 7, state: false },
-                { value: 8, state: false },
+                { value: 6, isChecked: false },
+                { value: 6.5, isChecked: false },
+                { value: 7, isChecked: false },
+                { value: 8, isChecked: false },
             ],
         };
     }
@@ -47,20 +47,30 @@ class SearchResults extends React.Component {
         });
     };
 
-    filterResults = (genreIds) => {
-        this.setState({
-            genresFilter: genreIds,
+    handleChangeFilters = (genreId) => {
+        console.log("works");
+        const updatedGenreIndex = this.state.genres.findIndex((genre) => {
+            return genre.id === genreId;
         });
-    };
 
-    movieFilter = (genreIds) => {
-        return genreIds.every((item) => {
-            return movie.genre_ids.includes(item);
+        const updatedGenre = this.state.genres.find((genre) => {
+            return genre.id === genreId;
+        });
+
+        const newGenres = [...this.state.genres];
+
+        newGenres.splice(updatedGenreIndex, 1, {
+            ...updatedGenre,
+            isChecked: !updatedGenre.isChecked,
+        });
+
+        this.setState({
+            genres: newGenres,
         });
     };
 
     getMoviesDebounced = debounce(
-        async (keyword, year) => getMovies(keyword, year),
+        async (keyword, year) => this.getMovies(keyword, year),
         200
     );
 
@@ -77,13 +87,18 @@ class SearchResults extends React.Component {
         const genres = await getGenreList();
         const popularMovies = await getPopularMovies();
 
+        const updatedGenres = genres.map((genre) => {
+            return { ...genre, isChecked: false };
+        });
+
         this.setState({
             moviesData: popularMovies.results,
-            genres,
+            genres: updatedGenres,
         });
     }
 
     render() {
+        console.log(this.state.genres);
         return (
             <SearchResultsWrapper>
                 <div>
@@ -112,6 +127,7 @@ class SearchResults extends React.Component {
                     languages={this.state.languagesFilter}
                     votes={this.state.votesFilter}
                     onChange={this.onSearch}
+                    handleChangeFilters={this.handleChangeFilters}
                     filterResults={this.filterResults}
                 />
             </SearchResultsWrapper>

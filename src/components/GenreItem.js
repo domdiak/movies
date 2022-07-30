@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function GenreItem({ genre, handleChange, index }) {
+function GenreItem({ genre, handleChangeFilters }) {
     return (
         <>
             <GenreItemWrapper>
                 <input
                     type="checkbox"
                     name="checkbox"
-                    onChange={(e) => {
-                        handleChange(genre.id, index);
+                    onChange={() => {
+                        handleChangeFilters(genre.id);
                     }}
                 />
                 <label>{genre.name}</label>

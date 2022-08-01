@@ -55,6 +55,7 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
+        console.log(this.state.languages);
         // console.log("votes", this.state.votes);
         const params = {
             keyword: this.state.keyword,
@@ -75,8 +76,6 @@ class SearchResults extends React.Component {
     }
 
     handleChangeFilters = (filterValue, target) => {
-        console.log("filVal", filterValue, "tar", target);
-
         const filterGroup =
             target === "genre"
                 ? this.state.genres
@@ -85,6 +84,15 @@ class SearchResults extends React.Component {
                 : this.state.languages;
 
         const newFilterGroup = filterGroup.map((filter) => {
+            if (target === "language") {
+                if (filterValue !== filter.id) {
+                    const resetFilter = {
+                        ...filter,
+                        isChecked: false,
+                    };
+                    return resetFilter;
+                }
+            }
             if (filterValue === filter.id) {
                 const updatedFilter = {
                     ...filter,
@@ -92,6 +100,7 @@ class SearchResults extends React.Component {
                 };
                 return updatedFilter;
             }
+
             return filter;
         });
         if (target === "genre") {

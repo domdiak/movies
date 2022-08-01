@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import GenreItem from "./GenreItem";
-import LanguageItem from "./LanguageItem";
 import VoteItem from "./VoteItem";
 import LanguageDropdown from "./LanguageDropdown";
 
@@ -29,15 +28,6 @@ const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
                 languages={languages}
                 handleChangeFilters={handleChangeFilters}
             />
-            {/* {languages.map((language, index) => (
-                <LanguageItem
-                    key={index}
-                    language={language}
-                    handleChangeFilters={handleChangeFilters}
-                >
-                    {" "}
-                </LanguageItem>
-            ))} */}
         </FilterMenuContainer>
     );
 };

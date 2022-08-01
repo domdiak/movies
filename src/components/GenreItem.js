@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 function GenreItem({ genre, handleChangeFilters }) {
-    // useEffect(() => {
-    //     console.log(genre);
-    // });
     return (
         <>
             <GenreItemWrapper>

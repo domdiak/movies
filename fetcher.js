@@ -7,22 +7,33 @@ const language = "en-US";
 
 // Check if API KEY goes into params as well
 
-export async function getPopularMovies(genres) {
-    console.log("getPopularMovies is triggered");
+export async function getPopularMovies(genres, votes = [], languages = []) {
+    // console.log("getPopularMovies is triggered");
+    console.log("votes", votes);
+
     let genresToString;
     if (genres) {
         genresToString = genres.join(",");
     }
+
+    let minVote;
+    if (votes.length > 0) {
+        minVote = Math.min(...votes);
+    }
+
     const params = {
         with_genres: genresToString,
+        "vote_average.gte": minVote,
+        with_original_language: languages.join(),
     };
 
     try {
+        console.log({ params });
         const res = await axios.get(
             `https://api.themoviedb.org/3/discover/movie/?api_key=${process.env.REACT_APP_API_KEY}`,
             { params }
         );
-        // console.log("response", res.data);
+        console.log(res.data);
         return res.data;
     } catch (error) {
         console.error(error);

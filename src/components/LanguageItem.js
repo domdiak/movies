@@ -5,6 +5,7 @@ const LanguageItem = ({ language, handleChangeFilters }) => {
     return (
         <>
             <LanguageItemWrapper>
+                <option value={language.id}> </option>
                 <input
                     type="checkbox"
                     name="language"

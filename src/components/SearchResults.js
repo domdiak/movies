@@ -17,14 +17,13 @@ class SearchResults extends React.Component {
             genres: [],
             keyword: "",
             year: "",
-            genresFilter: [],
-            languagesFilter: [
-                { id: "en", isChecked: false },
-                { id: "de", isChecked: false },
-                { id: "fr", isChecked: false },
-                { id: "it", isChecked: false },
+            languages: [
+                { name: "English", id: "en", isChecked: false },
+                { name: "German", id: "de", isChecked: false },
+                { name: "French", id: "fr", isChecked: false },
+                { name: "Italian", id: "it", isChecked: false },
             ],
-            votesFilter: [
+            votes: [
                 { id: 6, isChecked: false },
                 { id: 6.5, isChecked: false },
                 { id: 7, isChecked: false },
@@ -38,10 +37,10 @@ class SearchResults extends React.Component {
         this.setState({ ...state });
     };
 
-    getMovies = async ({ keyword, year, genres }) => {
+    getMovies = async ({ keyword, year, genres, votes, languages }) => {
         const moviesData =
             this.state.keyword === ""
-                ? await getPopularMovies(genres)
+                ? await getPopularMovies(genres, votes, languages)
                 : await getMoviesByKeyword(keyword, year, genres);
         this.setState({
             moviesData: moviesData.results,
@@ -49,35 +48,42 @@ class SearchResults extends React.Component {
         });
     };
 
-    getGenreIds = (genres) => {
-        return genres.filter((genre) => genre.isChecked).map((item) => item.id);
+    getFilterIds = (filterGroup) => {
+        return filterGroup
+            .filter((filter) => filter.isChecked)
+            .map((item) => item.id);
     };
 
     async componentDidUpdate(prevProps, prevState) {
-        // console.log("votesFilter", this.state.votesFilter);
+        // console.log("votes", this.state.votes);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
-            genres: this.getGenreIds(this.state.genres),
+            genres: this.getFilterIds(this.state.genres),
+            votes: this.getFilterIds(this.state.votes),
+            languages: this.getFilterIds(this.state.languages),
         };
         if (
             prevState.keyword !== this.state.keyword ||
             prevState.year !== this.state.year ||
-            prevState.genres !== this.state.genres
+            prevState.genres !== this.state.genres ||
+            prevState.votes !== this.state.votes ||
+            prevState.languages !== this.state.languages
         ) {
             await this.getMovies(params);
         }
     }
 
     handleChangeFilters = (filterValue, target) => {
+        console.log("filVal", filterValue, "tar", target);
+
         const filterGroup =
             target === "genre"
                 ? this.state.genres
                 : target === "vote"
-                ? this.state.votesFilter
-                : this.state.languagesFilter;
+                ? this.state.votes
+                : this.state.languages;
 
-        console.log("filterGroup", filterGroup);
         const newFilterGroup = filterGroup.map((filter) => {
             if (filterValue === filter.id) {
                 const updatedFilter = {
@@ -88,56 +94,19 @@ class SearchResults extends React.Component {
             }
             return filter;
         });
-        console.log("newFilterGroup", newFilterGroup);
         if (target === "genre") {
             this.setState({
                 genres: newFilterGroup,
             });
         } else if (target === "vote") {
             this.setState({
-                votesFilter: newFilterGroup,
+                votes: newFilterGroup,
             });
         } else {
             this.setState({
-                languagesFilter: newFilterGroup,
+                languages: newFilterGroup,
             });
         }
-
-        // if (target === "genre") {
-        //     const newGenres = this.state.genres.map((genre) => {
-        //         if (filterValue === genre.id) {
-        //             const updatedGenre = {
-        //                 ...genre,
-        //                 isChecked: !genre.isChecked,
-        //             };
-        //             return updatedGenre;
-        //         }
-        //         return genre;
-        //     });
-
-        //     this.setState({
-        //         genres: newGenres,
-        //     });
-        // }
-        // if (target === "vote") {
-        //     const newVotesFilter = this.state.votesFilter.map((vote) => {
-        //         if (filterValue === vote.value) {
-        //             const updatedVoteFilter = {
-        //                 ...vote,
-        //                 isChecked: !vote.isChecked,
-        //             };
-        //             console.log(updatedVoteFilter);
-        //             return updatedVoteFilter;
-        //         }
-        //         return vote;
-        //     });
-        //     this.setState({
-        //         votesFilter: newVotesFilter,
-        //     });
-        // }
-        // if (target === "language") {
-
-        // }
     };
 
     getMoviesDebounced = debounce(
@@ -172,7 +141,7 @@ class SearchResults extends React.Component {
                     <p>Total results: {this.state.total}</p>
                     {this.state.moviesData
                         .filter((movie) => {
-                            const selectedIds = this.getGenreIds(
+                            const selectedIds = this.getFilterIds(
                                 this.state.genres
                             );
 
@@ -190,8 +159,8 @@ class SearchResults extends React.Component {
                 </div>
                 <SearchFilter
                     genres={this.state.genres}
-                    languages={this.state.languagesFilter}
-                    votes={this.state.votesFilter}
+                    languages={this.state.languages}
+                    votes={this.state.votes}
                     onChange={this.onSearch}
                     handleChangeFilters={this.handleChangeFilters}
                     filterResults={this.filterResults}

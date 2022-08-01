@@ -3,6 +3,7 @@ import styled from "styled-components";
 import GenreItem from "./GenreItem";
 import LanguageItem from "./LanguageItem";
 import VoteItem from "./VoteItem";
+import LanguageDropdown from "./LanguageDropdown";
 
 const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
     return (
@@ -24,7 +25,11 @@ const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
                 ></VoteItem>
             ))}
             <h2> Select language </h2>
-            {languages.map((language, index) => (
+            <LanguageDropdown
+                languages={languages}
+                handleChangeFilters={handleChangeFilters}
+            />
+            {/* {languages.map((language, index) => (
                 <LanguageItem
                     key={index}
                     language={language}
@@ -32,7 +37,7 @@ const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
                 >
                     {" "}
                 </LanguageItem>
-            ))}
+            ))} */}
         </FilterMenuContainer>
     );
 };

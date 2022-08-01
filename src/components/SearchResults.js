@@ -39,33 +39,33 @@ class SearchResults extends React.Component {
     };
 
     getMovies = async ({ keyword, year, genres }) => {
-        console.log("genres in getMovies", genres);
         const moviesData =
             this.state.keyword === ""
                 ? await getPopularMovies(genres)
-                : await getMoviesByKeyword(keyword, year);
+                : await getMoviesByKeyword(keyword, year, genres);
         this.setState({
             moviesData: moviesData.results,
             total: moviesData.total_results,
         });
     };
 
+    getGenreIds = (genres) => {
+        return genres.filter((genre) => genre.isChecked).map((item) => item.id);
+    };
+
     async componentDidUpdate(prevProps, prevState) {
+        const params = {
+            keyword: this.state.keyword,
+            year: this.state.year,
+            genres: this.getGenreIds(this.state.genres),
+        };
+        console.log("params", params);
         if (
             prevState.keyword !== this.state.keyword ||
-            prevState.year !== this.state.year
+            prevState.year !== this.state.year ||
+            prevState.genres !== this.state.genres
         ) {
-            await this.getMovies({
-                keyword: this.state.keyword,
-                year: this.state.year,
-            });
-        }
-        if (prevState.genres !== this.state.genres) {
-            const getGenreIds = this.state.genres
-                .filter((genre) => genre.isChecked)
-                .map((item) => item.id);
-            console.log("getGenreIds", getGenreIds);
-            await this.getMovies({ genres: getGenreIds });
+            await this.getMovies(params);
         }
     }
 
@@ -122,7 +122,11 @@ class SearchResults extends React.Component {
                     <p>Total results: {this.state.total}</p>
                     {this.state.moviesData
                         .filter((movie) => {
-                            return this.state.genresFilter.every((item) => {
+                            const selectedIds = this.getGenreIds(
+                                this.state.genres
+                            );
+
+                            return selectedIds.every((item) => {
                                 return movie.genre_ids.includes(item);
                             });
                         })

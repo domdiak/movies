@@ -1,7 +1,6 @@
 import axios from "axios";
 // import { API_KEY } from "./secrets";
 const language = "en-US";
-const sortBy = "popularity.desc";
 
 // Min vote:  vote_average.gte
 // Genres: with_genres (defintion: Comma separated value of genre ids that you want to include in the results.)
@@ -9,29 +8,30 @@ const sortBy = "popularity.desc";
 // Check if API KEY goes into params as well
 
 export async function getPopularMovies(genres) {
+    console.log("getPopularMovies is triggered");
     let genresToString;
     if (genres) {
         genresToString = genres.join(",");
     }
-    console.log(genresToString);
     const params = {
         with_genres: genresToString,
     };
-    console.log(params);
-    console.log("genres", genres);
+
     try {
         const res = await axios.get(
             `https://api.themoviedb.org/3/discover/movie/?api_key=${process.env.REACT_APP_API_KEY}`,
             { params }
         );
-        console.log("response", res.data);
+        // console.log("response", res.data);
         return res.data;
     } catch (error) {
         console.error(error);
     }
 }
 
-export async function getMoviesByKeyword(query, year) {
+export async function getMoviesByKeyword(query, year, genres) {
+    console.log("getMoviesByKeyword is triggered");
+    console.log("genres", genres);
     const params = {
         query,
         ...(year.length > 3 ? { year: parseInt(year) } : {}),
@@ -41,6 +41,9 @@ export async function getMoviesByKeyword(query, year) {
             `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}`,
             { params }
         );
+
+        // console.log("res.data.results", res.data.results);
+
         return res.data;
     } catch (error) {
         console.error(error);

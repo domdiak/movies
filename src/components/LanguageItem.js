@@ -10,10 +10,10 @@ const LanguageItem = ({ language, handleChangeFilters }) => {
                     name="language"
                     checked={language.isChecked}
                     onChange={(e) => {
-                        handleChangeFilters(language.name, e.target.name);
+                        handleChangeFilters(language.id, e.target.name);
                     }}
                 />
-                <label>{language.name}</label>
+                <label>{language.id}</label>
             </LanguageItemWrapper>
         </>
     );

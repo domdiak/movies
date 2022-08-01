@@ -19,16 +19,16 @@ class SearchResults extends React.Component {
             year: "",
             genresFilter: [],
             languagesFilter: [
-                { name: "en", isChecked: false },
-                { name: "de", isChecked: false },
-                { name: "fr", isChecked: false },
-                { name: "it", isChecked: false },
+                { id: "en", isChecked: false },
+                { id: "de", isChecked: false },
+                { id: "fr", isChecked: false },
+                { id: "it", isChecked: false },
             ],
             votesFilter: [
-                { value: 6, isChecked: false },
-                { value: 6.5, isChecked: false },
-                { value: 7, isChecked: false },
-                { value: 8, isChecked: false },
+                { id: 6, isChecked: false },
+                { id: 6.5, isChecked: false },
+                { id: 7, isChecked: false },
+                { id: 8, isChecked: false },
             ],
             total: 0,
         };
@@ -54,7 +54,7 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log("votesFilter", this.state.votesFilter);
+        // console.log("votesFilter", this.state.votesFilter);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
@@ -70,45 +70,71 @@ class SearchResults extends React.Component {
     }
 
     handleChangeFilters = (filterValue, target) => {
-        console.log("filterValue", filterValue);
-        console.log("target", target);
-        if (target === "genre") {
-            const newGenres = this.state.genres.map((genre) => {
-                if (filterValue === genre.id) {
-                    const updatedGenre = {
-                        ...genre,
-                        isChecked: !genre.isChecked,
-                    };
-                    return updatedGenre;
-                }
-                return genre;
-            });
+        const filterGroup =
+            target === "genre"
+                ? this.state.genres
+                : target === "vote"
+                ? this.state.votesFilter
+                : this.state.languagesFilter;
 
+        console.log("filterGroup", filterGroup);
+        const newFilterGroup = filterGroup.map((filter) => {
+            if (filterValue === filter.id) {
+                const updatedFilter = {
+                    ...filter,
+                    isChecked: !filter.isChecked,
+                };
+                return updatedFilter;
+            }
+            return filter;
+        });
+        console.log("newFilterGroup", newFilterGroup);
+        if (target === "genre") {
             this.setState({
-                genres: newGenres,
+                genres: newFilterGroup,
+            });
+        } else if (target === "vote") {
+            this.setState({
+                votesFilter: newFilterGroup,
+            });
+        } else {
+            this.setState({
+                languagesFilter: newFilterGroup,
             });
         }
-        if (target === "vote") {
-            const newVotesFilter = this.state.votesFilter.map((vote) => {
-                console.log("filterValue)", filterValue);
-                console.log(
-                    "this.state.votesFilter.value)",
-                    this.state.votesFilter.value
-                );
-                if (filterValue === vote.value) {
-                    const updatedVoteFilter = {
-                        ...vote,
-                        isChecked: !vote.isChecked,
-                    };
-                    console.log(updatedVoteFilter);
-                    return updatedVoteFilter;
-                }
-                return vote;
-            });
-            this.setState({
-                votesFilter: newVotesFilter,
-            });
-        }
+
+        // if (target === "genre") {
+        //     const newGenres = this.state.genres.map((genre) => {
+        //         if (filterValue === genre.id) {
+        //             const updatedGenre = {
+        //                 ...genre,
+        //                 isChecked: !genre.isChecked,
+        //             };
+        //             return updatedGenre;
+        //         }
+        //         return genre;
+        //     });
+
+        //     this.setState({
+        //         genres: newGenres,
+        //     });
+        // }
+        // if (target === "vote") {
+        //     const newVotesFilter = this.state.votesFilter.map((vote) => {
+        //         if (filterValue === vote.value) {
+        //             const updatedVoteFilter = {
+        //                 ...vote,
+        //                 isChecked: !vote.isChecked,
+        //             };
+        //             console.log(updatedVoteFilter);
+        //             return updatedVoteFilter;
+        //         }
+        //         return vote;
+        //     });
+        //     this.setState({
+        //         votesFilter: newVotesFilter,
+        //     });
+        // }
         // if (target === "language") {
 
         // }

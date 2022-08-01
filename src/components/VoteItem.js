@@ -13,10 +13,10 @@ const VoteItem = ({ vote, handleChangeFilters }) => {
                     name="vote"
                     checked={vote.isChecked}
                     onChange={(e) => {
-                        handleChangeFilters(vote.value, e.target.name);
+                        handleChangeFilters(vote.id, e.target.name);
                     }}
                 />
-                <label>{`More than ${vote.value}`}</label>
+                <label>{`More than ${vote.id}`}</label>
             </VoteItemWrapper>
         </>
     );

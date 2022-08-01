@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const VoteItem = ({ vote }) => {
+const VoteItem = ({ vote, handleChangeFilters }) => {
+    // useEffect(() => {
+    //     console.log(vote);
+    // });
     return (
         <>
             <VoteItemWrapper>
-                <input type="checkbox" name="checkbox" />
+                <input
+                    type="checkbox"
+                    name="vote"
+                    checked={vote.isChecked}
+                    onChange={(e) => {
+                        handleChangeFilters(vote.value, e.target.name);
+                    }}
+                />
                 <label>{`More than ${vote.value}`}</label>
             </VoteItemWrapper>
         </>

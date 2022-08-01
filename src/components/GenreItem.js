@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 function GenreItem({ genre, handleChangeFilters }) {
+    // useEffect(() => {
+    //     console.log(genre);
+    // });
     return (
         <>
             <GenreItemWrapper>
                 <input
                     type="checkbox"
-                    name="checkbox"
-                    onChange={() => {
-                        handleChangeFilters(genre.id);
+                    name="genre"
+                    checked={genre.isChecked}
+                    onChange={(e) => {
+                        handleChangeFilters(genre.id, e.target.name);
                     }}
                 />
                 <label>{genre.name}</label>

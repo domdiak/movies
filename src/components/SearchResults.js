@@ -54,12 +54,12 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
+        console.log("votesFilter", this.state.votesFilter);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
             genres: this.getGenreIds(this.state.genres),
         };
-        console.log("params", params);
         if (
             prevState.keyword !== this.state.keyword ||
             prevState.year !== this.state.year ||
@@ -69,25 +69,49 @@ class SearchResults extends React.Component {
         }
     }
 
-    handleChangeFilters = (genreId) => {
-        const updatedGenreIndex = this.state.genres.findIndex((genre) => {
-            return genre.id === genreId;
-        });
+    handleChangeFilters = (filterValue, target) => {
+        console.log("filterValue", filterValue);
+        console.log("target", target);
+        if (target === "genre") {
+            const newGenres = this.state.genres.map((genre) => {
+                if (filterValue === genre.id) {
+                    const updatedGenre = {
+                        ...genre,
+                        isChecked: !genre.isChecked,
+                    };
+                    return updatedGenre;
+                }
+                return genre;
+            });
 
-        const updatedGenre = this.state.genres.find((genre) => {
-            return genre.id === genreId;
-        });
+            this.setState({
+                genres: newGenres,
+            });
+        }
+        if (target === "vote") {
+            const newVotesFilter = this.state.votesFilter.map((vote) => {
+                console.log("filterValue)", filterValue);
+                console.log(
+                    "this.state.votesFilter.value)",
+                    this.state.votesFilter.value
+                );
+                if (filterValue === vote.value) {
+                    const updatedVoteFilter = {
+                        ...vote,
+                        isChecked: !vote.isChecked,
+                    };
+                    console.log(updatedVoteFilter);
+                    return updatedVoteFilter;
+                }
+                return vote;
+            });
+            this.setState({
+                votesFilter: newVotesFilter,
+            });
+        }
+        // if (target === "language") {
 
-        const newGenres = [...this.state.genres];
-
-        newGenres.splice(updatedGenreIndex, 1, {
-            ...updatedGenre,
-            isChecked: !updatedGenre.isChecked,
-        });
-
-        this.setState({
-            genres: newGenres,
-        });
+        // }
     };
 
     getMoviesDebounced = debounce(

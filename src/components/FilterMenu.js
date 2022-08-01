@@ -17,11 +17,19 @@ const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
             ))}
             <h2> Select min. vote </h2>
             {votes.map((vote, index) => (
-                <VoteItem key={index} vote={vote}></VoteItem>
+                <VoteItem
+                    key={index}
+                    vote={vote}
+                    handleChangeFilters={handleChangeFilters}
+                ></VoteItem>
             ))}
             <h2> Select language </h2>
             {languages.map((language, index) => (
-                <LanguageItem key={index} language={language}>
+                <LanguageItem
+                    key={index}
+                    language={language}
+                    handleChangeFilters={handleChangeFilters}
+                >
                     {" "}
                 </LanguageItem>
             ))}

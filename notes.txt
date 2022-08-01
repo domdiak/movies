@@ -53,22 +53,6 @@ MSW:
         -> Access query parametrs in the response resolve using req.url.searchParams
 
 
-Implementing filter function: 
---> create a new component with the filters DONE
---> getting genreIds => moviesData.results[0].genre_ids => returns an array DONE
---> filter the display function based on genreids DONE
---> Fixed hardCoded checkedState in FiltermMenu DONE
---> created checkedState for eachbox DONE 
---> fix state on Line 35 in Filter Menu as it doesn't update
---> implement filter function which doesn't affect state
-
-Issues: 
-filterResults function feeds filtered genreIds into SearchResults
-        --> created a state just to hold this data
-makes it difficult to re-use filterResults to filter MovieItem components 
-try start with filter and then go into map]
-see how to make filter redundant if there is no filter
-
 
 Filters for language: 
 original_language: "en", "fr", "de", "it"
@@ -77,6 +61,9 @@ Filters for scoring:
 vote_average
 
 
-Filtering: 
---> You need to make a request with all the filters 
---> Move genrefilter state to SearchResults.js
+
+--> added checked state for the boxes
+
+If no keyword, use filters for a discover api call 
+
+otherwise, search api call 

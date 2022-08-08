@@ -84,6 +84,7 @@ class SearchResults extends React.Component {
                 : this.state.languages;
 
         const newFilterGroup = filterGroup.map((filter) => {
+            // manually resets all filters back to false
             if (target === "language") {
                 if (filterValue !== filter.id) {
                     const resetFilter = {

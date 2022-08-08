@@ -67,3 +67,7 @@ vote_average
 If no keyword, use filters for a discover api call 
 
 otherwise, search api call 
+
+
+API Call with genres: 
+--> 

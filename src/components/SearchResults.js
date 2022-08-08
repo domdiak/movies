@@ -24,10 +24,10 @@ class SearchResults extends React.Component {
                 { name: "Italian", id: "it", isChecked: false },
             ],
             votes: [
-                { id: 6, isChecked: false },
-                { id: 6.5, isChecked: false },
-                { id: 7, isChecked: false },
-                { id: 8, isChecked: false },
+                { name: 6, id: 6, isChecked: false },
+                { name: 6.5, id: 6.5, isChecked: false },
+                { name: 7, id: 7, isChecked: false },
+                { name: 8, id: 8, isChecked: false },
             ],
             total: 0,
         };
@@ -139,7 +139,7 @@ class SearchResults extends React.Component {
     render() {
         return (
             <SearchResultsWrapper>
-                <div>
+                <MovieList>
                     {!this.state.moviesData[0] && (
                         <NoResults>
                             {" "}
@@ -164,7 +164,7 @@ class SearchResults extends React.Component {
                                 genres={this.state.genres}
                             />
                         ))}
-                </div>
+                </MovieList>
                 <SearchFilter
                     genres={this.state.genres}
                     languages={this.state.languages}
@@ -186,6 +186,11 @@ const NoResults = styled.div`
     width: 700px;
     height: 200px;
     margin: 15px;
+`;
+
+const MovieList = styled.div`
+    margin-left: 45px;
+    margin-right: 15px;
 `;
 
 export default SearchResults;

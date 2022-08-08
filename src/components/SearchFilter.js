@@ -124,10 +124,12 @@ const InputWrapper = styled.div`
 `;
 
 const SearchFilterContainer = styled.div`
-    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
     border-radius: 5px;
     margin: 15px;
     width: 250px;
+    margin-right: 45px;
 `;
 
 const SearchBarContainer = styled.div`

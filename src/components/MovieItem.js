@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// import Theme from "../../theme/theme";
 
 class MovieItem extends React.Component {
     mapGenres = (genresIds, genresNames) => {

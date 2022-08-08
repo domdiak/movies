@@ -9,11 +9,20 @@ const FilterComponent = ({ handleChangeFilters, options, title, name }) => {
 
     const toggleisExpanded = () => setIsExpanded(!isExpanded);
 
+    const IconStyle = {
+        margin: "5px",
+        height: "25px",
+    };
+
     return (
         <>
             <Header onClick={toggleisExpanded}>
-                {isExpanded ? <FiMinus /> : <GoPlus />}
-                <h2> {title} </h2>
+                {isExpanded ? (
+                    <FiMinus style={IconStyle} />
+                ) : (
+                    <GoPlus style={IconStyle} />
+                )}
+                <h3> {title} </h3>
             </Header>
             <FilterItemWrapper isExpanded={isExpanded}>
                 {options.map((item, index) => (
@@ -34,6 +43,14 @@ export default FilterComponent;
 const Header = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: center;
+    margin: 3px;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.blue1};
+    }
 `;
 
 const FilterItemWrapper = styled.div`

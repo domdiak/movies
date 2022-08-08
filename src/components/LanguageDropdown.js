@@ -22,25 +22,44 @@ const LanguageDropdown = ({ languages, handleChangeFilters, title }) => {
                 <h3> {title} </h3>
             </Header>
             {isExpanded && (
-                <select
-                    name="language"
-                    onChange={(e) =>
-                        handleChangeFilters(e.target.value, e.target.name)
-                    }
-                >
-                    {languages.map((language, index) => (
-                        <option key={index} value={language.id}>
-                            {" "}
-                            {language.name}
-                        </option>
-                    ))}
-                </select>
+                <CustomDropdown>
+                    <Select
+                        name="language"
+                        onChange={(e) =>
+                            handleChangeFilters(e.target.value, e.target.name)
+                        }
+                    >
+                        {languages.map((language, index) => (
+                            <option key={index} value={language.id}>
+                                {" "}
+                                {language.name}
+                            </option>
+                        ))}
+                    </Select>
+                </CustomDropdown>
             )}
         </>
     );
 };
 
 export default LanguageDropdown;
+
+const Select = styled.select`
+    // appearance: none;
+    // outline: none;
+`;
+
+const CustomDropdown = styled.div`
+    // width: 100%;
+    // border: 1px solid ${(props) => props.theme.colors.blue1};
+    // border-radius: 0.25em;
+    // padding: 0.25em 0.5em;
+    // font-size: 1.25rem;
+    // cursor: pointer;
+    // line-height: 1.1;
+    // background-color: ${(props) => props.theme.colors.grey1};
+    // background-image: ${(props) => props.theme.colors.grey1};
+`;
 
 const Header = styled.div`
     display: flex;
@@ -53,8 +72,4 @@ const Header = styled.div`
     &:hover {
         background-color: ${(props) => props.theme.colors.blue1};
     }
-`;
-
-const Icon = styled.span`
-    margin: 3px;
 `;

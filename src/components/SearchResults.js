@@ -55,8 +55,6 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log(this.state.languages);
-        // console.log("votes", this.state.votes);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,

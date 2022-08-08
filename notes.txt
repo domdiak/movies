@@ -59,15 +59,3 @@ original_language: "en", "fr", "de", "it"
 
 Filters for scoring: 
 vote_average
-
-
-
---> added checked state for the boxes
-
-If no keyword, use filters for a discover api call 
-
-otherwise, search api call 
-
-
-API Call with genres: 
---> 

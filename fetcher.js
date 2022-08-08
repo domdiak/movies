@@ -9,7 +9,6 @@ const language = "en-US";
 
 export async function getPopularMovies(genres, votes = [], languages = []) {
     // console.log("getPopularMovies is triggered");
-    console.log("votes", votes);
 
     let genresToString;
     if (genres) {
@@ -28,12 +27,10 @@ export async function getPopularMovies(genres, votes = [], languages = []) {
     };
 
     try {
-        console.log({ params });
         const res = await axios.get(
             `https://api.themoviedb.org/3/discover/movie/?api_key=${process.env.REACT_APP_API_KEY}`,
             { params }
         );
-        console.log(res.data);
         return res.data;
     } catch (error) {
         console.error(error);

@@ -1,47 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import GenreItem from "./GenreItem";
+
 import VoteItem from "./VoteItem";
 import LanguageDropdown from "./LanguageDropdown";
-import { GoPlus } from "react-icons/go";
-import { FiMinus } from "react-icons/fi";
+import FilterComponent from "./FilterComponent";
 
 const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
-    const [isExpanded, setIsExpanded] = useState({
-        genres: false,
-        votes: false,
-    });
-
     return (
         <FilterMenuContainer>
-            <Header
-                onClick={() => {
-                    setIsExpanded({
-                        ...isExpanded,
-                        genres: !isExpanded.genres,
-                    });
-                }}
-            >
-                {isExpanded.genres ? <FiMinus /> : <GoPlus />}
-                <h2> Select genre(s) </h2>
-            </Header>
-            <GenreItemWrapper isExpanded={isExpanded.genres}>
-                {genres.map((genre, index) => (
-                    <GenreItem
-                        key={index}
-                        genre={genre}
-                        handleChangeFilters={handleChangeFilters}
-                    ></GenreItem>
-                ))}
-            </GenreItemWrapper>
-            <h2> Select min. vote </h2>
-            {votes.map((vote, index) => (
-                <VoteItem
-                    key={index}
-                    vote={vote}
-                    handleChangeFilters={handleChangeFilters}
-                ></VoteItem>
-            ))}
+            <FilterComponent
+                handleChangeFilters={handleChangeFilters}
+                options={genres}
+                title={"Select genre(s)"}
+                name={"genre"}
+            />
+            <FilterComponent
+                handleChangeFilters={handleChangeFilters}
+                options={votes}
+                title={"Select min. vote"}
+                name={"vote"}
+            />
+
             <h2> Select language </h2>
             <LanguageDropdown
                 languages={languages}
@@ -61,15 +40,11 @@ const FilterMenuContainer = styled.div`
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 `;
 
-const Header = styled.div`
-    display: flex;
-    flex-direction: row;
-`;
+// const Header = styled.div`
+//     display: flex;
+//     flex-direction: row;
+// `;
 
-const HeaderIcon = styled.span`
-    display: ${(props) => (props.isExpanded ? "block" : "none")};
-`;
-
-const GenreItemWrapper = styled.div`
-    display: ${(props) => (props.isExpanded ? "block" : "none")};
-`;
+// const GenreItemWrapper = styled.div`
+//     display: ${(props) => (props.isExpanded ? "block" : "none")};
+// `;

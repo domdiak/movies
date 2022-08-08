@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import defaultImage from "../images/defaultImage.png";
 
 class MovieItem extends React.Component {
     mapGenres = (genresIds, genresNames) => {
@@ -20,6 +21,9 @@ class MovieItem extends React.Component {
             <MovieItemContainer data-testid="movieItem">
                 <PosterImage
                     src={`https://image.tmdb.org/t/p/original/${this.props.movie.poster_path}`}
+                    onError={(e) => {
+                        e.target.src = defaultImage;
+                    }}
                 />
                 <TextContainer>
                     <HeadingContainer>

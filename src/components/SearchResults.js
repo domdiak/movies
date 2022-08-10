@@ -56,34 +56,31 @@ class SearchResults extends React.Component {
             .map((item) => item.id);
     };
 
-    addSavedMovie = (movie) => {
+    addToMovieList = (movie, actionType) => {
+        console.log("actionType:", actionType);
+
         this.setState((prevState) => ({
-            moviesSaved: [...prevState.moviesSaved, movie],
+            [actionType]: [...prevState[actionType], movie],
         }));
 
-        this.state.moviesSaved.some((savedItem) => {
+        this.state[actionType].some((savedItem) => {
             if (savedItem.id === movie.id) {
-                console.log("already added");
-                const updatedMoviesSaved = this.state.moviesSaved.filter(
+                const updatedMoviesSaved = this.state[actionType].filter(
                     (obj) => {
                         return obj.id !== movie.id;
                     }
                 );
 
                 this.setState({
-                    moviesSaved: updatedMoviesSaved,
+                    [actionType]: updatedMoviesSaved,
                 });
             }
         });
     };
-    addWatchedMovie = (movie) => {
-        this.setState((prevState) => ({
-            moviesWatched: [...prevState.moviesWatched, movie],
-        }));
-    };
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log("moviesSaved", this.state.moviesSaved);
+        console.log("saved", this.state.moviesSaved);
+        console.log("watched", this.state.moviesWatched);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
@@ -192,8 +189,7 @@ class SearchResults extends React.Component {
                                     key={index}
                                     movie={movie}
                                     genres={this.state.genres}
-                                    addWatchedMovie={this.addWatchedMovie}
-                                    addSavedMovie={this.addSavedMovie}
+                                    addToMovieList={this.addToMovieList}
                                 />
                             ))}
                     {window.location.pathname === "/watched" &&
@@ -212,8 +208,7 @@ class SearchResults extends React.Component {
                                     key={index}
                                     movie={movie}
                                     genres={this.state.genres}
-                                    addWatchedMovie={this.addWatchedMovie}
-                                    addSavedMovie={this.addSavedMovie}
+                                    addToMovieList={this.addToMovieList}
                                 />
                             ))}
                     {window.location.pathname === "/saved" &&
@@ -232,8 +227,7 @@ class SearchResults extends React.Component {
                                     key={index}
                                     movie={movie}
                                     genres={this.state.genres}
-                                    addWatchedMovie={this.addWatchedMovie}
-                                    addSavedMovie={this.addSavedMovie}
+                                    addToMovieList={this.addToMovieList}
                                 />
                             ))}
                 </MovieListWrapper>

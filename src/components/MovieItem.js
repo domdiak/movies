@@ -4,11 +4,8 @@ import defaultImage from "../images/defaultImage.png";
 import { CgPlayListAdd, CgPlayListCheck } from "react-icons/cg";
 
 class MovieItem extends React.Component {
-    addWatchedMovie = (movie) => {
-        this.props.addWatchedMovie(movie);
-    };
-    addSavedMovie = (movie) => {
-        this.props.addSavedMovie(movie);
+    addToMovieList = (movie, action) => {
+        this.props.addToMovieList(movie, action);
     };
 
     mapGenres = (genresIds, genresNames) => {
@@ -47,18 +44,25 @@ class MovieItem extends React.Component {
                     </Genres>
                     <Description> {this.props.movie.overview} </Description>
                     <Button
-                        name="watched"
+                        name="moviesWatched"
                         onClick={(e) => {
-                            e.preventDefault();
-                            this.addWatchedMovie(this.props.movie);
+                            this.addToMovieList(
+                                this.props.movie,
+                                e.target.name
+                            );
                         }}
                     >
                         {" "}
                         <CgPlayListCheck style={IconStyle} />
                     </Button>
                     <Button
-                        name="saved"
-                        onClick={() => this.addSavedMovie(this.props.movie)}
+                        name="moviesSaved"
+                        onClick={(e) => {
+                            this.addToMovieList(
+                                this.props.movie,
+                                e.target.name
+                            );
+                        }}
                     >
                         {" "}
                         <CgPlayListAdd style={IconStyle} />

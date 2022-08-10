@@ -57,8 +57,6 @@ class SearchResults extends React.Component {
     };
 
     addToMovieList = (movie, actionType) => {
-        console.log("actionType:", actionType);
-
         this.setState((prevState) => ({
             [actionType]: [...prevState[actionType], movie],
         }));
@@ -79,8 +77,6 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log("saved", this.state.moviesSaved);
-        console.log("watched", this.state.moviesWatched);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,

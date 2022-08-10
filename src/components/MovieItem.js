@@ -2,8 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import defaultImage from "../images/defaultImage.png";
 import { CgPlayListAdd, CgPlayListCheck } from "react-icons/cg";
+import { TiTick } from "react-icons/ti";
 
 class MovieItem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isWatched: false,
+            isSaved: false,
+        };
+    }
     addToMovieList = (movie, action) => {
         this.props.addToMovieList(movie, action);
     };
@@ -50,10 +58,15 @@ class MovieItem extends React.Component {
                                 this.props.movie,
                                 e.target.name
                             );
+                            this.setState({ isWatched: !this.state.isWatched });
                         }}
                     >
                         {" "}
-                        <CgPlayListCheck style={IconStyle} />
+                        {this.state.isWatched ? (
+                            <TiTick style={IconStyle} />
+                        ) : (
+                            <CgPlayListCheck style={IconStyle} />
+                        )}
                     </Button>
                     <Button
                         name="moviesSaved"
@@ -62,10 +75,16 @@ class MovieItem extends React.Component {
                                 this.props.movie,
                                 e.target.name
                             );
+                            this.setState({
+                                isSaved: !this.state.isSaved,
+                            });
                         }}
                     >
-                        {" "}
-                        <CgPlayListAdd style={IconStyle} />
+                        {this.state.isSaved ? (
+                            <TiTick style={IconStyle} />
+                        ) : (
+                            <CgPlayListAdd style={IconStyle} />
+                        )}
                     </Button>
                 </TextContainer>
                 <Overlay />

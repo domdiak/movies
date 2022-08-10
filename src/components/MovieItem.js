@@ -3,6 +3,13 @@ import styled from "styled-components";
 import defaultImage from "../images/defaultImage.png";
 
 class MovieItem extends React.Component {
+    addWatchedMovie = (movie) => {
+        this.props.addWatchedMovie(movie);
+    };
+    addSavedMovie = (movie) => {
+        this.props.addSavedMovie(movie);
+    };
+
     mapGenres = (genresIds, genresNames) => {
         let newArray = [];
         for (let i = 0; i < genresIds.length; i++) {
@@ -27,10 +34,7 @@ class MovieItem extends React.Component {
                 />
                 <TextContainer>
                     <HeadingContainer>
-                        <h2>
-                            {this.props.movie.title}{" "}
-                            {this.props.movie.release_date}{" "}
-                        </h2>
+                        <h2>{this.props.movie.title} </h2>
                         <Rating> {this.props.movie.vote_average} </Rating>
                     </HeadingContainer>
                     <Genres>
@@ -41,6 +45,18 @@ class MovieItem extends React.Component {
                         ).join(" | ")}{" "}
                     </Genres>
                     <Description> {this.props.movie.overview} </Description>
+                    <button
+                        onClick={() => this.addWatchedMovie(this.props.movie)}
+                    >
+                        {" "}
+                        Watched
+                    </button>
+                    <button
+                        onClick={() => this.addSavedMovie(this.props.movie)}
+                    >
+                        {" "}
+                        Saved
+                    </button>
                 </TextContainer>
             </MovieItemContainer>
         );

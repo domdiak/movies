@@ -14,6 +14,8 @@ class SearchResults extends React.Component {
         super(props);
         this.state = {
             moviesData: [],
+            moviesWatched: [],
+            moviesSaved: [],
             genres: [],
             keyword: "",
             year: "",
@@ -54,7 +56,22 @@ class SearchResults extends React.Component {
             .map((item) => item.id);
     };
 
+    addSavedMovie = (movie) => {
+        console.log(movie);
+        this.setState((prevState) => ({
+            moviesSaved: [...prevState.moviesSaved, movie],
+        }));
+    };
+    addWatchedMovie = (movie) => {
+        console.log(movie);
+        this.setState((prevState) => ({
+            moviesWatched: [...prevState.moviesWatched, movie],
+        }));
+    };
+
     async componentDidUpdate(prevProps, prevState) {
+        console.log("moviesWatched", this.state.moviesWatched);
+        console.log("moviesSaved", this.state.moviesSaved);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
@@ -139,7 +156,7 @@ class SearchResults extends React.Component {
     render() {
         return (
             <SearchResultsWrapper>
-                <MovieList>
+                <MovieListWrapper>
                     {!this.state.moviesData[0] && (
                         <NoResults>
                             {" "}
@@ -162,9 +179,11 @@ class SearchResults extends React.Component {
                                 key={index}
                                 movie={movie}
                                 genres={this.state.genres}
+                                addWatchedMovie={this.addWatchedMovie}
+                                addSavedMovie={this.addSavedMovie}
                             />
                         ))}
-                </MovieList>
+                </MovieListWrapper>
                 <SearchFilter
                     genres={this.state.genres}
                     languages={this.state.languages}
@@ -188,7 +207,7 @@ const NoResults = styled.div`
     margin: 15px;
 `;
 
-const MovieList = styled.div`
+const MovieListWrapper = styled.div`
     margin-left: 45px;
     margin-right: 15px;
 `;

@@ -4,6 +4,7 @@ import SideMenu from "./src/components/SideMenu";
 import styled from "styled-components";
 import GlobalStyle from "./theme/globalStyles";
 import Theme from "./theme/theme";
+import { Routes, Link, Route } from "react-router-dom";
 
 export default function App() {
     return (
@@ -11,7 +12,11 @@ export default function App() {
             <DisplayContainer>
                 <GlobalStyle />
                 <SideMenu />
-                <SearchResults />
+                <Routes>
+                    <Route path="/" element={<SearchResults />} />
+                    <Route path="/watched" element={<SearchResults />} />
+                    <Route path="/saved" element={<SearchResults />} />
+                </Routes>
             </DisplayContainer>
         </Theme>
     );

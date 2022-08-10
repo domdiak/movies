@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GoSearch, GoCalendar } from "react-icons/go";
+
 import FilterMenu from "./FilterMenu";
 
 function SearchFilter({

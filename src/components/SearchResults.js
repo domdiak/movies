@@ -57,10 +57,24 @@ class SearchResults extends React.Component {
     };
 
     addSavedMovie = (movie) => {
-        console.log(movie);
         this.setState((prevState) => ({
             moviesSaved: [...prevState.moviesSaved, movie],
         }));
+
+        this.state.moviesSaved.some((savedItem) => {
+            if (savedItem.id === movie.id) {
+                console.log("already added");
+                const updatedMoviesSaved = this.state.moviesSaved.filter(
+                    (obj) => {
+                        return obj.id !== movie.id;
+                    }
+                );
+
+                this.setState({
+                    moviesSaved: updatedMoviesSaved,
+                });
+            }
+        });
     };
     addWatchedMovie = (movie) => {
         this.setState((prevState) => ({
@@ -69,6 +83,7 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
+        console.log("moviesSaved", this.state.moviesSaved);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,

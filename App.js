@@ -4,7 +4,7 @@ import SideMenu from "./src/components/SideMenu";
 import styled from "styled-components";
 import GlobalStyle from "./theme/globalStyles";
 import Theme from "./theme/theme";
-import { Routes, Link, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 export default function App() {
     return (

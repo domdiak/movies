@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import defaultImage from "../images/defaultImage.png";
+import { CgPlayListAdd, CgPlayListCheck } from "react-icons/cg";
 
 class MovieItem extends React.Component {
     addWatchedMovie = (movie) => {
@@ -45,23 +46,37 @@ class MovieItem extends React.Component {
                         ).join(" | ")}{" "}
                     </Genres>
                     <Description> {this.props.movie.overview} </Description>
-                    <button
+                    <Button
                         onClick={() => this.addWatchedMovie(this.props.movie)}
                     >
                         {" "}
-                        Watched
-                    </button>
-                    <button
+                        <CgPlayListCheck />
+                    </Button>
+                    <Button
                         onClick={() => this.addSavedMovie(this.props.movie)}
                     >
                         {" "}
-                        Saved
-                    </button>
+                        <CgPlayListAdd />
+                    </Button>
                 </TextContainer>
+                <Overlay />
             </MovieItemContainer>
         );
     }
 }
+
+const Overlay = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+
+    &:hover {
+        opacity: 0.1;
+        transition: 0.5s ease;
+    }
+`;
 
 const MovieItemContainer = styled.div`
     width: 700px;
@@ -70,6 +85,7 @@ const MovieItemContainer = styled.div`
     overflow: hidden;
     margin: 15px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+    position: relative;
 `;
 
 const Rating = styled.div`
@@ -96,14 +112,6 @@ const Description = styled.p`
     max-height: 95px;
 `;
 
-// const Heading = styled.h2`
-//     background-color: ${(props) => props.theme.colors.blue1};
-//     padding: 5px;
-//     margin-right: 5px;
-//     border-radius: 5px;
-//     width: fit-content;
-// `;
-
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -121,6 +129,20 @@ const PosterImage = styled.img`
     height: 160px;
     object-fit: cover;
     margin: 20px 20px;
+`;
+
+const Button = styled.button`
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 50px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+
+    ${MovieItemContainer}:hover & {
+        opacity: 1;
+    }
 `;
 
 export default MovieItem;

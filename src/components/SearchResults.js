@@ -63,15 +63,12 @@ class SearchResults extends React.Component {
         }));
     };
     addWatchedMovie = (movie) => {
-        console.log(movie);
         this.setState((prevState) => ({
             moviesWatched: [...prevState.moviesWatched, movie],
         }));
     };
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log("moviesWatched", this.state.moviesWatched);
-        console.log("moviesSaved", this.state.moviesSaved);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
@@ -164,25 +161,66 @@ class SearchResults extends React.Component {
                         </NoResults>
                     )}
                     <p>Total results: {this.state.total}</p>
-                    {this.state.moviesData
-                        .filter((movie) => {
-                            const selectedIds = this.getFilterIds(
-                                this.state.genres
-                            );
+                    {window.location.pathname === "/" &&
+                        this.state.moviesData
+                            .filter((movie) => {
+                                const selectedIds = this.getFilterIds(
+                                    this.state.genres
+                                );
 
-                            return selectedIds.every((item) => {
-                                return movie.genre_ids.includes(item);
-                            });
-                        })
-                        .map((movie, index) => (
-                            <MovieItem
-                                key={index}
-                                movie={movie}
-                                genres={this.state.genres}
-                                addWatchedMovie={this.addWatchedMovie}
-                                addSavedMovie={this.addSavedMovie}
-                            />
-                        ))}
+                                return selectedIds.every((item) => {
+                                    return movie.genre_ids.includes(item);
+                                });
+                            })
+                            .map((movie, index) => (
+                                <MovieItem
+                                    key={index}
+                                    movie={movie}
+                                    genres={this.state.genres}
+                                    addWatchedMovie={this.addWatchedMovie}
+                                    addSavedMovie={this.addSavedMovie}
+                                />
+                            ))}
+                    {window.location.pathname === "/watched" &&
+                        this.state.moviesWatched
+                            .filter((movie) => {
+                                const selectedIds = this.getFilterIds(
+                                    this.state.genres
+                                );
+
+                                return selectedIds.every((item) => {
+                                    return movie.genre_ids.includes(item);
+                                });
+                            })
+                            .map((movie, index) => (
+                                <MovieItem
+                                    key={index}
+                                    movie={movie}
+                                    genres={this.state.genres}
+                                    addWatchedMovie={this.addWatchedMovie}
+                                    addSavedMovie={this.addSavedMovie}
+                                />
+                            ))}
+                    {window.location.pathname === "/saved" &&
+                        this.state.moviesSaved
+                            .filter((movie) => {
+                                const selectedIds = this.getFilterIds(
+                                    this.state.genres
+                                );
+
+                                return selectedIds.every((item) => {
+                                    return movie.genre_ids.includes(item);
+                                });
+                            })
+                            .map((movie, index) => (
+                                <MovieItem
+                                    key={index}
+                                    movie={movie}
+                                    genres={this.state.genres}
+                                    addWatchedMovie={this.addWatchedMovie}
+                                    addSavedMovie={this.addSavedMovie}
+                                />
+                            ))}
                 </MovieListWrapper>
                 <SearchFilter
                     genres={this.state.genres}

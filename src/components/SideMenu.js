@@ -23,7 +23,9 @@ class SideMenu extends React.Component {
             <SideMenuWrapper>
                 <Logo src={logoImage}></Logo>
                 <Section>
-                    <Heading>Discover</Heading>
+                    <StyledLink to="/">
+                        <Heading>Discover</Heading>
+                    </StyledLink>
                     <GoSearch style={IconStyle} />
                 </Section>
                 <Section onClick={this.toggleisExpanded}>
@@ -35,10 +37,12 @@ class SideMenu extends React.Component {
                     )}
                 </Section>
                 <List isExpanded={this.state.isExpanded}>
-                    <Link to="/watched">
+                    <StyledLink to="/watched">
                         <ListItem> Watched</ListItem>
-                    </Link>
-                    <ListItem> Saved</ListItem>
+                    </StyledLink>
+                    <StyledLink to="/saved">
+                        <ListItem> Saved</ListItem>
+                    </StyledLink>
                 </List>
             </SideMenuWrapper>
         );
@@ -81,6 +85,11 @@ const Section = styled.div`
     &:hover {
         background-color: ${(props) => props.theme.colors.blue2};
     }
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
 `;
 
 const IconStyle = {

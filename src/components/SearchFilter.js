@@ -68,7 +68,9 @@ function SearchFilter({
                             onChange={handleChange}
                         />
                     </InputWrapper>
-                    {error.keyword && <p> Required field </p>}
+                    {error.keyword && (
+                        <ErrorMessage> Required field </ErrorMessage>
+                    )}
 
                     <InputWrapper>
                         <GoCalendar
@@ -85,7 +87,9 @@ function SearchFilter({
                             onChange={handleChange}
                         />
                     </InputWrapper>
-                    {error.year && <p> Required full year </p>}
+                    {error.year && (
+                        <ErrorMessage> Required full year </ErrorMessage>
+                    )}
                 </SearchBarContainer>
                 <FilterMenu
                     genres={genres}
@@ -128,17 +132,23 @@ const SearchFilterContainer = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    margin: 15px;
-    width: 250px;
+    margin-top: 50px;
     margin-right: 45px;
+    width: 250px;
 `;
 
 const SearchBarContainer = styled.div`
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
+    min-height: 140px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+`;
+
+const ErrorMessage = styled.p`
+    margin: 3px;
+    color: red;
 `;
 
 export default SearchFilter;

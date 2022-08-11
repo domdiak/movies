@@ -51,6 +51,7 @@ class SideMenu extends React.Component {
 
 const SideMenuWrapper = styled.div`
     width: 260px;
+    min-height: 100vh;
     background-color: ${(props) => props.theme.colors.grey1};
 `;
 
@@ -59,7 +60,8 @@ const Heading = styled.h1`
 `;
 
 const Logo = styled.img`
-    width: 260px;
+    height: 50px;
+    width: 170px;
 `;
 
 const List = styled.div`

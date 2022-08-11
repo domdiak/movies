@@ -25,7 +25,7 @@ class SearchResults extends React.Component {
             year: "",
             currentPage: 1,
             totalPages: 500,
-            isLoading: false,
+            isLoading: true,
             languages: [
                 { name: "English", id: "en", isChecked: false },
                 { name: "German", id: "de", isChecked: false },
@@ -105,7 +105,6 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
-        // console.log("this.state.currentPage", this.state.currentPage);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
@@ -188,6 +187,7 @@ class SearchResults extends React.Component {
         this.setState({
             moviesData: popularMovies.results,
             genres: updatedGenres,
+            isLoading: false,
         });
     }
 
@@ -200,14 +200,17 @@ class SearchResults extends React.Component {
             <SearchResultsWrapper>
                 {this.state.isLoading && <Spinner />}
                 <MovieListWrapper>
-                    {!this.state.moviesData[0] && (
+                    {this.state.total > 0 && (
+                        <CountWrapper>
+                            Total results: {this.state.total}
+                        </CountWrapper>
+                    )}
+                    {!this.state.moviesData.length && !this.state.isLoading && (
                         <NoResults>
                             {" "}
                             <h1>No results have been found!</h1>{" "}
                         </NoResults>
                     )}
-
-                    <p>Total results: {this.state.total}</p>
 
                     {window.location.pathname === "/" &&
                         this.state.moviesData
@@ -266,10 +269,12 @@ class SearchResults extends React.Component {
                                     addToMovieList={this.addToMovieList}
                                 />
                             ))}
-                    <Pagination
-                        onPageChange={this.handlePageChange}
-                        totalPages={this.state.totalPages}
-                    />
+                    {window.location.pathname === "/" && (
+                        <Pagination
+                            onPageChange={this.handlePageChange}
+                            totalPages={this.state.totalPages}
+                        />
+                    )}
                 </MovieListWrapper>
                 <SearchFilter
                     genres={this.state.genres}
@@ -289,14 +294,23 @@ const SearchResultsWrapper = styled.div`
 `;
 
 const NoResults = styled.div`
+    // border: 1px solid black;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
     width: 700px;
     height: 200px;
-    margin: 15px;
+    margin: 35px;
+`;
+const CountWrapper = styled.p`
+    height: 20px;
+    margin-left: 15px;
 `;
 
 const MovieListWrapper = styled.div`
     margin-left: 45px;
     margin-right: 15px;
+    margin-top: 15px;
+    min-width: 700px;
 `;
 
 export default SearchResults;

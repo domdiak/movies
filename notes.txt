@@ -64,26 +64,28 @@ vote_average
 Todos: 
 
 Layout: 
--> Adjust containers on the top 
--> Fix logo height
+-> Adjust containers on the top DONE
+-> Fix logo height DONE
 
 
 SearchBar: 
--> Implement pagination DONE 
--> Add loading page 
+-> Add loading page DONE
 -> Refactor 'No results'
--> Fix background color to cover the whole width
+        --> Aligned but needs additional design
+-> Fix background color to cover the whole width 
 
 SearchResults:
--> Fix the collapse when no results 
--> Add loading page on mount 
+-> Implement pagination DONE 
+-> Fix the collapse when no results DONE
+-> Add loading page on mount DONE
 
 SideBar: 
 -> Fix colors on the SideBar
--> Fix height of the container when clicking on Watched / Saved (no results)
+-> Fix height of the container when clicking on Watched / Saved (no results) DONE
 Search/Filter Bar:
 -> Fix Dropdown 
 -> Fix css for search errors 
+-> 
 
 Fetcher: 
 
@@ -92,3 +94,5 @@ General:
 
 Questions: 
 --> Optimise the lists 
+--> Debouncing: 
+        -> Interaction with the loading state

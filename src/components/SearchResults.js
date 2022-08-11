@@ -10,7 +10,6 @@ import Spinner from "./Spinner";
 import SearchFilter from "./SearchFilter";
 import Pagination from "./Pagination";
 import debounce from "lodash.debounce";
-import { TiShoppingBag } from "react-icons/ti";
 
 class SearchResults extends React.Component {
     constructor(props) {

@@ -114,6 +114,7 @@ const MovieItemContainer = styled.div`
     margin: 15px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
     position: relative;
+    border-radius: 10px;
 `;
 
 const Rating = styled.div`

@@ -6,10 +6,6 @@ import styled from "styled-components";
 const LanguageDropdown = ({ languages, handleChangeFilters, title }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const IconStyle = {
-        margin: "5px",
-        height: "25px",
-    };
     const toggleisExpanded = () => setIsExpanded(!isExpanded);
     return (
         <>
@@ -61,11 +57,16 @@ const CustomDropdown = styled.div`
     // background-image: ${(props) => props.theme.colors.grey1};
 `;
 
+const IconStyle = {
+    margin: "5px",
+    height: "25px",
+};
+
 const Header = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 3px;
+    padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
 

@@ -9,11 +9,6 @@ const FilterComponent = ({ handleChangeFilters, options, title, name }) => {
 
     const toggleisExpanded = () => setIsExpanded(!isExpanded);
 
-    const IconStyle = {
-        margin: "5px",
-        height: "25px",
-    };
-
     return (
         <>
             <Header onClick={toggleisExpanded}>
@@ -40,11 +35,16 @@ const FilterComponent = ({ handleChangeFilters, options, title, name }) => {
 
 export default FilterComponent;
 
+const IconStyle = {
+    margin: "5px",
+    height: "25px",
+};
+
 const Header = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 3px;
+    padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
 

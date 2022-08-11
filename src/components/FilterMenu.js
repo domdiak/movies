@@ -34,7 +34,7 @@ export default FilterMenu;
 const FilterMenuContainer = styled.div`
     margin: 10px;
     margin-top: 15px;
-    padding: 10px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);

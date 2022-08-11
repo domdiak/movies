@@ -95,17 +95,17 @@ class SearchResults extends React.Component {
         }
     }
 
-    handleChangeFilters = (filterValue, target) => {
+    handleChangeFilters = (filterValue, filterType) => {
         const filterGroup =
-            target === "genre"
+            filterType === "genre"
                 ? this.state.genres
-                : target === "vote"
+                : filterType === "vote"
                 ? this.state.votes
                 : this.state.languages;
 
         const newFilterGroup = filterGroup.map((filter) => {
             // manually resets all filters back to false
-            if (target === "language") {
+            if (filterType === "language") {
                 if (filterValue !== filter.id) {
                     const resetFilter = {
                         ...filter,
@@ -124,11 +124,11 @@ class SearchResults extends React.Component {
 
             return filter;
         });
-        if (target === "genre") {
+        if (filterType === "genre") {
             this.setState({
                 genres: newFilterGroup,
             });
-        } else if (target === "vote") {
+        } else if (filterType === "vote") {
             this.setState({
                 votes: newFilterGroup,
             });
@@ -147,6 +147,7 @@ class SearchResults extends React.Component {
     async componentDidMount() {
         const genres = await getGenreList();
         const popularMovies = await getPopularMovies();
+        console.log("popularMovies", popularMovies);
 
         const updatedGenres = genres.map((genre) => {
             return { ...genre, isChecked: false };

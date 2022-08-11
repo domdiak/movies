@@ -7,11 +7,15 @@ import {
 import styled from "styled-components";
 import MovieItem from "./MovieItem";
 import SearchFilter from "./SearchFilter";
+import Pagination from "./Pagination";
 import debounce from "lodash.debounce";
+import ReactPaginate from "react-paginate";
+import { Circles } from "react-loader-spinner";
 
 class SearchResults extends React.Component {
     constructor(props) {
         super(props);
+        this.handlePageChange = this.handlePageChange.bind(this);
         this.state = {
             moviesData: [],
             moviesWatched: [],
@@ -19,6 +23,8 @@ class SearchResults extends React.Component {
             genres: [],
             keyword: "",
             year: "",
+            currentPage: 1,
+            totalPages: 500,
             languages: [
                 { name: "English", id: "en", isChecked: false },
                 { name: "German", id: "de", isChecked: false },
@@ -39,11 +45,18 @@ class SearchResults extends React.Component {
         this.setState({ ...state });
     };
 
-    getMovies = async ({ keyword, year, genres, votes, languages }) => {
+    getMovies = async ({
+        keyword,
+        year,
+        genres,
+        votes,
+        languages,
+        currentPage,
+    }) => {
         const moviesData =
             this.state.keyword === ""
-                ? await getPopularMovies(genres, votes, languages)
-                : await getMoviesByKeyword(keyword, year, genres);
+                ? await getPopularMovies(genres, votes, languages, currentPage)
+                : await getMoviesByKeyword(keyword, year, genres, currentPage);
         this.setState({
             moviesData: moviesData.results,
             total: moviesData.total_results,
@@ -77,12 +90,14 @@ class SearchResults extends React.Component {
     };
 
     async componentDidUpdate(prevProps, prevState) {
+        // console.log("this.state.currentPage", this.state.currentPage);
         const params = {
             keyword: this.state.keyword,
             year: this.state.year,
             genres: this.getFilterIds(this.state.genres),
             votes: this.getFilterIds(this.state.votes),
             languages: this.getFilterIds(this.state.languages),
+            currentPage: this.state.currentPage,
         };
         if (
             prevState.keyword !== this.state.keyword ||
@@ -91,6 +106,9 @@ class SearchResults extends React.Component {
             prevState.votes !== this.state.votes ||
             prevState.languages !== this.state.languages
         ) {
+            await this.getMovies(params);
+        }
+        if (prevState.currentPage !== this.state.currentPage) {
             await this.getMovies(params);
         }
     }
@@ -147,7 +165,6 @@ class SearchResults extends React.Component {
     async componentDidMount() {
         const genres = await getGenreList();
         const popularMovies = await getPopularMovies();
-        console.log("popularMovies", popularMovies);
 
         const updatedGenres = genres.map((genre) => {
             return { ...genre, isChecked: false };
@@ -157,6 +174,10 @@ class SearchResults extends React.Component {
             moviesData: popularMovies.results,
             genres: updatedGenres,
         });
+    }
+
+    handlePageChange({ selected }) {
+        this.setState({ currentPage: selected + 1 });
     }
 
     render() {
@@ -169,7 +190,12 @@ class SearchResults extends React.Component {
                             <h1>No results have been found!</h1>{" "}
                         </NoResults>
                     )}
+
                     <p>Total results: {this.state.total}</p>
+                    <Pagination
+                        onPageChange={this.handlePageChange}
+                        totalPages={this.state.totalPages}
+                    />
                     {window.location.pathname === "/" &&
                         this.state.moviesData
                             .filter((movie) => {

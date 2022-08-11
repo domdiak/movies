@@ -1,15 +1,14 @@
 import axios from "axios";
-// import { API_KEY } from "./secrets";
 const language = "en-US";
-
-// Min vote:  vote_average.gte
-// Genres: with_genres (defintion: Comma separated value of genre ids that you want to include in the results.)
 
 // Check if API KEY goes into params as well
 
-export async function getPopularMovies(genres, votes = [], languages = []) {
-    // console.log("getPopularMovies is triggered");
-
+export async function getPopularMovies(
+    genres,
+    votes = [],
+    languages = [],
+    currentPage
+) {
     let genresToString;
     if (genres) {
         genresToString = genres.join(",");
@@ -24,6 +23,7 @@ export async function getPopularMovies(genres, votes = [], languages = []) {
         with_genres: genresToString,
         "vote_average.gte": minVote,
         with_original_language: languages.join(),
+        page: currentPage,
     };
 
     try {
@@ -37,7 +37,7 @@ export async function getPopularMovies(genres, votes = [], languages = []) {
     }
 }
 
-export async function getMoviesByKeyword(query, year, genres) {
+export async function getMoviesByKeyword(query, year, genres, currentPage) {
     console.log("getMoviesByKeyword is triggered");
     console.log("genres", genres);
     const params = {

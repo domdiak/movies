@@ -6,11 +6,11 @@ import {
 } from "../../fetcher";
 import styled from "styled-components";
 import MovieItem from "./MovieItem";
+import Spinner from "./Spinner";
 import SearchFilter from "./SearchFilter";
 import Pagination from "./Pagination";
 import debounce from "lodash.debounce";
-import ReactPaginate from "react-paginate";
-import { Circles } from "react-loader-spinner";
+import { TiShoppingBag } from "react-icons/ti";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -25,6 +25,7 @@ class SearchResults extends React.Component {
             year: "",
             currentPage: 1,
             totalPages: 500,
+            isLoading: false,
             languages: [
                 { name: "English", id: "en", isChecked: false },
                 { name: "German", id: "de", isChecked: false },
@@ -45,6 +46,14 @@ class SearchResults extends React.Component {
         this.setState({ ...state });
     };
 
+    delayLoading = () => {
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            });
+        }, 1000);
+    };
+
     getMovies = async ({
         keyword,
         year,
@@ -53,6 +62,10 @@ class SearchResults extends React.Component {
         languages,
         currentPage,
     }) => {
+        this.setState({
+            isLoading: true,
+        });
+
         const moviesData =
             this.state.keyword === ""
                 ? await getPopularMovies(genres, votes, languages, currentPage)
@@ -61,6 +74,8 @@ class SearchResults extends React.Component {
             moviesData: moviesData.results,
             total: moviesData.total_results,
         });
+
+        this.delayLoading();
     };
 
     getFilterIds = (filterGroup) => {
@@ -183,6 +198,7 @@ class SearchResults extends React.Component {
     render() {
         return (
             <SearchResultsWrapper>
+                {this.state.isLoading && <Spinner />}
                 <MovieListWrapper>
                     {!this.state.moviesData[0] && (
                         <NoResults>
@@ -192,10 +208,7 @@ class SearchResults extends React.Component {
                     )}
 
                     <p>Total results: {this.state.total}</p>
-                    <Pagination
-                        onPageChange={this.handlePageChange}
-                        totalPages={this.state.totalPages}
-                    />
+
                     {window.location.pathname === "/" &&
                         this.state.moviesData
                             .filter((movie) => {
@@ -253,6 +266,10 @@ class SearchResults extends React.Component {
                                     addToMovieList={this.addToMovieList}
                                 />
                             ))}
+                    <Pagination
+                        onPageChange={this.handlePageChange}
+                        totalPages={this.state.totalPages}
+                    />
                 </MovieListWrapper>
                 <SearchFilter
                     genres={this.state.genres}

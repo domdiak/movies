@@ -29,8 +29,7 @@ const ReactPaginateWrapper = styled(ReactPaginate)`
     font-size: 25px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    border: 1px solid black;
+    justify-content: space-between;
 
     .active {
         border: 2px solid black;

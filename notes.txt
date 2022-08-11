@@ -59,3 +59,36 @@ original_language: "en", "fr", "de", "it"
 
 Filters for scoring: 
 vote_average
+
+
+Todos: 
+
+Layout: 
+-> Adjust containers on the top 
+-> Fix logo height
+
+
+SearchBar: 
+-> Implement pagination DONE 
+-> Add loading page 
+-> Refactor 'No results'
+-> Fix background color to cover the whole width
+
+SearchResults:
+-> Fix the collapse when no results 
+-> Add loading page on mount 
+
+SideBar: 
+-> Fix colors on the SideBar
+-> Fix height of the container when clicking on Watched / Saved (no results)
+Search/Filter Bar:
+-> Fix Dropdown 
+-> Fix css for search errors 
+
+Fetcher: 
+
+General: 
+-> Fix folder structure
+
+Questions: 
+--> Optimise the lists 

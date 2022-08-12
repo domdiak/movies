@@ -26,10 +26,30 @@ class SearchResults extends React.Component {
             totalPages: 500,
             isLoading: true,
             languages: [
-                { name: "English", id: "en", isChecked: false },
-                { name: "German", id: "de", isChecked: false },
-                { name: "French", id: "fr", isChecked: false },
-                { name: "Italian", id: "it", isChecked: false },
+                {
+                    name: "English",
+                    id: "en",
+                    isChecked: false,
+                    label: "English",
+                },
+                {
+                    name: "German",
+                    id: "de",
+                    isChecked: false,
+                    label: "German",
+                },
+                {
+                    name: "French",
+                    id: "fr",
+                    isChecked: false,
+                    label: "French",
+                },
+                {
+                    name: "Italian",
+                    id: "it",
+                    isChecked: false,
+                    label: "Italian",
+                },
             ],
             votes: [
                 { name: 6, id: 6, isChecked: false },
@@ -127,6 +147,7 @@ class SearchResults extends React.Component {
     }
 
     handleChangeFilters = (filterValue, filterType) => {
+        console.log(filterValue, filterType);
         const filterGroup =
             filterType === "genre"
                 ? this.state.genres

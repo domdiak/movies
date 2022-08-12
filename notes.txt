@@ -72,7 +72,7 @@ SearchBar:
 -> Add loading page DONE
 -> Refactor 'No results'
         --> Aligned but needs additional design
--> Fix background color to cover the whole width 
+-> Fix background color to cover the whole width  DONE
 
 SearchResults:
 -> Implement pagination DONE 
@@ -80,12 +80,17 @@ SearchResults:
 -> Add loading page on mount DONE
 
 SideBar: 
--> Fix colors on the SideBar
+-> Fix colors on the SideBar 
 -> Fix height of the container when clicking on Watched / Saved (no results) DONE
 Search/Filter Bar:
 -> Fix Dropdown 
--> Fix css for search errors 
+        --> Language is hardcoded
+-> Fix css for search errors DONE
 -> 
+
+Lists: 
+--> Add 0 results 
+--> Fix the buttons 
 
 Fetcher: 
 
@@ -93,6 +98,8 @@ General:
 -> Fix folder structure
 
 Questions: 
---> Optimise the lists 
+--> Optimise the lists set up
 --> Debouncing: 
         -> Interaction with the loading state
+        -> images loading 
+--> State for filters

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
 import styled from "styled-components";
@@ -8,10 +8,6 @@ const LanguageDropdown = ({ languages, handleChangeFilters, title }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleisExpanded = () => setIsExpanded(!isExpanded);
-
-    // const handleChange = (selectedOption) => {
-    //     console.log(selectedOption);
-    // };
 
     return (
         <>
@@ -24,12 +20,15 @@ const LanguageDropdown = ({ languages, handleChangeFilters, title }) => {
                 <h3> {title} </h3>
             </Header>
             {isExpanded && (
-                <Select
+                <StyledSelect
                     onChange={(selectedOption) => {
                         handleChangeFilters(selectedOption.id, "language");
                     }}
+                    classNamePrefix="react-select"
+                    classNameMenuList="menuList"
                     options={languages}
                     isSearchable={false}
+                    defaultMenuIsOpen
                 />
             )}
         </>
@@ -56,9 +55,13 @@ const Header = styled.div`
     }
 `;
 
-// const CustomStyle = {
-//     option: (base, state) => ({
-//         ...base,
-//         backgroundColor: state.isSelected ? "red" : "yellow",
-//     }),
-// };
+const StyledSelect = styled(Select)`
+    padding: 10px;
+    width: 100%;
+
+    .react-select__menu {
+        width: 90%;
+        margin-top: 0px;
+        top: 50px;
+    }
+`;

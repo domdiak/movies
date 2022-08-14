@@ -110,8 +110,15 @@ SearchResults refactor:
         -> Saved: boolean 
 
 SearchBar + Filters ideas:
---> Turn Search Bar into a component at SearchFilter level 
+--> Turn Search Bar into a component at SearchFilter level DONE 
 --> Fix year keyword when length > 4
---> Object structure for the filters
---> Refactor handleChangeFilters
---> Refactor handleChange / state in SearchFilter
+--> Object structure for the filters DONE
+--> Refactor handleChangeFilters DONE
+--> Refactor handleChange / state in SearchFilter DONE
+--> Refactor JSX in SearchBar
+
+
+SearchResults:
+--> pass right data to SearchResults component DONE
+--> updated addToMovieList function DONE
+--> Fix button display and managing state in the /watched and /saved compoentns

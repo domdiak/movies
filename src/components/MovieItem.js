@@ -12,8 +12,8 @@ class MovieItem extends React.Component {
             isSaved: false,
         };
     }
-    addToMovieList = (movie, action) => {
-        this.props.addToMovieList(movie, action);
+    addToMovieList = (movie, movieGroup) => {
+        this.props.addToMovieList(movie, movieGroup);
     };
 
     mapGenres = (genresIds, genresNames) => {

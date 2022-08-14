@@ -5,7 +5,6 @@ import {
     getGenreList,
 } from "../../fetcher";
 import styled from "styled-components";
-import MovieItem from "./MovieItem";
 import Spinner from "./Spinner";
 import SearchCriteria from "./SearchCriteria";
 import MoviesList from "./MoviesList";
@@ -122,29 +121,37 @@ class SearchResults extends React.Component {
         this.delayLoading();
     };
 
-    getFilterIds = (filterGroup) => {
-        return filterGroup
-            .filter((filter) => filter.isChecked)
-            .map((item) => item.id);
-    };
-
-    addToMovieList = (movie, actionType) => {
+    addToMovieList = (movie, movieGroup) => {
         this.setState((prevState) => ({
-            [actionType]: [...prevState[actionType], movie],
+            [movieGroup]: [...prevState[movieGroup], movie],
         }));
 
-        this.state[actionType].some((savedItem) => {
+        this.state[movieGroup].some((savedItem) => {
             if (savedItem.id === movie.id) {
-                const updatedMoviesSaved = this.state[actionType].filter(
+                const updatedMoviesSaved = this.state[movieGroup].filter(
                     (obj) => {
                         return obj.id !== movie.id;
                     }
                 );
                 this.setState({
-                    [actionType]: updatedMoviesSaved,
+                    [movieGroup]: updatedMoviesSaved,
                 });
             }
         });
+    };
+
+    handleChangeFilters = (filterValue, filterType) => {
+        if (filterType === "languages") {
+            this.setState({
+                selectedLanguage: filterValue,
+            });
+        } else {
+            const newFilterGroup = this.updateFilterGroup(
+                filterValue,
+                filterType
+            );
+            this.setState({ [filterType]: newFilterGroup });
+        }
     };
 
     updateFilterGroup = (filterValue, filterType) => {
@@ -162,19 +169,10 @@ class SearchResults extends React.Component {
         });
     };
 
-    handleChangeFilters = (filterValue, filterType) => {
-        console.log("value", filterValue, "type", filterType);
-        if (filterType === "languages") {
-            this.setState({
-                selectedLanguage: filterValue,
-            });
-        } else {
-            const newFilterGroup = this.updateFilterGroup(
-                filterValue,
-                filterType
-            );
-            this.setState({ [filterType]: newFilterGroup });
-        }
+    getFilterIds = (filterGroup) => {
+        return filterGroup
+            .filter((filter) => filter.isChecked)
+            .map((item) => item.id);
     };
 
     getMoviesDebounced = debounce(
@@ -186,13 +184,26 @@ class SearchResults extends React.Component {
         this.setState({ currentPage: selected + 1 });
     }
 
+    getRightMovies = (pathname) => {
+        console.log("pathname", pathname);
+        const movies =
+            pathname === "/"
+                ? this.state.moviesData
+                : pathname === "/watched"
+                ? this.state.moviesWatched
+                : this.state.moviesSaved;
+
+        return movies;
+    };
+
     render() {
         return (
             <SearchResultsWrapper>
                 {this.state.isLoading && <Spinner />}
+
                 <MoviesList
                     total={this.state.total}
-                    moviesData={this.state.moviesData}
+                    moviesData={this.getRightMovies(window.location.pathname)}
                     isLoading={this.state.isLoading}
                     genres={this.state.genres}
                     getFilterIds={this.getFilterIds}
@@ -219,24 +230,5 @@ class SearchResults extends React.Component {
 const SearchResultsWrapper = styled.div`
     display: flex;
 `;
-
-// const NoResults = styled.div`
-//     padding: 10px;
-//     box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
-//     width: 700px;
-//     height: 200px;
-//     margin: 35px;
-// `;
-// const CountWrapper = styled.p`
-//     height: 20px;
-//     margin-left: 15px;
-// `;
-
-// const MovieListWrapper = styled.div`
-//     margin-left: 45px;
-//     margin-right: 15px;
-//     margin-top: 15px;
-//     min-width: 700px;
-// `;
 
 export default SearchResults;

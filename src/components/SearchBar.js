@@ -1,8 +1,51 @@
 import { GoSearch, GoCalendar } from "react-icons/go";
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const SearchBar = ({ handleChange, error }) => {
+const SearchBar = ({ onSearch }) => {
+    const [error, setError] = useState({
+        keyword: "",
+        year: "",
+    });
+    const [inputs, setInputs] = useState({
+        keyword: "",
+        year: 0,
+    });
+
+    useEffect(() => {
+        validateInputs(inputs);
+    }, [inputs]);
+
+    const handleChange = (e) => {
+        setInputs({
+            ...inputs,
+            [e.target.name]: e.target.value,
+        });
+
+        if (!error.keyword && !error.year) {
+            onSearch({ [e.target.name]: e.target.value });
+        }
+    };
+    const validateInputs = (inputs) => {
+        if (inputs.keyword === "" && inputs.year.length > 3) {
+            setError(
+                { ...error, keyword: "Required field" },
+                console.log(error)
+            );
+        } else if (
+            !inputs.keyword == "" &&
+            inputs.year > 0 &&
+            inputs.year.length < 4
+        ) {
+            setError({ ...error, year: "Required full year" });
+        } else {
+            setError({
+                keyword: "",
+                year: "",
+            });
+        }
+    };
+
     return (
         <>
             <SearchBarContainer>
@@ -21,7 +64,9 @@ const SearchBar = ({ handleChange, error }) => {
                         onChange={handleChange}
                     />
                 </InputWrapper>
-                {error.keyword && <ErrorMessage> Required field </ErrorMessage>}
+                {error.keyword && (
+                    <ErrorMessage> {error.keyword} </ErrorMessage>
+                )}
 
                 <InputWrapper>
                     <GoCalendar
@@ -38,9 +83,7 @@ const SearchBar = ({ handleChange, error }) => {
                         onChange={handleChange}
                     />
                 </InputWrapper>
-                {error.year && (
-                    <ErrorMessage> Required full year </ErrorMessage>
-                )}
+                {error.year && <ErrorMessage> {error.year} </ErrorMessage>}
             </SearchBarContainer>
         </>
     );

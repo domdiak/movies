@@ -62,22 +62,24 @@ class SearchResults extends React.Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log("selectedLanguage", this.state.selectedLanguage);
+        const { keyword, year, genres, votes, selectedLanguage, currentPage } =
+            this.state;
+
         const params = {
-            keyword: this.state.keyword,
-            year: this.state.year,
-            genres: this.getFilterIds(this.state.genres),
-            votes: this.getFilterIds(this.state.votes),
-            selectedLanguage: this.state.selectedLanguage,
-            currentPage: this.state.currentPage,
+            keyword: keyword,
+            year: year,
+            genres: this.getFilterIds(genres),
+            votes: this.getFilterIds(votes),
+            selectedLanguage: selectedLanguage,
+            currentPage: currentPage,
         };
         if (
-            prevState.keyword !== this.state.keyword ||
-            prevState.year !== this.state.year ||
-            prevState.genres !== this.state.genres ||
-            prevState.votes !== this.state.votes ||
-            prevState.selectedLanguage !== this.state.selectedLanguage ||
-            prevState.currentPage !== this.state.currentPage
+            prevState.keyword !== keyword ||
+            prevState.year !== year ||
+            prevState.genres !== genres ||
+            prevState.votes !== votes ||
+            prevState.selectedLanguage !== selectedLanguage ||
+            prevState.currentPage !== currentPage
         ) {
             await this.getMovies(params);
         }

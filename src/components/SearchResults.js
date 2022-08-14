@@ -7,7 +7,7 @@ import {
 import styled from "styled-components";
 import MovieItem from "./MovieItem";
 import Spinner from "./Spinner";
-import SearchFilter from "./SearchFilter";
+import SearchCriteria from "./SearchCriteria";
 import Pagination from "./Pagination";
 import debounce from "lodash.debounce";
 
@@ -19,12 +19,18 @@ class SearchResults extends React.Component {
             moviesData: [],
             moviesWatched: [],
             moviesSaved: [],
-            genres: [],
             keyword: "",
             year: "",
             currentPage: 1,
             totalPages: 500,
             isLoading: true,
+            genres: [],
+
+            //             {
+            //     "id": 28,
+            //     "name": "Action",
+            //     "isChecked": false
+            // }
             languages: [
                 {
                     name: "English",
@@ -70,7 +76,7 @@ class SearchResults extends React.Component {
             this.setState({
                 isLoading: false,
             });
-        }, 1000);
+        }, 100);
     };
 
     getMovies = async ({
@@ -137,27 +143,25 @@ class SearchResults extends React.Component {
             prevState.year !== this.state.year ||
             prevState.genres !== this.state.genres ||
             prevState.votes !== this.state.votes ||
-            prevState.languages !== this.state.languages
+            prevState.languages !== this.state.languages ||
+            prevState.currentPage !== this.state.currentPage
         ) {
-            await this.getMovies(params);
-        }
-        if (prevState.currentPage !== this.state.currentPage) {
             await this.getMovies(params);
         }
     }
 
     handleChangeFilters = (filterValue, filterType) => {
-        console.log(filterValue, filterType);
+        console.log("value", filterValue, "type", filterType);
         const filterGroup =
-            filterType === "genre"
+            filterType === "genres"
                 ? this.state.genres
-                : filterType === "vote"
+                : filterType === "votes"
                 ? this.state.votes
                 : this.state.languages;
 
         const newFilterGroup = filterGroup.map((filter) => {
             // manually resets all filters back to false
-            if (filterType === "language") {
+            if (filterType === "languages") {
                 if (filterValue !== filter.id) {
                     const resetFilter = {
                         ...filter,
@@ -176,19 +180,20 @@ class SearchResults extends React.Component {
 
             return filter;
         });
-        if (filterType === "genre") {
-            this.setState({
-                genres: newFilterGroup,
-            });
-        } else if (filterType === "vote") {
-            this.setState({
-                votes: newFilterGroup,
-            });
-        } else {
-            this.setState({
-                languages: newFilterGroup,
-            });
-        }
+        // if (filterType === "genre") {
+        //     this.setState({
+        //         genres: newFilterGroup,
+        //     });
+        // } else if (filterType === "vote") {
+        //     this.setState({
+        //         votes: newFilterGroup,
+        //     });
+        // } else {
+        //     this.setState({
+        //         languages: newFilterGroup,
+        //     });
+        // }
+        this.setState({ [filterType]: newFilterGroup });
     };
 
     getMoviesDebounced = debounce(
@@ -203,6 +208,8 @@ class SearchResults extends React.Component {
         const updatedGenres = genres.map((genre) => {
             return { ...genre, isChecked: false };
         });
+
+        console.log("genres", updatedGenres);
 
         this.setState({
             moviesData: popularMovies.results,
@@ -296,13 +303,12 @@ class SearchResults extends React.Component {
                         />
                     )}
                 </MovieListWrapper>
-                <SearchFilter
+                <SearchCriteria
                     genres={this.state.genres}
                     languages={this.state.languages}
                     votes={this.state.votes}
-                    onChange={this.onSearch}
+                    onSearch={this.onSearch}
                     handleChangeFilters={this.handleChangeFilters}
-                    filterResults={this.filterResults}
                 />
             </SearchResultsWrapper>
         );
@@ -314,7 +320,6 @@ const SearchResultsWrapper = styled.div`
 `;
 
 const NoResults = styled.div`
-    // border: 1px solid black;
     padding: 10px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
     width: 700px;

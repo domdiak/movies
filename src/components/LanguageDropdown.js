@@ -22,13 +22,12 @@ const LanguageDropdown = ({ languages, handleChangeFilters, title }) => {
             {isExpanded && (
                 <StyledSelect
                     onChange={(selectedOption) => {
-                        handleChangeFilters(selectedOption.id, "language");
+                        handleChangeFilters(selectedOption.id, "languages");
                     }}
                     classNamePrefix="react-select"
                     classNameMenuList="menuList"
                     options={languages}
                     isSearchable={false}
-                    defaultMenuIsOpen
                 />
             )}
         </>

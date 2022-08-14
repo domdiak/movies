@@ -4,7 +4,12 @@ import { FiMinus } from "react-icons/fi";
 import styled from "styled-components";
 import FilterItem from "./FilterItem";
 
-const FilterComponent = ({ handleChangeFilters, options, title, name }) => {
+const FilterComponent = ({
+    handleChangeFilters,
+    options,
+    title,
+    filterType,
+}) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleisExpanded = () => setIsExpanded(!isExpanded);
@@ -25,8 +30,8 @@ const FilterComponent = ({ handleChangeFilters, options, title, name }) => {
                         key={index}
                         item={item}
                         handleChangeFilters={handleChangeFilters}
-                        name={name}
-                    ></FilterItem>
+                        filterType={filterType}
+                    />
                 ))}
             </FilterItemWrapper>
         </>

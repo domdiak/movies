@@ -11,13 +11,13 @@ const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
                 handleChangeFilters={handleChangeFilters}
                 options={genres}
                 title={"Select genre(s)"}
-                name={"genre"}
+                filterType={"genres"}
             />
             <FilterComponent
                 handleChangeFilters={handleChangeFilters}
                 options={votes}
                 title={"Select min. vote"}
-                name={"vote"}
+                filterType={"votes"}
             />
 
             <LanguageDropdown

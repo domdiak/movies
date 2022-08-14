@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { GoSearch } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import logoImage from "../images/Logo.jpg";
+import logoImage from "../images/Logo.png";
 
 class SideMenu extends React.Component {
     constructor(props) {
@@ -62,6 +62,7 @@ const Heading = styled.h1`
 const Logo = styled.img`
     height: 50px;
     width: 170px;
+    padding: 10px;
 `;
 
 const List = styled.div`

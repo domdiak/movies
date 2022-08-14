@@ -83,7 +83,7 @@ SideBar:
 -> Fix colors on the SideBar 
 -> Fix height of the container when clicking on Watched / Saved (no results) DONE
 Search/Filter Bar:
--> Fix Dropdown 
+-> Fix Dropdown DONE
         --> Language is hardcoded
 -> Fix css for search errors DONE
 -> 
@@ -103,3 +103,15 @@ Questions:
         -> Interaction with the loading state
         -> images loading 
 --> State for filters
+
+SearchResults refactor: 
+--> single movies state with 2 new properties:
+        -> Watched: boolean 
+        -> Saved: boolean 
+
+SearchBar + Filters ideas:
+--> Turn Search Bar into a component at SearchFilter level 
+--> Fix year keyword when length > 4
+--> Object structure for the filters
+--> Refactor handleChangeFilters
+--> Refactor handleChange / state in SearchFilter

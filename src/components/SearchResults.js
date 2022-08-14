@@ -8,6 +8,7 @@ import styled from "styled-components";
 import MovieItem from "./MovieItem";
 import Spinner from "./Spinner";
 import SearchCriteria from "./SearchCriteria";
+import MoviesList from "./MoviesList";
 import Pagination from "./Pagination";
 import debounce from "lodash.debounce";
 import { LANGUAGES } from "../constants/filter";
@@ -54,8 +55,6 @@ class SearchResults extends React.Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log("keyword", this.state.keyword);
-        console.log(" year", this.state.year);
         const { keyword, year, genres, votes, selectedLanguage, currentPage } =
             this.state;
 
@@ -80,7 +79,6 @@ class SearchResults extends React.Component {
     }
 
     onSearch = (keyword, year) => {
-        console.log("year", year);
         this.setState({
             keyword,
             year,
@@ -192,89 +190,26 @@ class SearchResults extends React.Component {
         return (
             <SearchResultsWrapper>
                 {this.state.isLoading && <Spinner />}
-                <MovieListWrapper>
-                    {this.state.total > 0 && (
-                        <CountWrapper>
-                            Total results: {this.state.total}
-                        </CountWrapper>
-                    )}
-                    {!this.state.moviesData.length && !this.state.isLoading && (
-                        <NoResults>
-                            {" "}
-                            <h1>No results have been found!</h1>{" "}
-                        </NoResults>
-                    )}
+                <MoviesList
+                    total={this.state.total}
+                    moviesData={this.state.moviesData}
+                    isLoading={this.state.isLoading}
+                    genres={this.state.genres}
+                    getFilterIds={this.getFilterIds}
+                    addToMovieList={this.addToMovieList}
+                />
 
-                    {window.location.pathname === "/" &&
-                        this.state.moviesData
-                            .filter((movie) => {
-                                const selectedIds = this.getFilterIds(
-                                    this.state.genres
-                                );
-
-                                return selectedIds.every((item) => {
-                                    return movie.genre_ids.includes(item);
-                                });
-                            })
-                            .map((movie, index) => (
-                                <MovieItem
-                                    key={index}
-                                    movie={movie}
-                                    genres={this.state.genres}
-                                    addToMovieList={this.addToMovieList}
-                                />
-                            ))}
-                    {window.location.pathname === "/watched" &&
-                        this.state.moviesWatched
-                            .filter((movie) => {
-                                const selectedIds = this.getFilterIds(
-                                    this.state.genres
-                                );
-
-                                return selectedIds.every((item) => {
-                                    return movie.genre_ids.includes(item);
-                                });
-                            })
-                            .map((movie, index) => (
-                                <MovieItem
-                                    key={index}
-                                    movie={movie}
-                                    genres={this.state.genres}
-                                    addToMovieList={this.addToMovieList}
-                                />
-                            ))}
-                    {window.location.pathname === "/saved" &&
-                        this.state.moviesSaved
-                            .filter((movie) => {
-                                const selectedIds = this.getFilterIds(
-                                    this.state.genres
-                                );
-
-                                return selectedIds.every((item) => {
-                                    return movie.genre_ids.includes(item);
-                                });
-                            })
-                            .map((movie, index) => (
-                                <MovieItem
-                                    key={index}
-                                    movie={movie}
-                                    genres={this.state.genres}
-                                    addToMovieList={this.addToMovieList}
-                                />
-                            ))}
-                    {window.location.pathname === "/" && (
-                        <Pagination
-                            onPageChange={this.handlePageChange}
-                            totalPages={this.state.totalPages}
-                        />
-                    )}
-                </MovieListWrapper>
                 <SearchCriteria
                     genres={this.state.genres}
                     languages={this.state.languages}
                     votes={this.state.votes}
                     onSearch={this.onSearch}
                     handleChangeFilters={this.handleChangeFilters}
+                />
+
+                <Pagination
+                    onPageChange={this.handlePageChange}
+                    totalPages={this.state.totalPages}
                 />
             </SearchResultsWrapper>
         );
@@ -285,23 +220,23 @@ const SearchResultsWrapper = styled.div`
     display: flex;
 `;
 
-const NoResults = styled.div`
-    padding: 10px;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
-    width: 700px;
-    height: 200px;
-    margin: 35px;
-`;
-const CountWrapper = styled.p`
-    height: 20px;
-    margin-left: 15px;
-`;
+// const NoResults = styled.div`
+//     padding: 10px;
+//     box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+//     width: 700px;
+//     height: 200px;
+//     margin: 35px;
+// `;
+// const CountWrapper = styled.p`
+//     height: 20px;
+//     margin-left: 15px;
+// `;
 
-const MovieListWrapper = styled.div`
-    margin-left: 45px;
-    margin-right: 15px;
-    margin-top: 15px;
-    min-width: 700px;
-`;
+// const MovieListWrapper = styled.div`
+//     margin-left: 45px;
+//     margin-right: 15px;
+//     margin-top: 15px;
+//     min-width: 700px;
+// `;
 
 export default SearchResults;

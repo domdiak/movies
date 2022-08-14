@@ -142,7 +142,6 @@ class SearchResults extends React.Component {
                         return obj.id !== movie.id;
                     }
                 );
-
                 this.setState({
                     [actionType]: updatedMoviesSaved,
                 });
@@ -150,32 +149,32 @@ class SearchResults extends React.Component {
         });
     };
 
+    updateFilterGroup = (filterValue, filterType) => {
+        const filterGroup = this.state[filterType];
+        return filterGroup.map((filter) => {
+            if (filterValue === filter.id) {
+                const updatedFilter = {
+                    ...filter,
+                    isChecked: !filter.isChecked,
+                };
+                return updatedFilter;
+            }
+
+            return filter;
+        });
+    };
+
     handleChangeFilters = (filterValue, filterType) => {
         console.log("value", filterValue, "type", filterType);
-        const filterGroup =
-            filterType === "genres"
-                ? this.state.genres
-                : filterType === "votes"
-                ? this.state.votes
-                : this.state.languages;
-
         if (filterType === "languages") {
             this.setState({
                 selectedLanguage: filterValue,
             });
         } else {
-            const newFilterGroup = filterGroup.map((filter) => {
-                if (filterValue === filter.id) {
-                    const updatedFilter = {
-                        ...filter,
-                        isChecked: !filter.isChecked,
-                    };
-                    return updatedFilter;
-                }
-
-                return filter;
-            });
-
+            const newFilterGroup = this.updateFilterGroup(
+                filterValue,
+                filterType
+            );
             this.setState({ [filterType]: newFilterGroup });
         }
     };

@@ -3,46 +3,47 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 
 const SearchBar = ({ onSearch }) => {
-    const [error, setError] = useState({
-        keyword: "",
-        year: "",
+    const [year, setYear] = useState({
+        value: 0,
+        error: "",
     });
-    const [inputs, setInputs] = useState({
-        keyword: "",
-        year: 0,
+    const [keyword, setKeyword] = useState({
+        value: "",
+        error: "",
     });
 
     useEffect(() => {
-        validateInputs(inputs);
-    }, [inputs]);
+        validateInputs(year, keyword);
+    }, [year.value, keyword.value]);
 
     const handleChange = (e) => {
-        setInputs({
-            ...inputs,
-            [e.target.name]: e.target.value,
-        });
+        if (e.target.name === "keyword") {
+            setKeyword({ ...keyword, value: e.target.value });
+        } else {
+            setYear({ ...year, value: e.target.value });
+        }
 
-        if (!error.keyword && !error.year) {
-            onSearch({ [e.target.name]: e.target.value });
+        if (!keyword.error && !year.error) {
+            onSearch(year.value, keyword.value);
         }
     };
-    const validateInputs = (inputs) => {
-        if (inputs.keyword === "" && inputs.year.length > 3) {
-            setError(
-                { ...error, keyword: "Required field" },
-                console.log(error)
-            );
+
+    const validateInputs = (year, keyword) => {
+        // console.log("year in validateInputs", year);
+        // console.log("keyword in validateInputs", keyword);
+
+        if (keyword.value === "" && year.value.length > 3) {
+            console.log("here");
+            setKeyword({ ...keyword, error: "Required field" });
         } else if (
-            !inputs.keyword == "" &&
-            inputs.year > 0 &&
-            inputs.year.length < 4
+            !keyword.value == "" &&
+            year.value.length > 0 &&
+            year.value.length < 4
         ) {
-            setError({ ...error, year: "Required full year" });
+            setYear({ ...year, error: "Required full year" });
         } else {
-            setError({
-                keyword: "",
-                year: "",
-            });
+            setKeyword({ ...keyword, error: "" });
+            setYear({ ...year, error: "" });
         }
     };
 
@@ -60,12 +61,13 @@ const SearchBar = ({ onSearch }) => {
                     <input
                         type="text"
                         name="keyword"
+                        value={keyword.value}
                         placeholder="Search by name"
                         onChange={handleChange}
                     />
                 </InputWrapper>
-                {error.keyword && (
-                    <ErrorMessage> {error.keyword} </ErrorMessage>
+                {keyword.error && (
+                    <ErrorMessage> {keyword.error} </ErrorMessage>
                 )}
 
                 <InputWrapper>
@@ -79,11 +81,12 @@ const SearchBar = ({ onSearch }) => {
                     <input
                         type="text"
                         name="year"
+                        value={year.value}
                         placeholder="Search by year"
                         onChange={handleChange}
                     />
                 </InputWrapper>
-                {error.year && <ErrorMessage> {error.year} </ErrorMessage>}
+                {year.error && <ErrorMessage> {year.error} </ErrorMessage>}
             </SearchBarContainer>
         </>
     );

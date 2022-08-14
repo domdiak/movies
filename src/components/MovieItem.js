@@ -1,22 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import defaultImage from "../images/defaultImage.png";
 import { CgPlayListAdd, CgPlayListCheck } from "react-icons/cg";
 import { TiTick } from "react-icons/ti";
 
-class MovieItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isWatched: false,
-            isSaved: false,
-        };
-    }
-    addToMovieList = (movie, movieGroup) => {
-        this.props.addToMovieList(movie, movieGroup);
-    };
+const MovieItem = ({ movie, genres, addToMovieList }) => {
+    const [isSaved, setIsSaved] = useState(false);
+    const [isWatched, setIsWatched] = useState(false);
 
-    mapGenres = (genresIds, genresNames) => {
+    const mapGenres = (genresIds, genresNames) => {
         let newArray = [];
         for (let i = 0; i < genresIds.length; i++) {
             for (let j = 0; j < genresNames.length; j++) {
@@ -29,69 +21,69 @@ class MovieItem extends React.Component {
         return newArray;
     };
 
-    render() {
-        return (
-            <MovieItemContainer data-testid="movieItem">
-                <PosterImage
-                    src={`https://image.tmdb.org/t/p/original/${this.props.movie.poster_path}`}
-                    onError={(e) => {
-                        e.target.src = defaultImage;
+    return (
+        <MovieItemContainer data-testid="movieItem">
+            <PosterImage
+                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                onError={(e) => {
+                    e.target.src = defaultImage;
+                }}
+            />
+            <TextContainer>
+                <HeadingContainer>
+                    <h2>{movie.title} </h2>
+                    <Rating>{movie.vote_average} </Rating>
+                </HeadingContainer>
+                <Genres>
+                    {" "}
+                    {mapGenres(movie.genre_ids, genres).join(" | ")}{" "}
+                </Genres>
+                <Description> {movie.overview} </Description>
+                <Button
+                    name="moviesWatched"
+                    onClick={(e) => {
+                        addToMovieList(movie, e.target.name);
+                        setIsWatched(!isWatched);
                     }}
-                />
-                <TextContainer>
-                    <HeadingContainer>
-                        <h2>{this.props.movie.title} </h2>
-                        <Rating>{this.props.movie.vote_average} </Rating>
-                    </HeadingContainer>
-                    <Genres>
-                        {" "}
-                        {this.mapGenres(
-                            this.props.movie.genre_ids,
-                            this.props.genres
-                        ).join(" | ")}{" "}
-                    </Genres>
-                    <Description> {this.props.movie.overview} </Description>
-                    <Button
-                        name="moviesWatched"
-                        onClick={(e) => {
-                            this.addToMovieList(
-                                this.props.movie,
-                                e.target.name
-                            );
-                            this.setState({ isWatched: !this.state.isWatched });
-                        }}
-                    >
-                        {" "}
-                        {this.state.isWatched ? (
-                            <TiTick style={IconStyle} />
-                        ) : (
-                            <CgPlayListCheck style={IconStyle} />
-                        )}
-                    </Button>
-                    <Button
-                        name="moviesSaved"
-                        onClick={(e) => {
-                            this.addToMovieList(
-                                this.props.movie,
-                                e.target.name
-                            );
-                            this.setState({
-                                isSaved: !this.state.isSaved,
-                            });
-                        }}
-                    >
-                        {this.state.isSaved ? (
-                            <TiTick style={IconStyle} />
-                        ) : (
-                            <CgPlayListAdd style={IconStyle} />
-                        )}
-                    </Button>
-                </TextContainer>
-                <Overlay />
-            </MovieItemContainer>
-        );
-    }
-}
+                >
+                    {" "}
+                    {isWatched ? (
+                        <TiTick style={IconStyle} />
+                    ) : (
+                        <CgPlayListCheck style={IconStyle} />
+                    )}
+                </Button>
+                <Button
+                    name="moviesSaved"
+                    onClick={(e) => {
+                        addToMovieList(movie, e.target.name);
+                        setIsSaved(!isSaved);
+                    }}
+                >
+                    {isSaved ? (
+                        <TiTick style={IconStyle} />
+                    ) : (
+                        <CgPlayListAdd style={IconStyle} />
+                    )}
+                </Button>
+            </TextContainer>
+            <Overlay />
+        </MovieItemContainer>
+    );
+};
+
+// class MovieItem extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             isWatched: false,
+//             isSaved: false,
+//         };
+//     }
+
+//     render() {
+
+// }
 
 const Overlay = styled.div`
     position: absolute;

@@ -3,47 +3,42 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 
 const SearchBar = ({ onSearch }) => {
-    const [year, setYear] = useState({
-        value: 0,
+    const [keyword, setKeyword] = useState({
+        value: "",
         error: "",
     });
-    const [keyword, setKeyword] = useState({
+    const [year, setYear] = useState({
         value: "",
         error: "",
     });
 
     useEffect(() => {
-        validateInputs(year, keyword);
-    }, [year.value, keyword.value]);
-
-    const handleChange = (e) => {
-        if (e.target.name === "keyword") {
-            setKeyword({ ...keyword, value: e.target.value });
-        } else {
-            setYear({ ...year, value: e.target.value });
-        }
-
         if (!keyword.error && !year.error) {
-            onSearch(year.value, keyword.value);
+            onSearch(keyword.value, year.value);
         }
+    }, [keyword, year]);
+
+    const handleChangeKeyword = (e) => {
+        setKeyword({
+            value: e.target.value,
+            error: validateInputs(e.target.value, year.value),
+        });
     };
 
-    const validateInputs = (year, keyword) => {
-        // console.log("year in validateInputs", year);
-        // console.log("keyword in validateInputs", keyword);
+    const handleChangeYear = (e) => {
+        setYear({
+            value: e.target.value,
+            error: validateInputs(keyword.value, e.target.value),
+        });
+    };
 
-        if (keyword.value === "" && year.value.length > 3) {
-            console.log("here");
-            setKeyword({ ...keyword, error: "Required field" });
-        } else if (
-            !keyword.value == "" &&
-            year.value.length > 0 &&
-            year.value.length < 4
-        ) {
-            setYear({ ...year, error: "Required full year" });
+    const validateInputs = (keyword, year) => {
+        if (keyword === "" && year.length > 3) {
+            return "Required Field";
+        } else if (!keyword == "" && year.length > 0 && year.length < 4) {
+            return "Required full year";
         } else {
-            setKeyword({ ...keyword, error: "" });
-            setYear({ ...year, error: "" });
+            return "";
         }
     };
 
@@ -51,19 +46,13 @@ const SearchBar = ({ onSearch }) => {
         <>
             <SearchBarContainer>
                 <InputWrapper>
-                    <GoSearch
-                        size={30}
-                        style={{
-                            margin: "5px",
-                            height: "25px",
-                        }}
-                    />
+                    <GoSearch size={30} style={{ IconStyle }} />
                     <input
                         type="text"
                         name="keyword"
-                        value={keyword.value}
+                        // value={keyword.value}
                         placeholder="Search by name"
-                        onChange={handleChange}
+                        onChange={handleChangeKeyword}
                     />
                 </InputWrapper>
                 {keyword.error && (
@@ -71,19 +60,13 @@ const SearchBar = ({ onSearch }) => {
                 )}
 
                 <InputWrapper>
-                    <GoCalendar
-                        size={30}
-                        style={{
-                            margin: "5px",
-                            height: "25px",
-                        }}
-                    />
+                    <GoCalendar size={30} style={{ IconStyle }} />
                     <input
                         type="text"
                         name="year"
-                        value={year.value}
+                        // value={year.value}
                         placeholder="Search by year"
-                        onChange={handleChange}
+                        onChange={handleChangeYear}
                     />
                 </InputWrapper>
                 {year.error && <ErrorMessage> {year.error} </ErrorMessage>}
@@ -93,6 +76,11 @@ const SearchBar = ({ onSearch }) => {
 };
 
 export default SearchBar;
+
+const IconStyle = {
+    margin: "5px",
+    height: "25px",
+};
 
 const SearchBarContainer = styled.div`
     margin: 0px 10px 10px 10px;

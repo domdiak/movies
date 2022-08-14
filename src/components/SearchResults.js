@@ -26,12 +26,6 @@ class SearchResults extends React.Component {
             totalPages: 500,
             isLoading: true,
             genres: [],
-
-            //             {
-            //     "id": 28,
-            //     "name": "Action",
-            //     "isChecked": false
-            // }
             languages: LANGUAGES,
             selectedLanguage: null,
             votes: [
@@ -60,8 +54,8 @@ class SearchResults extends React.Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        // console.log("updated keyword", this.state.keyword);
-        // console.log("updated year", this.state.year);
+        console.log("keyword", this.state.keyword);
+        console.log(" year", this.state.year);
         const { keyword, year, genres, votes, selectedLanguage, currentPage } =
             this.state;
 
@@ -81,13 +75,16 @@ class SearchResults extends React.Component {
             prevState.selectedLanguage !== selectedLanguage ||
             prevState.currentPage !== currentPage
         ) {
-            await this.getMovies(params);
+            await this.fetchMovies(params);
         }
     }
 
     onSearch = (keyword, year) => {
-        // console.log("State in onSearch", state);
-        this.setState({ keyword, year });
+        console.log("year", year);
+        this.setState({
+            keyword,
+            year,
+        });
     };
 
     delayLoading = () => {
@@ -98,7 +95,7 @@ class SearchResults extends React.Component {
         }, 100);
     };
 
-    getMovies = async ({
+    fetchMovies = async ({
         keyword,
         year,
         genres,
@@ -183,7 +180,7 @@ class SearchResults extends React.Component {
     };
 
     getMoviesDebounced = debounce(
-        async (keyword, year) => this.getMovies(keyword, year),
+        async (keyword, year) => this.fetchMovies(keyword, year),
         200
     );
 

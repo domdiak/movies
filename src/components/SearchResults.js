@@ -10,6 +10,7 @@ import Spinner from "./Spinner";
 import SearchCriteria from "./SearchCriteria";
 import Pagination from "./Pagination";
 import debounce from "lodash.debounce";
+import { LANGUAGES } from "../constants/filter";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -31,32 +32,8 @@ class SearchResults extends React.Component {
             //     "name": "Action",
             //     "isChecked": false
             // }
-            languages: [
-                {
-                    name: "English",
-                    id: "en",
-                    isChecked: false,
-                    label: "English",
-                },
-                {
-                    name: "German",
-                    id: "de",
-                    isChecked: false,
-                    label: "German",
-                },
-                {
-                    name: "French",
-                    id: "fr",
-                    isChecked: false,
-                    label: "French",
-                },
-                {
-                    name: "Italian",
-                    id: "it",
-                    isChecked: false,
-                    label: "Italian",
-                },
-            ],
+            languages: LANGUAGES,
+            selectedLanguage: null,
             votes: [
                 { name: 6, id: 6, isChecked: false },
                 { name: 6.5, id: 6.5, isChecked: false },
@@ -65,6 +42,45 @@ class SearchResults extends React.Component {
             ],
             total: 0,
         };
+    }
+
+    async componentDidMount() {
+        const genres = await getGenreList();
+        const popularMovies = await getPopularMovies();
+
+        const updatedGenres = genres.map((genre) => {
+            return { ...genre, isChecked: false };
+        });
+
+        console.log("genres", updatedGenres);
+
+        this.setState({
+            moviesData: popularMovies.results,
+            genres: updatedGenres,
+            isLoading: false,
+        });
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        console.log("selectedLanguage", this.state.selectedLanguage);
+        const params = {
+            keyword: this.state.keyword,
+            year: this.state.year,
+            genres: this.getFilterIds(this.state.genres),
+            votes: this.getFilterIds(this.state.votes),
+            selectedLanguage: this.state.selectedLanguage,
+            currentPage: this.state.currentPage,
+        };
+        if (
+            prevState.keyword !== this.state.keyword ||
+            prevState.year !== this.state.year ||
+            prevState.genres !== this.state.genres ||
+            prevState.votes !== this.state.votes ||
+            prevState.selectedLanguage !== this.state.selectedLanguage ||
+            prevState.currentPage !== this.state.currentPage
+        ) {
+            await this.getMovies(params);
+        }
     }
 
     onSearch = (state) => {
@@ -84,7 +100,7 @@ class SearchResults extends React.Component {
         year,
         genres,
         votes,
-        languages,
+        selectedLanguage,
         currentPage,
     }) => {
         this.setState({
@@ -93,7 +109,12 @@ class SearchResults extends React.Component {
 
         const moviesData =
             this.state.keyword === ""
-                ? await getPopularMovies(genres, votes, languages, currentPage)
+                ? await getPopularMovies(
+                      genres,
+                      votes,
+                      selectedLanguage,
+                      currentPage
+                  )
                 : await getMoviesByKeyword(keyword, year, genres, currentPage);
         this.setState({
             moviesData: moviesData.results,
@@ -129,27 +150,6 @@ class SearchResults extends React.Component {
         });
     };
 
-    async componentDidUpdate(prevProps, prevState) {
-        const params = {
-            keyword: this.state.keyword,
-            year: this.state.year,
-            genres: this.getFilterIds(this.state.genres),
-            votes: this.getFilterIds(this.state.votes),
-            languages: this.getFilterIds(this.state.languages),
-            currentPage: this.state.currentPage,
-        };
-        if (
-            prevState.keyword !== this.state.keyword ||
-            prevState.year !== this.state.year ||
-            prevState.genres !== this.state.genres ||
-            prevState.votes !== this.state.votes ||
-            prevState.languages !== this.state.languages ||
-            prevState.currentPage !== this.state.currentPage
-        ) {
-            await this.getMovies(params);
-        }
-    }
-
     handleChangeFilters = (filterValue, filterType) => {
         console.log("value", filterValue, "type", filterType);
         const filterGroup =
@@ -159,64 +159,31 @@ class SearchResults extends React.Component {
                 ? this.state.votes
                 : this.state.languages;
 
-        const newFilterGroup = filterGroup.map((filter) => {
-            // manually resets all filters back to false
-            if (filterType === "languages") {
-                if (filterValue !== filter.id) {
-                    const resetFilter = {
+        if (filterType === "languages") {
+            this.setState({
+                selectedLanguage: filterValue,
+            });
+        } else {
+            const newFilterGroup = filterGroup.map((filter) => {
+                if (filterValue === filter.id) {
+                    const updatedFilter = {
                         ...filter,
-                        isChecked: false,
+                        isChecked: !filter.isChecked,
                     };
-                    return resetFilter;
+                    return updatedFilter;
                 }
-            }
-            if (filterValue === filter.id) {
-                const updatedFilter = {
-                    ...filter,
-                    isChecked: !filter.isChecked,
-                };
-                return updatedFilter;
-            }
 
-            return filter;
-        });
-        // if (filterType === "genre") {
-        //     this.setState({
-        //         genres: newFilterGroup,
-        //     });
-        // } else if (filterType === "vote") {
-        //     this.setState({
-        //         votes: newFilterGroup,
-        //     });
-        // } else {
-        //     this.setState({
-        //         languages: newFilterGroup,
-        //     });
-        // }
-        this.setState({ [filterType]: newFilterGroup });
+                return filter;
+            });
+
+            this.setState({ [filterType]: newFilterGroup });
+        }
     };
 
     getMoviesDebounced = debounce(
         async (keyword, year) => this.getMovies(keyword, year),
         200
     );
-
-    async componentDidMount() {
-        const genres = await getGenreList();
-        const popularMovies = await getPopularMovies();
-
-        const updatedGenres = genres.map((genre) => {
-            return { ...genre, isChecked: false };
-        });
-
-        console.log("genres", updatedGenres);
-
-        this.setState({
-            moviesData: popularMovies.results,
-            genres: updatedGenres,
-            isLoading: false,
-        });
-    }
 
     handlePageChange({ selected }) {
         this.setState({ currentPage: selected + 1 });

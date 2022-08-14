@@ -6,7 +6,7 @@ const language = "en-US";
 export async function getPopularMovies(
     genres,
     votes = [],
-    languages = [],
+    selectedLanguage = "",
     currentPage
 ) {
     let genresToString;
@@ -22,7 +22,7 @@ export async function getPopularMovies(
     const params = {
         with_genres: genresToString,
         "vote_average.gte": minVote,
-        with_original_language: languages.join(),
+        with_original_language: selectedLanguage,
         page: currentPage,
     };
 

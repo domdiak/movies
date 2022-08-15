@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import defaultImage from "../images/defaultImage.png";
-import { CgPlayListAdd, CgPlayListCheck } from "react-icons/cg";
-import { TiTick } from "react-icons/ti";
+import { AddToQueue } from "@styled-icons/boxicons-solid/AddToQueue";
+import { HeartFill } from "@styled-icons/bootstrap/HeartFill";
+import { Tick } from "@styled-icons/typicons/Tick";
 
 const MovieItem = ({ movie, genres, addToMovieList }) => {
     const [isSaved, setIsSaved] = useState(false);
-    const [isWatched, setIsWatched] = useState(false);
+    const [isFavourite, setIsFavourite] = useState(false);
 
     const mapGenres = (genresIds, genresNames) => {
         let newArray = [];
@@ -43,15 +44,12 @@ const MovieItem = ({ movie, genres, addToMovieList }) => {
                     name="moviesWatched"
                     onClick={(e) => {
                         addToMovieList(movie, e.target.name);
-                        setIsWatched(!isWatched);
+                        setIsFavourite(!isFavourite);
                     }}
                 >
                     {" "}
-                    {isWatched ? (
-                        <TiTick style={IconStyle} />
-                    ) : (
-                        <CgPlayListCheck style={IconStyle} />
-                    )}
+                    {isFavourite ? "Added" : "Loved It"}
+                    <HeartFillIcon isFavourite={isFavourite} />
                 </Button>
                 <Button
                     name="moviesSaved"
@@ -60,10 +58,11 @@ const MovieItem = ({ movie, genres, addToMovieList }) => {
                         setIsSaved(!isSaved);
                     }}
                 >
+                    {isSaved ? "Added" : "Watch Later"}
                     {isSaved ? (
-                        <TiTick style={IconStyle} />
+                        <TickIcon isSaved={isSaved} />
                     ) : (
-                        <CgPlayListAdd style={IconStyle} />
+                        <AddToQueueIcon isSaved={isSaved} />
                     )}
                 </Button>
             </TextContainer>
@@ -71,6 +70,31 @@ const MovieItem = ({ movie, genres, addToMovieList }) => {
         </MovieItemContainer>
     );
 };
+
+const AddToQueueIcon = styled(AddToQueue)`
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+`;
+
+const HeartFillIcon = styled(HeartFill)`
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    vertical-align: middle;
+    color: ${(props) => (props.isFavourite ? "red" : "black")};
+    transition: color 1s ease;
+`;
+
+const TickIcon = styled(Tick)`
+    width: 25px;
+    height: 25px;
+    padding: 2px;
+    font-weight: bold;
+    color: green;
+    vertical-align: middle;
+    transition: color 2s ease;
+`;
 
 const Overlay = styled.div`
     position: absolute;
@@ -139,43 +163,43 @@ const PosterImage = styled.img`
 `;
 
 const Button = styled.button`
+    width: 130px;
+    height: 30px;
     position: absolute;
+    padding: 2px 2px;
     bottom: 10px;
     right: 10px;
-    width: 70px;
-    height: 30px;
     border-radius: 5px;
     opacity: 0;
-    background-color: ${(props) => props.theme.colors.blue2};
     transition: opacity 0.35s ease;
+    letter-spacing: 0.08em;
+    font-weight: bold;
+    background-color: ${(props) => props.theme.colors.blue1};
     z-index: 5;
-    border: 2px solid black;
-    box-shadow: 3px 3px gray;
+    border: none;
+    box-shadow: 2px 4px 3px 1px grey;
 
     &:nth-of-type(2n) {
         bottom: 10px;
-        right: 90px;
+        right: 150px;
     }
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.blue2};
-        opacity: 0.5;
-        transform: translate(-2px, -2px);
+        background-color: ${(props) => props.theme.colors.blue1};
+        filter: brightness(0.9);
+        opacity: 1;
+        transform: translate(0px, -2px);
     }
 
     &:active {
-        transform: translate(1px, 1px);
+        transform: translate(0px, 1px);
         transition: transform 0.2s ease;
     }
 
     ${MovieItemContainer}:hover & {
         opacity: 1;
+        transition: opacity 0.7s ease;
     }
 `;
-
-const IconStyle = {
-    fontSize: "30px",
-    verticalAlign: "middle",
-};
 
 export default MovieItem;

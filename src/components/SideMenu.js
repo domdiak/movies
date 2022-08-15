@@ -37,14 +37,12 @@ class SideMenu extends React.Component {
                     )}
                 </Section>
                 <ListWrapper isOpen={this.state.isOpen}>
-                    <List>
-                        <StyledLink to="/watched">
-                            <ListItem> Watched</ListItem>
-                        </StyledLink>
-                        <StyledLink to="/saved">
-                            <ListItem> Saved</ListItem>
-                        </StyledLink>
-                    </List>
+                    <StyledLink to="/watched">
+                        <ListItem> Watched</ListItem>
+                    </StyledLink>
+                    <StyledLink to="/saved">
+                        <ListItem> Saved</ListItem>
+                    </StyledLink>
                 </ListWrapper>
             </SideMenuWrapper>
         );
@@ -73,10 +71,6 @@ const Logo = styled.img`
     height: 50px;
     width: 170px;
     padding: 10px 35px;
-`;
-
-const List = styled.div`
-    // display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
 
 const ListItem = styled.h2`

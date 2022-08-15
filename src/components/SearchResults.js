@@ -122,6 +122,7 @@ class SearchResults extends React.Component {
     };
 
     addToMovieList = (movie, movieGroup) => {
+        console.log(movie, movieGroup);
         this.setState((prevState) => ({
             [movieGroup]: [...prevState[movieGroup], movie],
         }));

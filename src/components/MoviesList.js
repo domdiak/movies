@@ -43,10 +43,12 @@ const MovieList = ({
                             addToMovieList={addToMovieList}
                         />
                     ))}
-                <Pagination
-                    onPageChange={handlePageChange}
-                    totalPages={totalPages}
-                />
+                {moviesData.length >= 20 && (
+                    <Pagination
+                        onPageChange={handlePageChange}
+                        totalPages={totalPages}
+                    />
+                )}
             </MovieListWrapper>
         </>
     );

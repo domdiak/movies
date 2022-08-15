@@ -31,9 +31,9 @@ const MovieList = ({
                             return movie.genre_ids.includes(item);
                         });
                     })
-                    .map((movie, index) => (
+                    .map((movie) => (
                         <MovieItem
-                            key={index}
+                            key={movie.id}
                             movie={movie}
                             genres={genres}
                             addToMovieList={addToMovieList}

@@ -72,19 +72,6 @@ const MovieItem = ({ movie, genres, addToMovieList }) => {
     );
 };
 
-// class MovieItem extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             isWatched: false,
-//             isSaved: false,
-//         };
-//     }
-
-//     render() {
-
-// }
-
 const Overlay = styled.div`
     position: absolute;
     width: 100%;

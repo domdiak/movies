@@ -16,8 +16,9 @@ const theme = {
         pink2: "#f2eae4",
 
         grey1: "#e4e4e4",
-        grey2: "#727272",
-        grey3: "#484848",
+        grey2: "#cdcdcd",
+        grey3: "#727272",
+        grey4: "#484848",
     },
 };
 

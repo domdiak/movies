@@ -9,13 +9,13 @@ class SideMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isExpanded: false,
+            isOpen: false,
         };
     }
 
-    toggleisExpanded = () =>
+    toggleisOpen = () =>
         this.setState({
-            isExpanded: !this.state.isExpanded,
+            isOpen: !this.state.isOpen,
         });
 
     render() {
@@ -28,31 +28,41 @@ class SideMenu extends React.Component {
                     </StyledLink>
                     <GoSearch style={IconStyle} />
                 </Section>
-                <Section onClick={this.toggleisExpanded}>
+                <Section onClick={this.toggleisOpen}>
                     <Heading>Lists</Heading>
-                    {this.state.isExpanded ? (
+                    {this.state.isOpen ? (
                         <AiFillCaretUp style={IconStyle} />
                     ) : (
                         <AiFillCaretDown style={IconStyle} />
                     )}
                 </Section>
-                <List isExpanded={this.state.isExpanded}>
-                    <StyledLink to="/watched">
-                        <ListItem> Watched</ListItem>
-                    </StyledLink>
-                    <StyledLink to="/saved">
-                        <ListItem> Saved</ListItem>
-                    </StyledLink>
-                </List>
+                <ListWrapper isOpen={this.state.isOpen}>
+                    <List>
+                        <StyledLink to="/watched">
+                            <ListItem> Watched</ListItem>
+                        </StyledLink>
+                        <StyledLink to="/saved">
+                            <ListItem> Saved</ListItem>
+                        </StyledLink>
+                    </List>
+                </ListWrapper>
             </SideMenuWrapper>
         );
     }
 }
 
+const ListWrapper = styled.div`
+    max-height: ${(props) => (props.isOpen ? "100px" : "0px")};
+    background-color: ${(props) => props.theme.colors.grey2};
+    transition: max-height 0.5s ease;
+    overflow: hidden;
+`;
+
 const SideMenuWrapper = styled.div`
     width: 260px;
     min-height: 100vh;
     background-color: ${(props) => props.theme.colors.grey1};
+    box-shadow: 0 1px 5px rgb(0 0 0 / 0.4);
 `;
 
 const Heading = styled.h1`
@@ -62,17 +72,18 @@ const Heading = styled.h1`
 const Logo = styled.img`
     height: 50px;
     width: 170px;
-    padding: 10px;
+    padding: 10px 35px;
 `;
 
 const List = styled.div`
-    display: ${(props) => (props.isExpanded ? "block" : "none")};
+    // display: ${(props) => (props.isOpen ? "block" : "none")};
 `;
 
 const ListItem = styled.h2`
     padding: 10px 35px;
     &:hover {
-        background-color: ${(props) => props.theme.colors.blue2};
+        background-color: ${(props) => props.theme.colors.grey3};
+        transition: background-color 0.5s ease;
     }
 `;
 
@@ -83,10 +94,10 @@ const Section = styled.div`
     align-items: center;
 
     cursor: pointer;
-    border-radius: 5px;
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.blue2};
+        background-color: ${(props) => props.theme.colors.grey2};
+        transition: background-color 0.5s ease;
     }
 `;
 

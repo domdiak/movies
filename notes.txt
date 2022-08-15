@@ -63,30 +63,17 @@ vote_average
 
 Todos: 
 
-Layout: 
--> Adjust containers on the top DONE
--> Fix logo height DONE
 
 
 SearchBar: 
--> Add loading page DONE
 -> Refactor 'No results'
         --> Aligned but needs additional design
--> Fix background color to cover the whole width  DONE
-
-SearchResults:
--> Implement pagination DONE 
--> Fix the collapse when no results DONE
--> Add loading page on mount DONE
 
 SideBar: 
 -> Fix colors on the SideBar 
--> Fix height of the container when clicking on Watched / Saved (no results) DONE
+
 Search/Filter Bar:
--> Fix Dropdown DONE
         --> Language is hardcoded
--> Fix css for search errors DONE
--> 
 
 Lists: 
 --> Add 0 results 
@@ -110,15 +97,43 @@ SearchResults refactor:
         -> Saved: boolean 
 
 SearchBar + Filters ideas:
---> Turn Search Bar into a component at SearchFilter level DONE 
 --> Fix year keyword when length > 4
---> Object structure for the filters DONE
---> Refactor handleChangeFilters DONE
---> Refactor handleChange / state in SearchFilter DONE
+
 --> Refactor JSX in SearchBar
 
 
 SearchResults:
---> pass right data to SearchResults component DONE
---> updated addToMovieList function DONE
---> Fix button display and managing state in the /watched and /saved compoentns
+
+
+
+Lists: 
+--> Optimise the structure
+--> Add Toasts
+--> Make sure the buttons work
+        
+    
+--> Fix size of No Results hae been found: marging, width
+
+Movie Items:
+Buttons:
+    --> Add text: Watched, Save
+    --> Overlay disappears when hovering over buttons
+    --> 
+
+Pagination: 
+--> Move to the bottom
+--> Make sure it only shows if results > 20
+
+Side Menu: 
+ --> Fix Edges of Discover and Lists 
+ --> Align the Menu 
+ --> Smooth transition when opening the lists
+
+General:
+--> Update folder structure
+
+
+Small things: 
+--> Remove all index as key for map functions
+
+Refactoring: 

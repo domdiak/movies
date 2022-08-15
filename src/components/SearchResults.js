@@ -185,7 +185,6 @@ class SearchResults extends React.Component {
     }
 
     getRightMovies = (pathname) => {
-        console.log("pathname", pathname);
         const movies =
             pathname === "/"
                 ? this.state.moviesData
@@ -200,7 +199,6 @@ class SearchResults extends React.Component {
         return (
             <SearchResultsWrapper>
                 {this.state.isLoading && <Spinner />}
-
                 <MoviesList
                     total={this.state.total}
                     moviesData={this.getRightMovies(window.location.pathname)}

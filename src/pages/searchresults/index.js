@@ -3,13 +3,13 @@ import {
     getPopularMovies,
     getMoviesByKeyword,
     getGenreList,
-} from "../../fetcher";
+} from "../../../fetcher";
 import styled from "styled-components";
 import Spinner from "./Spinner";
-import SearchCriteria from "./SearchCriteria";
-import MoviesList from "./MoviesList";
+import SearchCriteria from "../../components/searchcriteria";
+import MovieList from "../../components/movielist";
 import debounce from "lodash.debounce";
-import { LANGUAGES } from "../constants/filter";
+import { LANGUAGES } from "../../constants/filter";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -199,7 +199,7 @@ class SearchResults extends React.Component {
         return (
             <SearchResultsWrapper>
                 {this.state.isLoading && <Spinner />}
-                <MoviesList
+                <MovieList
                     total={this.state.total}
                     moviesData={this.getRightMovies(window.location.pathname)}
                     isLoading={this.state.isLoading}

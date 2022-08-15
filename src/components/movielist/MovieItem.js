@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import defaultImage from "../images/defaultImage.png";
+import defaultImage from "../../images/defaultImage.png";
 import { AddToQueue } from "@styled-icons/boxicons-solid/AddToQueue";
 import { HeartFill } from "@styled-icons/bootstrap/HeartFill";
 import { Tick } from "@styled-icons/typicons/Tick";

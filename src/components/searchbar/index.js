@@ -50,7 +50,6 @@ const SearchBar = ({ onSearch }) => {
                     <input
                         type="text"
                         name="keyword"
-                        // value={keyword.value}
                         placeholder="Search by name"
                         onChange={handleChangeKeyword}
                     />
@@ -64,7 +63,6 @@ const SearchBar = ({ onSearch }) => {
                     <input
                         type="text"
                         name="year"
-                        // value={year.value}
                         placeholder="Search by year"
                         onChange={handleChangeYear}
                     />

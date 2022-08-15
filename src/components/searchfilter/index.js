@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import FilterMenu from "./FilterMenu";
-import SearchBar from "./SearchBar";
+import FilterMenu from "../filtermenu";
+import SearchBar from "../searchbar";
 
 function SearchCriteria({
     genres,

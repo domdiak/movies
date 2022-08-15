@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { GoSearch } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import logoImage from "../images/Logo.png";
+import logoImage from "../../images/Logo.png";
 
 class SideMenu extends React.Component {
     constructor(props) {

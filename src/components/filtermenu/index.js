@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import LanguageDropdown from "./LanguageDropdown";
-import FilterComponent from "./FilterComponent";
+import FilterComponent from "../filtercomponent";
 
 const FilterMenu = ({ genres, languages, votes, handleChangeFilters }) => {
     return (

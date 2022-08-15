@@ -5,7 +5,18 @@ import { AddToQueue } from "@styled-icons/boxicons-solid/AddToQueue";
 import { HeartFill } from "@styled-icons/bootstrap/HeartFill";
 import { Tick } from "@styled-icons/typicons/Tick";
 
-const MovieItem = ({ movie, genres, addToMovieList }) => {
+const MovieItem = ({
+    genres,
+    addToMovieList,
+    movie: {
+        title,
+        vote_average,
+        genre_ids: movieGenreIds,
+        overview,
+        poster_path,
+    },
+    movie,
+}) => {
     const [isSaved, setIsSaved] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);
 
@@ -25,23 +36,28 @@ const MovieItem = ({ movie, genres, addToMovieList }) => {
     return (
         <MovieItemContainer data-testid="movieItem">
             <PosterImage
-                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                src={`https://image.tmdb.org/t/p/original/${poster_path}`}
                 onError={(e) => {
                     e.target.src = defaultImage;
                 }}
             />
             <TextContainer>
                 <HeadingContainer>
-                    <h2>{movie.title} </h2>
-                    <Rating>{movie.vote_average} </Rating>
+                    <h2>{title} </h2>
+
+                    {vote_average.length < 2 ? (
+                        <Rating>`${vote_average}.0` </Rating>
+                    ) : (
+                        <Rating>{vote_average}</Rating>
+                    )}
                 </HeadingContainer>
                 <Genres>
                     {" "}
-                    {mapGenres(movie.genre_ids, genres).join(" | ")}{" "}
+                    {mapGenres(movieGenreIds, genres).join(" | ")}{" "}
                 </Genres>
-                <Description> {movie.overview} </Description>
+                <Description> {overview} </Description>
                 <Button
-                    name="moviesWatched"
+                    name="moviesFavourites"
                     onClick={(e) => {
                         addToMovieList(movie, e.target.name);
                         setIsFavourite(!isFavourite);

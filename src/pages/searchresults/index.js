@@ -16,7 +16,7 @@ class SearchResults extends React.Component {
         super(props);
         this.state = {
             moviesData: [],
-            moviesWatched: [],
+            moviesFavourites: [],
             moviesSaved: [],
             keyword: "",
             year: "",
@@ -37,7 +37,6 @@ class SearchResults extends React.Component {
     }
 
     async componentDidMount() {
-        console.log(this.handlePageChange);
         const genres = await getGenreList();
         const popularMovies = await getPopularMovies();
 
@@ -121,7 +120,6 @@ class SearchResults extends React.Component {
     };
 
     addToMovieList = (movie, movieGroup) => {
-        console.log(movie, movieGroup);
         this.setState((prevState) => ({
             [movieGroup]: [...prevState[movieGroup], movie],
         }));
@@ -188,14 +186,15 @@ class SearchResults extends React.Component {
         const movies =
             pathname === "/"
                 ? this.state.moviesData
-                : pathname === "/watched"
-                ? this.state.moviesWatched
+                : pathname === "/favourites"
+                ? this.state.moviesFavourites
                 : this.state.moviesSaved;
 
         return movies;
     };
 
     render() {
+        4;
         return (
             <SearchResultsWrapper>
                 {this.state.isLoading && <Spinner />}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import MovieItem from "./MovieItem";
 import Pagination from "./Pagination";
@@ -13,7 +13,6 @@ const MovieList = ({
     handlePageChange,
     totalPages,
 }) => {
-    useEffect(() => console.log(handlePageChange));
     return (
         <>
             <MovieListWrapper>
@@ -58,9 +57,9 @@ export default MovieList;
 
 const NoResults = styled.div`
     padding: 10px;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.4);
     width: 700px;
-    height: 200px;
+    height: 100vw;
     margin: 35px;
 `;
 

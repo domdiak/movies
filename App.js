@@ -14,7 +14,7 @@ export default function App() {
                 <SideMenu />
                 <Routes>
                     <Route path="/" element={<SearchResults />} />
-                    <Route path="/watched" element={<SearchResults />} />
+                    <Route path="/favourites" element={<SearchResults />} />
                     <Route path="/saved" element={<SearchResults />} />
                 </Routes>
             </DisplayContainer>

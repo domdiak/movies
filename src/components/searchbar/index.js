@@ -63,6 +63,7 @@ const SearchBar = ({ onSearch }) => {
                     <input
                         type="text"
                         name="year"
+                        maxLength={4}
                         placeholder="Search by year"
                         onChange={handleChangeYear}
                     />

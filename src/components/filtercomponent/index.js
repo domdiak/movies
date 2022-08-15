@@ -25,9 +25,9 @@ const FilterComponent = ({
                 <h3> {title} </h3>
             </Header>
             <FilterItemWrapper isExpanded={isExpanded}>
-                {options.map((item, index) => (
+                {options.map((item) => (
                     <FilterItem
-                        key={index}
+                        key={item.id}
                         item={item}
                         handleChangeFilters={handleChangeFilters}
                         filterType={filterType}

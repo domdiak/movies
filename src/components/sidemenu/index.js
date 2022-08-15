@@ -37,8 +37,8 @@ class SideMenu extends React.Component {
                     )}
                 </Section>
                 <ListWrapper isOpen={this.state.isOpen}>
-                    <StyledLink to="/watched">
-                        <ListItem> Watched</ListItem>
+                    <StyledLink to="/favourites">
+                        <ListItem> Favourites</ListItem>
                     </StyledLink>
                     <StyledLink to="/saved">
                         <ListItem> Saved</ListItem>

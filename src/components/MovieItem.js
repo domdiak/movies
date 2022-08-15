@@ -46,6 +46,7 @@ const MovieItem = ({ movie, genres, addToMovieList }) => {
                         addToMovieList(movie, e.target.name);
                         setIsFavourite(!isFavourite);
                     }}
+                    isFavourite={isFavourite}
                 >
                     {" "}
                     {isFavourite ? "Added" : "Loved It"}
@@ -173,7 +174,6 @@ const Button = styled.button`
     opacity: 0;
     transition: opacity 0.35s ease;
     letter-spacing: 0.08em;
-    font-weight: bold;
     background-color: ${(props) => props.theme.colors.blue1};
     z-index: 5;
     border: none;

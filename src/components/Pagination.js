@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 
 const Pagination = ({ onPageChange, totalPages }) => {
+    useEffect(() => console.log(onPageChange));
     return (
         <>
             <ReactPaginateWrapper
@@ -26,6 +27,7 @@ const Pagination = ({ onPageChange, totalPages }) => {
 export default Pagination;
 
 const ReactPaginateWrapper = styled(ReactPaginate)`
+    padding-left: 0px;
     font-size: 25px;
     display: flex;
     flex-direction: row;
@@ -36,16 +38,6 @@ const ReactPaginateWrapper = styled(ReactPaginate)`
         align-items: center;
         background-color: ${(props) => props.theme.colors.blue1};
         cursor: none;
-
-        // min-width: 30px;
-        // min-height: 30px;
-        // border-radius: 50%;
-        // display: flex;
-        // justify-content: center;
-
-        // &:hover {
-        //     transition: background-color 0.5s ease;
-        // }
     }
 
     .break-me {

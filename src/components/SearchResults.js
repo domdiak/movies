@@ -8,14 +8,12 @@ import styled from "styled-components";
 import Spinner from "./Spinner";
 import SearchCriteria from "./SearchCriteria";
 import MoviesList from "./MoviesList";
-import Pagination from "./Pagination";
 import debounce from "lodash.debounce";
 import { LANGUAGES } from "../constants/filter";
 
 class SearchResults extends React.Component {
     constructor(props) {
         super(props);
-        this.handlePageChange = this.handlePageChange.bind(this);
         this.state = {
             moviesData: [],
             moviesWatched: [],
@@ -39,6 +37,7 @@ class SearchResults extends React.Component {
     }
 
     async componentDidMount() {
+        console.log(this.handlePageChange);
         const genres = await getGenreList();
         const popularMovies = await getPopularMovies();
 
@@ -181,9 +180,9 @@ class SearchResults extends React.Component {
         200
     );
 
-    handlePageChange({ selected }) {
+    handlePageChange = ({ selected }) => {
         this.setState({ currentPage: selected + 1 });
-    }
+    };
 
     getRightMovies = (pathname) => {
         const movies =
@@ -207,6 +206,8 @@ class SearchResults extends React.Component {
                     genres={this.state.genres}
                     getFilterIds={this.getFilterIds}
                     addToMovieList={this.addToMovieList}
+                    handlePageChange={this.handlePageChange}
+                    totalPages={this.state.totalPages}
                 />
 
                 <SearchCriteria
@@ -215,11 +216,6 @@ class SearchResults extends React.Component {
                     votes={this.state.votes}
                     onSearch={this.onSearch}
                     handleChangeFilters={this.handleChangeFilters}
-                />
-
-                <Pagination
-                    onPageChange={this.handlePageChange}
-                    totalPages={this.state.totalPages}
                 />
             </SearchResultsWrapper>
         );

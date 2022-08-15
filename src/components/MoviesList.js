@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import MovieItem from "./MovieItem";
+import Pagination from "./Pagination";
 
 const MovieList = ({
     total,
@@ -9,7 +10,10 @@ const MovieList = ({
     genres,
     getFilterIds,
     addToMovieList,
+    handlePageChange,
+    totalPages,
 }) => {
+    useEffect(() => console.log(handlePageChange));
     return (
         <>
             <MovieListWrapper>
@@ -39,6 +43,10 @@ const MovieList = ({
                             addToMovieList={addToMovieList}
                         />
                     ))}
+                <Pagination
+                    onPageChange={handlePageChange}
+                    totalPages={totalPages}
+                />
             </MovieListWrapper>
         </>
     );

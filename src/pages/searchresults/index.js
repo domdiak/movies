@@ -10,6 +10,7 @@ import SearchCriteria from "../../components/searchcriteria";
 import MovieList from "../../components/movielist";
 import debounce from "lodash.debounce";
 import { LANGUAGES } from "../../constants/filter";
+import { Route, Routes } from "react-router-dom";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -182,6 +183,7 @@ class SearchResults extends React.Component {
         this.setState({ currentPage: selected + 1 });
     };
 
+    // This needs to be renamed
     getRightMovies = (pathname) => {
         const movies =
             pathname === "/"
@@ -194,11 +196,56 @@ class SearchResults extends React.Component {
     };
 
     render() {
-        4;
         return (
             <SearchResultsWrapper>
                 {this.state.isLoading && <Spinner />}
-                <MovieList
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <MovieList
+                                total={this.state.total}
+                                moviesData={this.state.moviesData}
+                                isLoading={this.state.isLoading}
+                                genres={this.state.genres}
+                                getFilterIds={this.getFilterIds}
+                                addToMovieList={this.addToMovieList}
+                                handlePageChange={this.handlePageChange}
+                                totalPages={this.state.totalPages}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/favourites"
+                        element={
+                            <MovieList
+                                total={this.state.total}
+                                moviesData={this.state.moviesFavourites}
+                                isLoading={this.state.isLoading}
+                                genres={this.state.genres}
+                                getFilterIds={this.getFilterIds}
+                                addToMovieList={this.addToMovieList}
+                                handlePageChange={this.handlePageChange}
+                                totalPages={this.state.totalPages}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/saved"
+                        element={
+                            <MovieList
+                                total={this.state.total}
+                                moviesData={this.state.moviesSaved}
+                                isLoading={this.state.isLoading}
+                                genres={this.state.genres}
+                                getFilterIds={this.getFilterIds}
+                                addToMovieList={this.addToMovieList}
+                                handlePageChange={this.handlePageChange}
+                                totalPages={this.state.totalPages}
+                            />
+                        }
+                    />
+                    {/* <MovieList
                     total={this.state.total}
                     moviesData={this.getRightMovies(window.location.pathname)}
                     isLoading={this.state.isLoading}
@@ -207,8 +254,8 @@ class SearchResults extends React.Component {
                     addToMovieList={this.addToMovieList}
                     handlePageChange={this.handlePageChange}
                     totalPages={this.state.totalPages}
-                />
-
+                    /> */}
+                </Routes>
                 <SearchCriteria
                     genres={this.state.genres}
                     languages={this.state.languages}

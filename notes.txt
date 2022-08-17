@@ -97,7 +97,7 @@ SearchResults refactor:
         -> Saved: boolean 
 
 SearchBar + Filters ideas:
---> Fix year keyword when length > 4
+
 
 --> Refactor JSX in SearchBar
 
@@ -148,9 +148,9 @@ TechStack:
 Bugs:
 
 Easy: 
-- console.logs in fetchers
-- can’t go back to discover from favourite
-- searchbar handle functions can be made into one
+- console.logs in fetchers DONE
+- can’t go back to discover from favourite DONE (??)
+- searchbar handle functions can be made into one DONE (but could be imrpvoed)
 - searchfilter has remnants of searchbar
 - fetcher toString functions etc can be moved to some utils file
 
@@ -161,9 +161,14 @@ Hard:
 Stuck:
 - on movieitem hover, the background goes back to white when hovering over the buttons
 
+New stuff:
+-> Optimise the fetcher 
+--> Errors are still broken
+--> Smoothen isLoading transitions
 
 - searchbar loading appears on the whole page
 - can introduce pretty error handling for netwrok requests
 - general styling
+
 
 

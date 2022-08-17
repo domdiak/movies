@@ -13,23 +13,25 @@ const SearchBar = ({ onSearch }) => {
     });
 
     useEffect(() => {
+        console.log("year", year.value);
+        console.log("keyword", keyword.value);
         if (!keyword.error && !year.error) {
             onSearch(keyword.value, year.value);
         }
     }, [keyword, year]);
 
-    const handleChangeKeyword = (e) => {
-        setKeyword({
-            value: e.target.value,
-            error: validateInputs(e.target.value, year.value),
-        });
-    };
-
-    const handleChangeYear = (e) => {
-        setYear({
-            value: e.target.value,
-            error: validateInputs(keyword.value, e.target.value),
-        });
+    const handleChange = (e) => {
+        if (e.target.name === "keyword") {
+            setKeyword({
+                value: e.target.value,
+                error: validateInputs(e.target.value, year.value),
+            });
+        } else {
+            setYear({
+                value: e.target.value,
+                error: validateInputs(keyword.value, e.target.value),
+            });
+        }
     };
 
     const validateInputs = (keyword, year) => {
@@ -51,7 +53,7 @@ const SearchBar = ({ onSearch }) => {
                         type="text"
                         name="keyword"
                         placeholder="Search by name"
-                        onChange={handleChangeKeyword}
+                        onChange={handleChange}
                     />
                 </InputWrapper>
                 {keyword.error && (
@@ -65,7 +67,7 @@ const SearchBar = ({ onSearch }) => {
                         name="year"
                         maxLength={4}
                         placeholder="Search by year"
-                        onChange={handleChangeYear}
+                        onChange={handleChange}
                     />
                 </InputWrapper>
                 {year.error && <ErrorMessage> {year.error} </ErrorMessage>}

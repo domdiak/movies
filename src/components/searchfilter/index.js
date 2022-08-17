@@ -11,48 +11,10 @@ function SearchCriteria({
     votes,
     handleChangeFilters,
 }) {
-    const [error, setError] = useState({
-        keyword: false,
-        year: false,
-    });
-    const [inputs, setInputs] = useState({
-        keyword: "",
-        year: 0,
-    });
-
-    useEffect(() => {
-        validateInputs(inputs);
-    }, [inputs]);
-
-    const handleChange = (e) => {
-        setInputs({
-            ...inputs,
-            [e.target.name]: e.target.value,
-        });
-        onSearch({ [e.target.name]: e.target.value });
-    };
-
-    const validateInputs = (inputs) => {
-        if (inputs.keyword === "" && inputs.year.length > 3) {
-            setError({ ...error, keyword: true }, console.log(error));
-        } else if (
-            !inputs.keyword == "" &&
-            inputs.year > 0 &&
-            inputs.year.length < 4
-        ) {
-            setError({ ...error, year: true });
-        } else {
-            setError({
-                keyword: false,
-                year: false,
-            });
-        }
-    };
-
     return (
         <>
             <SearchFilterContainer>
-                <SearchBar handleChange={handleChange} error={error} />
+                <SearchBar onSearch={onSearch} />
 
                 <FilterMenu
                     genres={genres}

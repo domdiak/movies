@@ -13,8 +13,6 @@ const SearchBar = ({ onSearch }) => {
     });
 
     useEffect(() => {
-        console.log("year", year.value);
-        console.log("keyword", keyword.value);
         if (!keyword.error && !year.error) {
             onSearch(keyword.value, year.value);
         }

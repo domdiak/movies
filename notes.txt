@@ -117,5 +117,53 @@ Problems:
 --> Sometimes the Watch Later button returns undefined actionType
 --> Lists are still weirdly created
 
+Small issues:
+--> Error when typing year (4 characters)
+--> When filtering results with genres --> doesn't display no results and total results remain to be 1
+
 Refactoring: 
 --> MovieItem could do with some 
+
+
+
+
+Description:
+--> Interface to consume movies API 
+--> Filtering results by genres, vote, language
+--> Adding films to non-persistents lists, including Favourites and Saved
+
+
+
+Functionality:
+
+Interesting features: 
+--> Folder structure 
+--> the loading states etc. 
+--> Building things manually (input error checking etc.?)
+
+TechStack: 
+- react
+- styled components 
+
+Bugs:
+
+Easy: 
+- console.logs in fetchers
+- can’t go back to discover from favourite
+- searchbar handle functions can be made into one
+- searchfilter has remnants of searchbar
+- fetcher toString functions etc can be moved to some utils file
+
+Hard:
+- total results on favourite and saved
+- searchbar on favourite and saved
+
+Stuck:
+- on movieitem hover, the background goes back to white when hovering over the buttons
+
+
+- searchbar loading appears on the whole page
+- can introduce pretty error handling for netwrok requests
+- general styling
+
+

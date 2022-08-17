@@ -38,8 +38,6 @@ export async function getPopularMovies(
 }
 
 export async function getMoviesByKeyword(query, year, genres, currentPage) {
-    console.log("getMoviesByKeyword is triggered");
-    console.log("genres", genres);
     const params = {
         query,
         ...(year.length > 3 ? { year: parseInt(year) } : {}),

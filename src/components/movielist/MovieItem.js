@@ -45,11 +45,7 @@ const MovieItem = ({
                 <HeadingContainer>
                     <h2>{title} </h2>
 
-                    {vote_average.length < 2 ? (
-                        <Rating>`${vote_average}.0` </Rating>
-                    ) : (
-                        <Rating>{vote_average}</Rating>
-                    )}
+                    <Rating>{vote_average.toFixed(1)}</Rating>
                 </HeadingContainer>
                 <Genres>
                     {" "}

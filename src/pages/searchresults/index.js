@@ -184,16 +184,16 @@ class SearchResults extends React.Component {
     };
 
     // This needs to be renamed
-    getRightMovies = (pathname) => {
-        const movies =
-            pathname === "/"
-                ? this.state.moviesData
-                : pathname === "/favourites"
-                ? this.state.moviesFavourites
-                : this.state.moviesSaved;
+    // getRightMovies = (pathname) => {
+    //     const movies =
+    //         pathname === "/"
+    //             ? this.state.moviesData
+    //             : pathname === "/favourites"
+    //             ? this.state.moviesFavourites
+    //             : this.state.moviesSaved;
 
-        return movies;
-    };
+    //     return movies;
+    // };
 
     render() {
         return (
@@ -245,16 +245,6 @@ class SearchResults extends React.Component {
                             />
                         }
                     />
-                    {/* <MovieList
-                    total={this.state.total}
-                    moviesData={this.getRightMovies(window.location.pathname)}
-                    isLoading={this.state.isLoading}
-                    genres={this.state.genres}
-                    getFilterIds={this.getFilterIds}
-                    addToMovieList={this.addToMovieList}
-                    handlePageChange={this.handlePageChange}
-                    totalPages={this.state.totalPages}
-                    /> */}
                 </Routes>
                 <SearchCriteria
                     genres={this.state.genres}
